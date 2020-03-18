@@ -16,4 +16,4 @@ Prober de volgende opdrachten uit te voeren met behulp van variabelen en het VAR
 4. Maak een *measure* aan met de naam `VreemdeBelasting`.
    * Voor de even jaren neem je de som van `Tax Amt`
    * Voor de oneven jaren neem je 25% over `Profit`
-   * Binnen een *measure* kun je niet direct de waarde van één jaar gebruiken. Om dit op te lossen, sla je als eerste stap het huidige geselecteerde jaar op in een variabele. Dit kun je ophalen met `MAX('Dimension Date'[Calendar Year])`. Gebruik deze variabele verder
+   * Binnen een *measure* kun je niet direct de waarde van één jaar gebruiken. Om dit op te lossen, sla je als eerste stap het huidige geselecteerde jaar op in een variabele. Dit kun je ophalen met `MAX('Dimension Date'[Calendar Year])`. Gebruik deze variabele

@@ -18,6 +18,7 @@
    * Wanneer de geselecteerde stad met een **Y** begint, geef je de winst aan
    * Wanneer de stad met een **Z** begint, geef je de winst weer als verlies (-1 * ...)
    * In alle overige gevallen geef je een 0 terug
+   * Gebruik de `MAX()`-functie om de huidige stad uit te lezen
    * Bekijk het resultaat.
      * Is dit als verwacht?
      * Verklaar de waarde van de **total** rij
