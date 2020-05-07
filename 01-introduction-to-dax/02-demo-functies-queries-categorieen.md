@@ -108,30 +108,135 @@ Je hebt nu een tabel waarin op elke rij de betaalde belasting voor een kleur wor
 
 ### Information
 
+De categorie **information** omvat functies die je kunnen vertellen over de inhoud van een kolom, of soms zelfs van het systeem waar de klant momenteel mee werkt. Een voorbeeld is de functie **ISNUMBER**:
 
+23. Maak een nieuw tabblad aan, hernoem deze naar **Information & Logical**
+24. Sleep uit de tabel **Customer** de kolom **Postal Code** op het canvas. 
+
+Een tabel verschijnt met één kolom. Daarin vind je de waarden van het veld **Postal Code**.
+
+25. Klik de tabel **Customer** aan, en maak een nieuwe kolom. Geef deze de volgende DAX-definitie: `Postal Code is Number = ISNUMBER([Postal Code])`
+26. Sleep het nieuwe veld **Postal Code Is Number** bovenop de bestaande tabel
+
+Je krijgt nu te zien of de waarden in de kolom **Postal Code** getallen zijn. *Volgens DAX zijn ze dat dus niet!* De reden is dat de getallen hier als tekst zijn opgeslagen.
+
+27. Maak in de tabel **Customer** nu een tweede nieuwe kolom aan, met de DAX-definitie `Customer Key is Number = ISNUMBER([Customer Key])`.
+28. Sleep nu zowel het veld **Customer Key** als het veld **Customer Key is Number** op de tabel.
+
+![ISNUMBER demonstratie](img/02-03-isnumber.png)
+
+Het veld **Customer Key** is wel numeriek opgeslagen, en wordt ook zo weergegeven door **ISNUMBER**. **ISNUMBER** vertelt nu *informatie* over het *datatype* van een kolom.
 
 ### Logical
 
+Het antwoord op de **ISNUMBER** uitvraag die we zojuist deden, is het antwoord waar (true) of onwaar (false). Dit worden ook wel "logische" antwoorden genoemd. De categorie functies die hiermee kan werken heten dan ook *logische* functies.
 
+Voor deze demonstratie doen we een eenvoudig voorbeeld: wanneer de kolom **Customer Key** numeriek is, willen we namelijk niet de tekst **Waar** zien, maar de tekst **Deze kolom is numeriek**.
+
+#### IF
+
+29. Klik in de lijst met velden op de naam van het veld **Customer Key Is Number**. (Let op dat je niet op het selectievakje klikt - dan wordt er een veld toegevoegd aan je rapport!)
+
+De DAX editor opent, met daarin de functie `Customer Key is Number = ISNUMBER([Customer Key])`.
+
+30. Breid deze functie uit met een `IF` functie, zodat de DAX-definitie van deze kolom er als volgt uitziet: `Customer Key is Number = IF(ISNUMBER([Customer Key]); "Deze kolom is numeriek"; "Deze kolom is niet numeriek")`
+31. Doe nu hetzelfde voor de kolom `Postal Code is Number`, zodat de DAX-definitie is `Postal Code is Number = IF(ISNUMBER([Postal Code]); "Deze kolom is numeriek"; "Deze kolom is niet numeriek")`
+
+Zoals je ziet in de resultaten kun je met **IF** logica inbouwen om je rapport slimmer, mooier of beter te laten functioneren.
 
 ### Math and trigonometry
 
+In de categorie **Math and trigonometry** zitten allerhande wiskundige functies. Daaronder ook de handige functies om af te ronden: `CEILING`
 
+32. Maak een nieuw tabblad aan met de naam **Math & Trig**
+33. Sleep het veld **Tax Amount** naar het canvas, en verander de visualisatie in een **tabel**
+34. Maak in de tabel **Sale** een nieuwe **meting** (*measure*) met de definitie: `Tax Amount Ceiled = CEILING(SUM([Tax Amount]); 1)`
+35. Sleep deze nieuwe meting naar de tabel, zodat er een nieuwe kolom naast *Tax Amount* komt.
+
+![CEILING rondt af naar boven](img/02-04-ceiling.png)
+
+Zoals je hierboven gezien hebt, rondt `CEILING` altijd af naar boven. Het tweede argument is de *veelvoud* waar deze naar afrondt. Probeer deze maar eens uit met de volgende waarden:
+
+* 10
+* 1000
 
 ### ParentChild
 
-
+**ParentChild**-functies zijn specifiek bedoeld voor hiërarchiën binnen DAX. Hier hebben we (nu) geen demo van opgenomen omwille van de tijd: hoewel niet bijzonder complex, is het wel een apart onderwerp dat niet heel veel helpt bij het beter begrijpen van de rest van DAX.
 
 ### Statistical
 
+Onder het kopje "statistische functies" verstaat DAX niet alleen statistieken als **MAX**, **SUM**, **STDEV.P** en **STDEV.S**. Ook de functies waarmee tabellen gegenereerd kunnen worden vallen onder deze categorie.
 
+In de cursus zullen we niet heel uitvoerig stilstaan bij deze categorie aan functies, maar ze zijn wel bijzonder nuttig! Daarom lichten we er in deze demo er drie uit:
+
+* CROSSJOIN
+* SAMPLE
+
+#### CROSSJOIN
+
+36. Schakel binnen Power BI naar de **Gegevens-weergave**
+37. In het **Lint**, klik op **Nieuwe Tabel**
+38. Geef deze tabel de volgende definitie: `CrossJoin Voorbeeld = VALUES('Stock Item'[Color])`. Bekijk de resultaten.
+
+![Voorbeeld van VALUES](img/02-05-values.png)
+
+De functie **VALUES** die we hier gebruiken is geen *statistical*, maar een *filter* functie. Deze geeft een tabel met één kolom terug, en daarin alleen unieke waarden. Dat zijn er dus maar 9, terwijl in de onderliggende tabel *stock item* 672 rijen aanwezig waren. Dat is wel zo handig voor wanneer we nu met **CROSSJOIN** verder gaan:
+
+39. Verander nu de definitie van de tabel naar `CrossJoin Voorbeeld = CROSSJOIN(VALUES('Stock Item'[Color]); City)`
+
+De functie **CROSSJOIN** doet letterlijk wat de naam impliceert: hij maakt een "cross join" tussen twee tabellen: voor elke rij uit de eerste tabel worden alle rijen uit de tweede tabel toegevoegd.
+
+Aangezien de eerste tabel de *VALUES*-expressie is (met 9 rijen) en de tweede de volledige tabel City (met 116.295 rijen) levert dit een totaal op van **1.046.655 rijen**! Toch is het formaat voor een DAX datamodel niet bezwaarlijk: binnen enkele seconden was de tabel gevuld.
+
+Sla het bestand nu op, en kijk naar het formaat - je zult zien dat het alles meevalt.
+
+#### SAMPLE
+
+40. Maak opnieuw een nieuwe tabel. Geef deze de volgende DAX-expressie: `Sample-voorbeeld = SAMPLE(1000; 'CrossJoin Voorbeeld'; [City])`
+
+De functie `SAMPLE` kan een steekproef nemen uit een bestaande tabel. Dat kan helpen om bijvoorbeeld op een kleinere set data nieuwe berekeningen uit te testen, zonder de (soms gigantische) onderliggende datasets aan te hoeven spreken.
 
 ### Text
 
-### Negen functiecategorieën?
+De laatste functiecategorie is **Text**. Hier kun je eenvoudig met teksten werken. De meeste van deze functies spreken voor zich - in de demo gebruiken we de functie **SUBSTITUTE** om een tekst te wijzigen.
 
-Eerder stelden we dat er acht functiecategorieën zijn in DAX. DAX onderscheidt echter nog een negende functiecategorie, die we hier niet bespreken: **Time-intelligence** functies. Hoewel deze strikt gezien ook onder **Date & Time** zouden kunnen vallen, zijn deze functies vaak iets ingewikkelder. Voor een goed overzicht is er daarom in de documentatie voor gekozen om ze te scheiden. Gebruikers die in het lijstje met datum-functies `EOMONTH` tegenkomen, worden dan niet in de war gebracht met de "time intelligence" functie `ENDOFMONTH`. 
+41. In de **gegevens-weergave** van Power BI open je de tabel **City**. 
+
+De kolom **Sales Territory** bevat hier de waarden **Southeast** en **Southwest**. In de richtlijnen van het bedrijf moet dit echter *South East* en *South West* zijn. Dat gaan we aanpassen.
+
+> Uiteraard kun je dit beter structureel oplossen in een ETL- en/of datakwaliteitsstap. Je bent echter nu een dashboard aan het finetunen bent voor een presentatie, en wilt liever de data niet verversen.
+
+42. Voeg een nieuwe kolom toe aan de tabel **City**. Geef deze de volgende definitie:
+
+```DAX
+Sales Territory Corrected = SUBSTITUTE([Sales Territory], "South", "South ")
+```
+
+### Acht of tien functiecategorieën?
+
+Eerder stelden we dat er acht functiecategorieën zijn in DAX. DAX onderscheidt echter nog een negende en zelfs een tiende functiecategorie, die we hier niet bespreken. Om je toch een idee te geven nemen we ze hier op:
+
+#### Time-intelligence functies
+
+Hoewel deze strikt gezien ook onder **Date & Time** zouden kunnen vallen, zijn deze functies vaak iets ingewikkelder. Voor een goed overzicht is er daarom in de documentatie voor gekozen om ze te scheiden. Gebruikers die in het lijstje met datum-functies `EOMONTH` tegenkomen, worden dan niet in de war gebracht met de "time intelligence" functie `ENDOFMONTH`.
 
 De Time Intelligence functies voeren voor nu te diep - verderop in de cursus zullen we deze echter zeker behandelen!
+
+#### Other functions
+
+DAX kent nog een laatste categorie: "other functions". Hierin zitten enkele erg nuttige functies. Probeer de volgende functies maar eens toe te voegen als **calculated table**:
+
+* **GENERATESERIES** geeft een tabel van één kolom met daarin oplopende getallen:
+
+```dax
+Generate Series voorbeeld = GENERATESERIES(1; 5000)
+```
+
+* DAX kent een inline **table constructor** die het erg eenvoudig maakt om een nieuwe tabel handmatig in te vullen
+
+```dax
+Table constructor voorbeeld = {1; 2; 3}
+```
 
 ## DAX als Query-taal
