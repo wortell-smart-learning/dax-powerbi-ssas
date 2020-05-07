@@ -10,7 +10,7 @@ Prober de volgende opdrachten uit te voeren met behulp van variabelen en het VAR
    * Voeg aan de visual nu ook *TweePlusTweeColumn* toe. Verklaar wat er achter de schermen gebeurt:
      * Waarom krijg je de getallen die je ziet?
      * Wat rekent Power BI achter de schermen uit?
-     * Komt het getal (wellicht gedeeld door 2) je bekend voor?
+     * Komt het getal (wellicht gedeeld door 4) je bekend voor?
 3. Maak een nieuwe *calculated column* aan met de naam `TweePlusTweeVoorEvenJaren`. Deze moet de waarde `2` bevatten voor even jaren, en `3` voor de overige jaren
    * Je kunt bepalen of een jaar even is door een modulo 2 uit te voeren met de `MOD` functie (de modulo is de "rest" van een deelsom)
 4. Maak een *measure* aan met de naam `VreemdeBelasting`.
