@@ -11,7 +11,7 @@ You've just seen some examples of how DAX works. We will explore DAX further lat
 
 ![Total Including Tax by Calendar Year](img/01-total-including-tax-by-calendar-year.png)
 
-This is an *implicit measure*. 
+This is an *implicit measure*.
 
 5. Now, create an explicit measy with the name **Sum of Total Including Tax**, which has the same behaviour as the implicit measure above. You can use the `SUM` formula for this.
 
