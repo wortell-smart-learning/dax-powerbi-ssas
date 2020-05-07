@@ -5,7 +5,7 @@ You've just seen some examples of how DAX works. We will explore DAX further lat
 ## Calculated Measures
 
 1. On your lab environment, open the folder `dax-powerbi-ssas`. It is located on your Desktop.
-2. Inside the folder `01-instroduction-to-dax`, open the file `01-start-simple-star-fact-sale`
+2. Inside the folder `01-introduction-to-dax`, open the file `08-mini-lab-measures-calccolumns-tables-start`
 3. Drag the column **Total including Tax** onto your report canvas
 4. Add the **Calendar Year** column to the axis to see the Total Including Tax by Calendar Year. Your chart should look like this:
 
