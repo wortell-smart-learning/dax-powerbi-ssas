@@ -64,7 +64,7 @@ Om het percentage van de blauwe verkopen als aandeel van het geheel te berekenen
 ![Correct resultaat](img/33-12-testantwoord.gif)
 13. Maak nu de volgende (ietwat vreemde) measure met de naam `strange quantity measure`
     * We kijken naar de hoeveelheid verkochte producten: `'Fact Sale'[Quantity]`
-    * Wanneer de cijfers waar we naar kijken over **blauwe** producten gaan, moeten de filters van `'Dimension Date'[Calendar Year]` verwijderd worden
+    * Wanneer de cijfers waar we naar kijken over **blauwe** producten gaan, moeten de filter van `'Dimension Date'[Calendar Year]` verwijderd worden. De blauwe producten laten dus altijd de cijfers over alle jaren zien.
     * Wanneer de cijfers waar we naar kijken over **grijze** producten gaan, moeten de cijfers van de **rode** producten weergegeven worden.
     * In alle overige gevallen wordt de filter context intact gelaten
     * Maak gebruik van de kennis die je inmiddels hebt over:
@@ -80,11 +80,11 @@ Om het percentage van de blauwe verkopen als aandeel van het geheel te berekenen
       * Stel dat je nu dat je alleen alle steden wilt zien, maar de filter op *Country* wel wilt laten liggen, hoe los je dit op?
       * En andersom - als je op elke kolom waarop je kunt filteren in *Dimension City* de filters wilt negeren?
 15. Maak een nieuwe measure *Percentage of Total Profit*, waarin de huidige winst (in een stad) wordt gedeeld door de totale winst. Gebruik de functie `DIVIDE`. Zorg ervoor dat deze als een percentage wordt weergegeven.
-16. Maak een nieuwe measure *Y-Profits Z-losses* aan.
+16. Maak een nieuwe measure *Y-Profits* aan.
     * Wanneer de geselecteerde stad met een **Y** begint, geef je de winst aan
-    * Wanneer de stad met een **Z** begint, geef je de winst negatief weer (-1 * ...)
-    * In alle overige gevallen geef je een 0 terug
-    * Gebruik de `MAX()`-functie om de huidige stad uit te lezen
+    * In alle overige gevallen geef je een `BLANK()` terug
+    * Gebruik de `MAX()`-functie om de huidige stad uit te lezen. Sla de waarde op in een `VAR`
+    * Gebruik de `LEFT` functie om het eerste teken van de naam van een stad te achterhalen. 
     * Bekijk het resultaat.
       * Is dit als verwacht?
       * Verklaar de waarde van de **total** rij

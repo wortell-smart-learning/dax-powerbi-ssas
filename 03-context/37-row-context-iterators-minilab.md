@@ -1,19 +1,16 @@
-# Row Context - minilab
+# Row Context en Iterator-functies
 
-Open het bestand `04-context-lab2.pbix`
+Open het Power BI bestand `38-row-context-iterators-minilab`.
 
-1. Maak in de tabel *Fact Sale* een measure `Amount`, gedefinieerd door `SUM([Quantity] * [Unit Price])`
+1. Maak in de tabel *Fact Sale* een measure `Sum of Profit Per Item`, gedefinieerd door `SUM('Fact Sale'[Profit] / 'Fact Sale'[Quantity])`
    * Leg uit waarom dit niet lukt
-1. Maak in de tabel *Fact Sale* een *calculated column* met de naam *Typical Weight per Unit*. Vul deze met de waarde van de kolom `Typical Weight per Unit` uit de tabel `Dimension Stock Item`
-1. Maak opnieuw de measure *Y-Profits Z-losses iterator* aan.
-   * **Nieuw**: gebruik deze keer niet de `MAX()`-functie, maar maak gebruik van een *iterator-functie*
-   * Zorg ervoor dat de **total** rij ook echt een optelling is van de boven weergegeven waarden
-   * Wanneer de geselecteerde stad met een **Y** begint, geef je de winst aan
-   * Wanneer de stad met een **Z** begint, geef je de winst weer als verlies (-1 * ...)
-   * In alle overige gevallen geef je een 0 terug
-   * Bekijk het resultaat
-     * Is dit als verwacht?
-     * Verklaar opnieuw de waarde van de **total** rij
+   * Gebruik de *iterator functie* `SUMX` om het alsnog te laten lukken.
+1. Maak in de tabel *Fact Sale* een *calculated column* met de naam *Typical Weight per Unit*. Vul deze met de waarde van de kolom `Typical Weight per Unit` uit de tabel `Dimension Stock Item`.
+1. Maak in de tabel *Fact Sale* een measure `Amount`, gedefinieerd door de som van `'Fact Sale'[Quantity]` vermenigvuldigd met `Dimension Stock Item[Unit Price]`
+1. Implementeer de measure *Y-Profits* met een *iterator*-functie:
+   * Wanneer de geselecteerde stad met een **Y** begint, geef je de `'Fact Sale'[Profit]` aan
+   * In alle overige gevallen geef je `BLANK()` terug
+   * Bedenk vooraf over welke tabel je wilt gaan itereren en waarom. Als je hier niet uitkomt: vraag even om hulp!
 1. Maak een nieuwe measure met de naam `Nettowinst`
    * Als de *Size* van een product gelijk is aan *S*, is de waarde gelijk aan `'Fact Sale'[Quantity] * 'Dimension Stock Item'[Recommended Retail Price]`
-   * In alle overige gevallen moeten hier nog de kosten (`'Dimension Stock Item'[Unit Price]`) vanaf getrokken worden
+   * In alle overige gevallen moet hier nog (`'Dimension Stock Item'[Unit Price]`) vanaf getrokken worden
