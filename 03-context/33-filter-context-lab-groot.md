@@ -2,9 +2,6 @@
 
 1. Open het Power BI bestand `04-context-lab1.pbix`. Bekijk het eerste tabblad
    * Vertel welke filters er actief zijn in de eerste rij in de matrix, onder het jaar 2013
-   * Zijn dit expliciete of impliciete filters?
-   * Laat ook in de data zien dat dit klopt
-   * Doe hetzelfde voor de rij Antares, onder "Total"
 2. Schakel naar tabblad 2. Je ziet hier de winst per stad.
    * Vertel welke filters er actief zijn voor de eerste rij
    * Maak een nieuwe *measure* aan met de naam *Sum of Profit in All Cities*
