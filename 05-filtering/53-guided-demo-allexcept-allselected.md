@@ -59,7 +59,7 @@ De functie `ALL` hebben we eerder al gebruikt. Met wat we zojuist geleerd hebben
 
 ## ALLEXCEPT
 
-De functie **ALL** verwijdert alle filters van de kolommen die je expliciet benoemt: `ALL(Table1[ColumnA])` verwijdert alle impliciete filters van `Table1[ColumnA]`. De functie **ALLEXCEPT** verwijdert juist de filters van kolommen die je *niet* expliciet benoemt. Je moet daarom wel zowel een tabel als minimaal één kolom benoemen.
+De functie **ALL** verwijdert alle impliciete filters van de kolommen die je expliciet benoemt: `ALL(Table1[ColumnA])` verwijdert alle impliciete filters van `Table1[ColumnA]`. De functie **ALLEXCEPT** verwijdert juist de filters van kolommen die je *niet* expliciet benoemt. Je moet daarom wel zowel een tabel als minimaal één kolom benoemen.
 
 7. Maak een nieuwe measure `ALLEXCEPT measure` met de volgende definitie:
    * `ALLEXCEPT Measure = CALCULATE ( SUM ( 'Table1'[ColumnE] ); ALLEXCEPT ( Table1; Table1[ColumnD] ) )`
@@ -68,4 +68,44 @@ De functie **ALL** verwijdert alle filters van de kolommen die je expliciet beno
 `ALLEXCEPT` is strikt gezien een overbodige functie: alles wat je met `ALLEXCEPT` doet, kun je ook met `ALL`. Het maakt de leesbaarheid van je calculated measure echter een stuk beter.
 
 ## ALLSELECTED
+
+De functie **ALL** verwijdert alle impliciete filters - feitelijk maakt deze dus rijen beschikbaar die je anders niet had kunnen zien. Zoals je eerder hebt kunnen zien, helpt dit bijvoorbeeld om percentages van het geheel weer te geven.
+
+De functie **ALLSELECTED** doet dit ook - maar met één groot verschil: **`ALLSELECTED` verwijdert alleen de impliciete filters die __binnen__ de query actief zijn.**. We gaan direct verkennen hoe dat eruit ziet:
+
+9. Maak in de tabel `'Fact Sale'` drie nieuwe measures aan:
+   * `Sum of Quantity = SUM('Fact Sale'[Quantity])`
+   * `ALL Quantity = CALCULATE( SUM('Fact Sale'[Quantity]), ALL('Fact Sale') )`
+   * `ALLSELECTED Quantity = CALCULATE( SUM('Fact Sale'[Quantity]), ALLSELECTED('Fact Sale') )`
+10. Maak een tabelvisualisatie met daarin zowel het veld `'Dimension Date'[Calendar Year]` als de zojuist aangemaakte drie measures:
+
+![Op het eerste gezicht doet ALLSELECTED hetzelfde als ALL](img/53-10-allselected-niksnieuws.png)
+
+Zoals je ziet, reageren de drie measures als volgt op de uitspliting per `'Dimension Date'[Calendar Year]`:
+
+* `Sum of Quantity` laat de filtercontext intact: op rij 1 worden daarom alleen de waarden uit `[Quantity]` weergegeven waar `'Dimension Date'[Calendar Year] = 2013`
+  * `'Dimension Date'[Calendar Year]` filtert alle rijen in `'Dimension Date'`. Ook de kolom `'Dimension Date'[Date]` is dus gefilterd.
+  * `'Dimension Date'[Date]` heeft een relatie met `'Fact Sale'[Invoice Date Key]`.
+  * Door de relatie tussen `'Dimension Date'` en `'Fact Sale'` worden de rijen van `'Fact Sale'` uitgefilterd.
+  * Hierdoor is de `SUM('Fact Sale'[Quantity])` dus anders voor 2013 dan voor 2014
+* `ALL Quantity` verwijdert alle impliciete filters uit de filtercontext. Op alle rijen wordt daar om het totaal van 8950628 weergegeven: er zitten geen filters meer in de filtercontext.
+* `ALLSELECTED Quantity` doet in dit voorbeeld hetzelfde als `ALL Quantity`.
+
+Op het eerste gezicht is er geen verschil tussen `ALL` en `ALLSELECTED`. Dat heeft een reden: **de measures waar we nu naar kijken, hebben in hun filter context alleen maar filters die afkomstig zijn uit de eigen query**. Vrij vertaald voor Power BI: alle filtering vindt plaats vanuit de eigen *visual*.
+
+11. Voeg aan het rapport nu een *slicer* toe op de kolom `'Dimension Stock Item'[Buying Package]`. Selecteer de waarde **each**.
+    * Je ziet dat `ALL Quantity` measure ongewijzigd blijft. Dat is logisch: *alle* impliciete filters worden verwijderd.
+    * `ALLSELECTED Quantity` behoudt echter wel een filter: de filter `'Dimension Stock Item'[Buying Package] = "Each"`.
+
+Je ziet nu dat alledrie de measures verschillend reageren:
+
+* `Sum of Quantity` laat de filtercontext intact: op rij 1 worden daarom alleen de waarden uit `[Quantity]` weergegeven waar `'Dimension Date'[Calendar Year] = 2013` en waar `'Dimension Stock Item'[Buying Package] = "Each"`
+* `ALL Quantity` verwijdert alle impliciete filters uit de filtercontext. Hoewel we dus een externe filter hebben toegevoegd (de slicer op `'Dimension Stock Item'[Buying Package]`), wordt deze even vrolijk weer verwijderd door de `ALL` functie
+* `ALLSELECTED` verwijdert alleen de filters **binnen de query** (voor Power BI: **binnen de *visual***).
+  * De filter van `'Dimension Date'[Calendar Year]` wordt dus verwijderd voor de berekening van `SUM('Fact Order'[Quantity])` binnen deze measure
+  * De filter van `'Dimension Stock Item'[Buying Package]` wordt echter intact gelaten!
+  
+Feitelijk doet **`ALLSELECTED`** hier dus hetzelfde als de **totaal-rij** onderaan `Sum of Quantity`: de filters van *binnen* de visual worden verwijderd, maar die van *buiten* de visual worden intact gelaten. Daarom zien we ook dezelfde uitkomst hier:
+
+![ALLSELECTED doet hier hetzelfde als de totaalrij](img/53-11-allselected-hetzelfde-als-totaalrij.png)
 
