@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>33-filter-context-lab-groot.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="context---lab-1">Context - lab 1</h1>
+<p>Context is veruit het belangrijkste wat je gaat leren in deze cursus. Daarom is dit lab ook wat groter. We hebben het opgedeeld in drie &quot;niveaus&quot; - en we raden je aan om het van eenvoudig naar geavanceerd door te werken. Uiteraard kun je de instructievideo's terugkijken wanneer er iets niet helemaal duidelijk was.</p>
+<p>Context is ook een complex onderwerp. Mocht er iets niet duidelijk zijn, trek direct even aan de bel!</p>
+<h2 id="voorbereiding">Voorbereiding</h2>
+<p>Open het Power BI bestand <code>34-filter-context-lab-groot</code>.</p>
+<h2 id="eenvoudige-context-opdrachten">Eenvoudige context-opdrachten</h2>
+<ol>
+<li>Maak een eenvoudige measure <code>Sum of Tax Amount</code>. Deze moet de som berekenen van de betaalde belasting op basis van de kolom <code>'Fact Sale'[Tax Amount]</code>
+<ul>
+<li>We passen hier nog niets expliciet aan de context aan</li>
+<li>Controleer met een matrix of de measure uitsplitst <code>'Dimension Date'[Calendar Year]</code> (kolommen) en <code>'Dimension Stock Item'[Color]</code> (rijen)<br>
+<img src="img/33-01-correctantwoord.png" alt="Correcte antwoord"></li>
+</ul>
+</li>
+<li>Maak een variant op deze measure, genaamd <code>Sum of Gray Tax Amount</code>. Deze moet de som berekenen van de betaalde belasting voor grijze producten, ongeacht welke kleur er op de rijen staat.
+<ul>
+<li>Je kunt de filter context aanpassen met de <code>CALCULATE</code> functie</li>
+<li>Mocht je een geheugensteuntje nodig hebben: in de video zat een voorbeeld van deze measure die exact hetzelfde deed voor <em>rode</em> producten en <em>quantity</em><br>
+<img src="img/33-02-correctantwoord.png" alt="Correcte antwoord"></li>
+</ul>
+</li>
+<li>Maak een derde variant op deze measure, genaamd <code>Sum of Only Gray Tax Amount</code>. Wanneer de productkleur in de filter context niet &quot;Gray&quot; is, moet de tekst &quot;Niet Grijs!&quot; worden weergegeven.
+<ul>
+<li>Gebruik de functie <code>SELECTEDVALUE</code> om de geselecteerde waarde in de filtercontext te bepalen</li>
+<li>Gebruik de functie <code>IF</code> om een keuze te maken</li>
+<li>Je hoeft niet alle <code>CALCULATE</code>-code te herhalen voor de grijze producten - je kunt ook verwijzen naar je eerder ontwikkelde measure <code>[Sum of Gray Tax Amount]</code><br>
+<img src="img/33-03-correctantwoord.png" alt="Correcte antwoord"></li>
+</ul>
+</li>
+<li>Maak een nieuwe measure, genaamd <code>Sum of Abbottsburg Tax Amount</code>. Deze geeft de betaalde belasting voor <code>'Dimension City'[City]</code> <strong>Abbottsburg</strong></li>
+<li>Breid deze measure uit
+<ul>
+<li>Hernoem naar <code>Sum of Abbottsburg Red Tax Amount</code></li>
+<li>Filter naast Abbottsburg ook op <code>'Dimension Stock Item'[Color]</code> <strong>Red</strong></li>
+<li>Je kunt hiervoor in je <code>CALCULATE</code> statement eenvoudig de nieuwe aanpassing in je filtercontext toevoegen: <code>CALCULATE(SUM('Fact Sale'[Tax Amount]), filteraanpassing1, filteraanpassing2, filteraanpassing3, etc.)</code></li>
+</ul>
+</li>
+<li>Breid deze measure nog één keer uit:
+<ul>
+<li>Hernoem naar <code>Sum of Abbottsburg Red Tax Amount 2015</code></li>
+<li>Filter naast Abbottsburg en Red ook op <code>'Dimension Date'[Calendar Year]</code> <strong>2015</strong></li>
+<li>Test de measure door in een matrix de twee nieuwe <em>measures</em> naast elkaar te zetten. Bedenk dat de weergaveinstellingen van je measure een afrondingsverschil kunnen geven (pas dit zonodig aan om te controleren of alles goed gaat):<br>
+<img src="img/33-06-correctantwoord.png" alt="Correcte antwoord"></li>
+</ul>
+</li>
+</ol>
+<h2 id="combineren-van-binnen--en-buiten-aangepaste-context">Combineren van binnen- en buiten aangepaste context</h2>
+<p>We gaan nu opdrachten van binnen- en buiten de aangepaste context met elkaar combineren. Een voorbeeld hiervan is <strong>percentage van het geheel</strong>:</p>
+<p><img src="img/33-07-uitleg.png" alt="Uitleg percentage van geheel"></p>
+<p>Om het percentage van de blauwe verkopen als aandeel van het geheel te berekenen moet het bedrag <strong>binnen de filtercontext</strong> (op het plaatje hierboven de groen omlijne <code>5.385.582,30</code>) gedeeld worden door een getal waar <strong>waar de filter verwijderd is</strong> (het rood omlijne <code>25.782.098,25</code>). Gelukkig is dat niet al te moeilijk binnen DAX. We pakken het allereerst stapsgewijs aan:</p>
+<ol start="7">
+<li>Maak een nieuwe measure met de definitie <code>Sum of Tax Amount (All Colors) = SUM('Fact Sale'[Tax Amount])</code></li>
+<li>Wijzig nu de filtercontext met behulp van <code>CALCULATE</code>.
+<ul>
+<li>Eerder hebben we filters <em>vervangen</em>. Dat deden we door een expressie als <code>'Dimension Stock Item'[Color] = &quot;Red&quot;</code></li>
+<li>Nu gaan we de filter <em>verwijderen</em>. Hiervoor gebruiken we de functie <code>ALL()</code></li>
+<li><code>ALL()</code> kan zowel filters verwijderen van een enkele <em>kolom</em>, als van een gehele <em>tabel</em>.</li>
+<li>Voor nu kiezen we om heel specifiek de filter van kolom <code>'Dimension Stock Item'[Color]</code> te verwijderen</li>
+<li>Dit kan met de expressie <code>ALL('Dimension Stock Item'[Color])</code></li>
+</ul>
+</li>
+<li>Controleer de werking van je nieuwe measure door in een tabel de volgende drie velden op te nemen:
+<ul>
+<li><code>'Dimension Stock Item'[Color]</code></li>
+<li><code>Sum of Tax Amount</code></li>
+<li><code>Sum of Tax Amount (All Colors)</code><br>
+<img src="img/33-09-correctantwoord.png" alt="Correcte antwoord"></li>
+</ul>
+</li>
+<li>Maak nu de measure <code>Pct of Tax Amount (All Colors)</code> die <code>Sum of Tax Amount</code> deelt door <code>Sum of Tax Amount (All Colors)</code>
+<ul>
+<li>Gebruik de functie <code>DIVIDE</code> voor de deling (<a href="https://dax.guide/divide/">documentatie over Divide vind je hier</a>)</li>
+</ul>
+</li>
+<li>Voeg nu alle code samen in de measure <code>Pct of Tax Amount (All Colors)</code>. Gebruik variabelen om de tussentijdse resultaten op te slaan.</li>
+<li>Maak nu een measure <code>Sum of Tax Amount (All StockItems)</code>
+<ul>
+<li>Deze lijkt op <code>Sum of Tax Amount (All Colors)</code>, maar verwijdert alle filters van <code>'Dimension Stock Item'</code>, en niet enkel van <code>'Dimension Stock Item'[Color]</code></li>
+<li>Test de measures door een ze in een tabel naast elkaar te zetten. Kijk wat de invloed is op beide measures van een slicer op een andere kolom in <code>Dimension Stock Item</code> (dus niet <code>Color</code>).</li>
+<li>Test nu ook met een slicer op een andere tabel. Zijn de resultaten zoals je verwacht?<br>
+<img src="img/33-12-testantwoord.gif" alt="Correct resultaat"></li>
+</ul>
+</li>
+<li>Maak nu de volgende (ietwat vreemde) measure met de naam <code>strange quantity measure</code>
+<ul>
+<li>We kijken naar de hoeveelheid verkochte producten: <code>'Fact Sale'[Quantity]</code></li>
+<li>Wanneer de cijfers waar we naar kijken over <strong>blauwe</strong> producten gaan, moeten de filter van <code>'Dimension Date'[Calendar Year]</code> verwijderd worden. De blauwe producten laten dus altijd de cijfers over alle jaren zien.</li>
+<li>Wanneer de cijfers waar we naar kijken over <strong>grijze</strong> producten gaan, moeten de cijfers van de <strong>rode</strong> producten weergegeven worden.</li>
+<li>In alle overige gevallen wordt de filter context intact gelaten</li>
+<li>Maak gebruik van de kennis die je inmiddels hebt over:
+<ul>
+<li><code>IF</code> (en geneste IF statements)</li>
+<li><code>SELECTEDVALUE</code></li>
+<li><code>CALCULATE</code> in combinatie met <code>ALL</code></li>
+<li><code>VAR</code> (<strong>dit maakt het mogelijk om één van de hierboven benoemde voorwaarden &quot;los&quot; te testen!</strong>)<br>
+<img src="img/33-13-correctantwoord.png" alt="Correct resultaat"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Maak een nieuwe <em>measure</em> aan met de naam <em>Sum of Profit in All Cities</em>
+<ul>
+<li>Zorg ervoor dat deze de winst weergeeft in alle steden (dus de filter die nu op Dimension City ligt moet verwijderd)
+<ul>
+<li>Controleer of deze werkt zoals verwacht door de kolom naast de bestaande <em>Profit</em>-kolom weer te geven. Hoe weet je of je het correcte getal hebt  uitgerekend?</li>
+<li>Voeg een nieuwe <em>slicer</em> toe op basis van <em>Country</em>. Werkt de measure nog zoals verwacht?</li>
+<li>Stel dat je nu dat je alleen alle steden wilt zien, maar de filter op <em>Country</em> wel wilt laten liggen, hoe los je dit op?</li>
+<li>En andersom - als je op elke kolom waarop je kunt filteren in <em>Dimension City</em> de filters wilt negeren?</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Maak een nieuwe measure <em>Percentage of Total Profit</em>, waarin de huidige winst (in een stad) wordt gedeeld door de totale winst. Gebruik de functie <code>DIVIDE</code>. Zorg ervoor dat deze als een percentage wordt weergegeven.</li>
+<li>Maak een nieuwe measure <em>Y-Profits</em> aan.
+<ul>
+<li>Wanneer de geselecteerde stad met een <strong>Y</strong> begint, geef je de winst aan</li>
+<li>In alle overige gevallen geef je een <code>BLANK()</code> terug</li>
+<li>Gebruik de <code>MAX()</code>-functie om de huidige stad uit te lezen. Sla de waarde op in een <code>VAR</code></li>
+<li>Gebruik de <code>LEFT</code> functie om het eerste teken van de naam van een stad te achterhalen.</li>
+<li>Bekijk het resultaat.
+<ul>
+<li>Is dit als verwacht?</li>
+<li>Verklaar de waarde van de <strong>total</strong> rij</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="geavanceerd--bonus-opdracht">Geavanceerd / bonus-opdracht</h2>
+<p>Nog niet genoeg van de filter-context gekregen? We hebben hier nog een extra opdracht. Maak je geen zorgen wanneer je hier niet uitkomt - we komen er later in de cursus op terug!</p>
+<p>In deze bonus-opdracht willen we graag een Year-to-Date measure maken, waarbij we gebruik maken van slechts drie DAX-functies:</p>
+<ul>
+<li><code>CALCULATE</code></li>
+<li><code>SUM</code></li>
+<li><code>ALL</code></li>
+<li><code>MAX</code></li>
+<li>Je mag de functie <code>YEAR</code> ook gebruiken, maar deze is niet per sé nodig.</li>
+</ul>
+<p>Daarnaast gebruiken we de DAX-taalelementen als variabelen (<code>VAR</code> .. <code>RETURN</code>) en diverse logische operators.</p>
+<p>Het doel is om de volgende werking gedaan te krijgen:</p>
+<p><img src="img/33-17-ytd-voorbeeld.png" alt="Voorbeeld van YTD"></p>
+<p>In het bovenliggende plaatje is de ProfitYTD op 4 januari de opgetelde winst van 1 + 2 + 3 + 4 januari. Met andere woorden: <em>alle datums tot en met vandaag, binnen het huidige jaar</em>. In een lijngrafiek zie je het verloop van een YTD door het jaar heen - elk jaar begint deze weer op 0:</p>
+<p><img src="img/33-17-ytd-voorbeeld-lijngrafiek.png" alt="Voorbeeld van YTD in lijngrafiek"></p>
+<p>Gebruik nu je eerder opgebouwde kennis om de YTD te bouwen met bovenstaande functies. Voordat je begint, nog één tip die je zeker gaat helpen:</p>
+<p><strong>Bij een CALCULATE worden alle aanpassingen in de filter-context &quot;afgespeeld&quot; van links naar rechts. Je kunt dus eerst alle filters op een tabel verwijderen met <code>ALL('mijnTabel')</code>, en vervolgens binnen dezelfde tabel weer filters toepassen met <code>'mijnTabel'[MijnKolom] = &quot;NieuwGefilterdeWaarde&quot;</code>.</strong></p>
+<p>Verder kun je handige tips vinden in de eerdere labs en demo's. Met name het lab van module 2 zou je verder kunnen helpen wanneer je vastloopt.</p>
+<p>Nogmaals: geen zorgen wanneer dit niet lukt - vraag gerust om assistentie, we komen hier later in de cursus zeker op terug!</p>
+
+</body>
+</html>

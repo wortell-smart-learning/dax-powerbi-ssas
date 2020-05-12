@@ -29,6 +29,6 @@ Om de rekenkundige operators te testen, maken we een eenvoudige measure aan waar
 
 ## Concatenation
 
-7. Pas de functie van stap 6 aan, zodat je bij je (login)naam wordt genoemd in de tekst.
+8. Pas de functie van stap 6 aan, zodat je bij je (login)naam wordt genoemd in de tekst.
    * Gebruik hier de functie **USERPRINCIPALNAME()** voor
    * De tekst ziet er nu uit als "Goedemiddag, koos@bitrainer.nl!"
