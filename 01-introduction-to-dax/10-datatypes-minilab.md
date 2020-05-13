@@ -2,6 +2,12 @@
 
 In dit *mini-lab* gaan we aan de slag met datatypes in DAX. We hebben daarvoor een bestand uitgekozen waarin bewust alle datatypes op *tekst* staan. Daar gaan we wat aan veranderen in het datamodel.
 
+## Video
+
+Bekijk eerst onderstaande video. Hierin krijg je een kort overzicht van de verschillende datatypes die er in DAX aanwezig zijn, en hoe je hiermee kunt omgaan.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_pxvvhDuOVA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Getallen versus tekst - de opslag
 
 0. Bekijk het Power BI-bestand `11-datatypes-minilab` met Windows Verkenner. Merk op dat het bestand nu 5,89 MB is (6.042 kB)

@@ -1,5 +1,13 @@
 # Row Context en Iterator-functies
 
+## Video
+
+Bekijk onderstaande video. Hierin wordt uitgelegd hoe de *row context* binnen DAX werkt, en hoe je hier gebruik van kunt maken met behulp van *iterators*:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/vfD7ENQMWJA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Mini-lab
+
 Open het Power BI bestand `38-row-context-iterators-minilab`.
 
 1. Maak in de tabel *Fact Sale* een measure `Sum of Profit Per Item`, gedefinieerd door `SUM('Fact Sale'[Profit] / 'Fact Sale'[Quantity])`

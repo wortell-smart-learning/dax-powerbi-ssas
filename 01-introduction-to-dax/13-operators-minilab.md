@@ -1,6 +1,12 @@
 # Operators
 
-Om de werking van operators wat te "testen" gaan we een flink aantal *calculated columns* en *calculated measures* aanmaken. Open hiervoor het bestand **14-operators-minilab**
+Om de werking van operators wat te "testen" gaan we een flink aantal *calculated columns* en *calculated measures* aanmaken. Open hiervoor het bestand **14-operators-minilab**.
+
+## Video
+
+Bekijk onderstaande video - hierin wordt verteld welke *operators* er zoal binnen DAX zijn, en hoe je die kunt gebruiken.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/prq4mybX4xs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Arithmetic (rekenkundig)
 

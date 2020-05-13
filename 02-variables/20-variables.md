@@ -1,5 +1,7 @@
 # Variables
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/TwNmOynlqMc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Voorbereiding
 
 Open het Power BI-bestand `21-variables`. Hierin bevindt zich een variant op de "Donderdagochtendgroet" measure die je eerder ontwikkeld hebt (functioneel is hij hetzelfde, alleen zit nu alle logica in één measure verwerkt).
