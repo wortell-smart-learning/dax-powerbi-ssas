@@ -2,6 +2,10 @@
 
 In deze *self-paced demo* gaan we nog even door op de twee contexten: *row context* en *filter context* - en met name de *Context Transitie*. Er volgen enkele demonstraties van toepassingen van deze context transitie.
 
+De uitleg over context transitie staat (samen met een basale uitleg hoe DAX achter de schermen werkt) ook op video. Je kunt de video hieronder vinden:
+
+[How DAX works en Context Transitie](./39-how-dax-works-video.html)
+
 ## Context Transitie en semi-additieve measures
 
 Stel dat je op zoek bent naar de **gemiddelde winst per klant**. Een `AVERAGE` over `'Fact Sale'[Profit]` uitsplitsen over klanten gaat je hier niet helpen, want dat geeft je de gemiddelde winst *per verkoop*. En per klant doe je (als het goed is) meerdere verkopen.

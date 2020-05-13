@@ -6,6 +6,12 @@ Context is ook een complex onderwerp. Mocht er iets niet duidelijk zijn, trek di
 
 ## Voorbereiding
 
+De uitleg over filter context (impliciet en expliciet) staat ook op video. Mocht je dit willen terugzien, dan zijn hier de video's:
+
+[Filter Context - deel 1](./30-filter-context-1-video.html)
+
+[Filter Context - deel 2 + Expliciete filter context](./32-filter-context-2-video.html)
+
 Open het Power BI bestand `34-filter-context-lab-groot`.
 
 ## Eenvoudige context-opdrachten

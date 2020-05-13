@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>20-variables.md</title>
+<title>15-relationships-video.md</title>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 
 <style>
@@ -365,97 +365,9 @@ code {
           : 'default'
     });
   </script>
-<h1 id="variables">Variables</h1>
-<p>Hieronder vind je de video met de uitleg over variabelen. Deze uitleg heb je al gehad zojuist, maar het kan handig zijn ter naslag:</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/TwNmOynlqMc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<h2 id="voorbereiding">Voorbereiding</h2>
-<p>Open het Power BI-bestand <code>21-variables</code>. Hierin bevindt zich een variant op de &quot;Donderdagochtendgroet&quot; measure die je eerder ontwikkeld hebt (functioneel is hij hetzelfde, alleen zit nu alle logica in één measure verwerkt).</p>
-<h2 id="variabelen-voor-overzicht">Variabelen voor overzicht</h2>
-<p>De <code>Donderdagochtendgroet</code> measure is momenteel één grote measure. Dit is vaker het resultaat wanneer je intensief bezig bent met een stukje DAX: op het moment dat je ermee bezig bent zitten alle nuances in je hoofd, maar wanneer je later terugkijkt is de code opeens wat complexer dan je jezelf herinnerde.</p>
-<pre class="hljs"><code><div>De Donderdagochtendgroet = IF(HOUR(NOW()) &gt;= 12 &amp;&amp; WEEKDAY(TODAY()) = 5; &quot;Het is donderdagmiddag!!&quot;; IF(HOUR(NOW()) &lt; 12; &quot;Goedemorgen&quot;; &quot;Goedemiddag&quot;) &amp; &quot;, &quot; &amp; USERPRINCIPALNAME())
-</div></code></pre>
-<p>Als eerste stap gaan we de measure wat structuur geven.</p>
-<ol>
-<li><strong>Kopieer de definitie</strong> van de measure</li>
-<li>Open een webbrowser, en <strong>navigeer naar <a href="https://www.daxformatter.com/">https://www.daxformatter.com/</a></strong>.</li>
-<li><strong>Plak</strong> de measure <strong>in het grijze vlak</strong> bovenaan de website</li>
-<li>Klik op <strong>Format</strong></li>
-<li>Klik op <strong>Copy</strong></li>
-<li>Vervang de <strong>donderdagochtendgroet</strong> measure binnen Power BI door de - nu iets netter opgemaakte - measuretekst van DAX Formatter.</li>
-</ol>
-<p>We gaan nu variabelen toevoegen om de measure nog duidelijker te maken. Eigenlijk zijn er twee stukjes logica die eenvoudiger zouden kunnen:</p>
-<ul>
-<li>Er wordt gecontroleerd of het ochtend is d.m.v. <code>HOUR ( NOW() ) &lt; 12</code></li>
-<li>Er wordt gecontroleerd of het donderdag is d.m.v. <code>WEEKDAY ( TODAY () ) = 5</code></li>
-</ul>
-<ol start="7">
-<li>Voeg binnen Power BI in de measure-definitie direct na de teekst <code>De Donderdagochtendgroet =</code> een nieuwe regel toe met <strong>shift+enter</strong></li>
-<li>Zet op deze regel de tekst <code>VAR HetIsDonderdag = WEEKDAY ( TODAY () ) = 5</code></li>
-<li>Zet op regel drie (direct voor de <code>IF</code>) de tekst <code>RETURN </code></li>
-</ol>
-<p>De measure ziet er nu als volgt uit:</p>
-<p><img src="img/20-01-var-return-introductie.png" alt="Eerste stap met VAR en RETURN"></p>
-<ol start="10">
-<li>Controleer of de measure nog steeds werkt.</li>
-<li>Vervang op regel 5 nu de DAX-expressie <code>WEEKDAY ( TODAY () ) = 5</code> door de variabele <code>HetIsDonderdag</code></li>
-<li>Voeg nu ook een variabele toe <code>HetIsOchtend</code>, en laat deze de definitie <code>HOUR ( NOW () ) &lt; 12</code> vervangen.</li>
-<li>Doe dit nu ook met een variabele <code>HetIsMiddag</code> - deze vervangt de definitie <code>HOUR ( NOW () ) &gt;= 12</code></li>
-<li>Test of je measure nog steeds werkt, en laat deze door DAX Formatter nog even opmaken</li>
-</ol>
-<p>Je measure ziet er nu als volgt uit:</p>
-<pre class="hljs"><code><div>De Donderdagochtendgroet =
-VAR HetIsDonderdag =
-    WEEKDAY ( TODAY () ) = 5
-VAR HetIsOchtend =
-    HOUR ( NOW () ) &lt; 12
-VAR HetIsMiddag =
-    HOUR ( NOW () ) &gt;= 12
-RETURN
-    IF (
-        HetIsMiddag &amp;&amp; HetIsDonderdag;
-        &quot;Het is donderdagmiddag!!&quot;;
-        IF ( HetIsOchtend; &quot;Goedemorgen&quot;; &quot;Goedemiddag&quot; ) &amp; &quot;, &quot;
-            &amp; USERPRINCIPALNAME ()
-    )
-</div></code></pre>
-<ol start="15">
-<li>Zijn er nog meer verbeteringen door te voeren die de measure beter leesbaar of eenvoudiger zouden maken?</li>
-</ol>
-<h2 id="zelf-aan-de-slag-met-variabelen">Zelf aan de slag met variabelen</h2>
-<p>Probeer nu de volgende opdrachten uit te voeren met behulp van variabelen en het VAR-keyword</p>
-<ol start="16">
-<li>Maak een nieuwe <em>measure</em> met de naam <code>TweePlusTweeMeasure</code>
-<ul>
-<li>Zorg dat zich in de measure een variabele met de naam <code>Twee</code>  bevindt, en de waarde <code>2</code></li>
-<li>Het resultaat van de measure moet het optellen van deze  variabele met zichzelf zijn</li>
-<li>Voeg een kolomdiagram toe waarin je deze measure uitzet tegen <em>Calendar Year</em>. Controleer of de resultaten kloppen met wat je zou verwachten.</li>
-</ul>
-</li>
-<li>Maak nu een <em>calculated column</em> aan met de naam <code>TweePlusTweeColumn</code>, in de tabel <code>Dimension Date</code>. Geef deze dezelfde definitie als <code>TweePlusTweeMeasure</code>.
-<ul>
-<li>Maak ook hier een kolomdiagram aan waarin je deze <em>Calculated  Column</em> uitzet tegen <em>Calendar Year</em>. Vergelijk de resultaten van  de vorige opdracht en deze en verklaar wat er achter de schermen  gebeurt:
-<ul>
-<li>Waarom krijg je de getallen die je ziet?</li>
-<li>Wat rekent Power BI achter de schermen uit?</li>
-<li>Komt het getal je bekend voor?</li>
-<li>Wat gebeurt er als je de manier van aggregeren verandert naar bijv. een som? Kun je de getallen dan nog steeds verklaren?</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Maak een <em>measure</em> aan met de naam <code>VreemdeBelasting</code>.
-<ul>
-<li>Voor de even jaren neem je de <strong>SUM</strong> van <code>'Fact Sale'[Tax Amount]</code></li>
-<li>Voor de oneven jaren neem je 25% over de <strong>SUM</strong> van <code>'Fact Sale'[Profit]</code></li>
-<li>Je bepaalt of een jaar even is met de functie <code>ISEVEN</code></li>
-<li>Gebruik variabelen om deelberekeningen op te slaan</li>
-<li>Binnen een <em>measure</em> kun je niet direct de waarde van één jaar gebruiken. Om dit op te lossen, sla je als eerste stap het huidige geselecteerde jaar op in een variabele. Dit doe je met de definitie <code>VAR GeselecteerdJaar = MAX('Dimension Date'[Calendar Year])</code>. Gebruik deze variabele wanneer je het huidige jaar wilt weten of vergelijken.</li>
-<li>Zorg ervoor dat de measure de tabel <strong>Fact Sale</strong> als <em>home table</em> (starttabel) heeft.</li>
-<li>Controleer je resultaten met een matrix-visual. Hieronder zie je de correcte uitkomst.</li>
-</ul>
-</li>
-</ol>
-<p><img src="img/20-02-correcte-uitkomst-vreemdebelasting.png" alt="Correcte uitkomst van de &quot;vreemde belasting&quot; opgave"></p>
+<h1 id="relationships">Relationships</h1>
+<p>In onderstaande video doorlopen we nog éénmaal het concept van &quot;relaties&quot; binnen DAX.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GKy4MpAGzxQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 </body>
 </html>

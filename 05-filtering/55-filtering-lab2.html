@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>20-variables.md</title>
+<title>55-filtering-lab2.md</title>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 
 <style>
@@ -365,97 +365,102 @@ code {
           : 'default'
     });
   </script>
-<h1 id="variables">Variables</h1>
-<p>Hieronder vind je de video met de uitleg over variabelen. Deze uitleg heb je al gehad zojuist, maar het kan handig zijn ter naslag:</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/TwNmOynlqMc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h1 id="lab-2---filtering">Lab 2 - filtering</h1>
+<p>We gaan nog wat meer aan de slag met filteren en contexten.</p>
 <h2 id="voorbereiding">Voorbereiding</h2>
-<p>Open het Power BI-bestand <code>21-variables</code>. Hierin bevindt zich een variant op de &quot;Donderdagochtendgroet&quot; measure die je eerder ontwikkeld hebt (functioneel is hij hetzelfde, alleen zit nu alle logica in één measure verwerkt).</p>
-<h2 id="variabelen-voor-overzicht">Variabelen voor overzicht</h2>
-<p>De <code>Donderdagochtendgroet</code> measure is momenteel één grote measure. Dit is vaker het resultaat wanneer je intensief bezig bent met een stukje DAX: op het moment dat je ermee bezig bent zitten alle nuances in je hoofd, maar wanneer je later terugkijkt is de code opeens wat complexer dan je jezelf herinnerde.</p>
-<pre class="hljs"><code><div>De Donderdagochtendgroet = IF(HOUR(NOW()) &gt;= 12 &amp;&amp; WEEKDAY(TODAY()) = 5; &quot;Het is donderdagmiddag!!&quot;; IF(HOUR(NOW()) &lt; 12; &quot;Goedemorgen&quot;; &quot;Goedemiddag&quot;) &amp; &quot;, &quot; &amp; USERPRINCIPALNAME())
+<p>Open het bestand '56-filtering-lab2.pbix'. Je ziet hier op <strong>Page 1</strong> het voorbeeld dat we zojuist in de demo behandeld hebben.</p>
+<p>De measure <code>Running Total</code> is een klein beetje veranderd: er is een <code>FILTER</code>-statement toegevoegd. <code>CALCULATE</code> <em>vervangt</em> namelijk altijd filters op je kolommen - en dat is niet altijd wenselijk. <code>FILTER</code> geeft je de mogelijkheid om filters <em>toe te voegen</em> aan bestaande filters. Het is een goed gebruik (en zoals je snel zult zien ook broodnodig) om <code>FILTER</code> te gebruiken op deze manier.</p>
+<pre class="hljs"><code><div>Running Total =
+VAR HuidigJaar = MAX('Dimension Date'[Date])
+VAR RunningTotal = CALCULATE(SUM('Fact Sale'[Quantity]); FILTER(ALL('Dimension Date'); [Date] &lt;= HuidigJaar))
+RETURN RunningTotal
 </div></code></pre>
-<p>Als eerste stap gaan we de measure wat structuur geven.</p>
+<h2 id="running-totals---continued">Running totals - continued</h2>
+<p>In de demo die je zojuist gezien hebt werd er een <em>Running Total</em> aangemaakt. Deze staat ook op <strong>Page 1</strong> van het Power BI rapport dat je zojuist geopend hebt. Zoals je ziet zijn we er echter nog niet helemaal. Wanneer ik in een slicer namelijk aangeef dat ik alleen de jaren 2014-2016 wil weergeven, zie ik dat de measure <em>Running Total</em> ook 2013 meeneemt:</p>
+<p><img src="img/55-running-total-teveel-jaren.png" alt="Running total geeft teveel data terug"></p>
 <ol>
-<li><strong>Kopieer de definitie</strong> van de measure</li>
-<li>Open een webbrowser, en <strong>navigeer naar <a href="https://www.daxformatter.com/">https://www.daxformatter.com/</a></strong>.</li>
-<li><strong>Plak</strong> de measure <strong>in het grijze vlak</strong> bovenaan de website</li>
-<li>Klik op <strong>Format</strong></li>
-<li>Klik op <strong>Copy</strong></li>
-<li>Vervang de <strong>donderdagochtendgroet</strong> measure binnen Power BI door de - nu iets netter opgemaakte - measuretekst van DAX Formatter.</li>
+<li>Pas de measure <strong>Running Total</strong> aan zodat het Running Total begint bij het eerste weergegeven jaar:</li>
 </ol>
-<p>We gaan nu variabelen toevoegen om de measure nog duidelijker te maken. Eigenlijk zijn er twee stukjes logica die eenvoudiger zouden kunnen:</p>
+<p><img src="img/55-running-total-correct.png" alt="Running total - correct"></p>
+<ol start="2">
+<li>Kopieer de definitie van de measure nu naar een <code>Running Total Zonder Filter</code>, en verwijder het <code>FILTER</code> statement. Zoals je ziet werkt je oplossing nu niet meer
 <ul>
-<li>Er wordt gecontroleerd of het ochtend is d.m.v. <code>HOUR ( NOW() ) &lt; 12</code></li>
-<li>Er wordt gecontroleerd of het donderdag is d.m.v. <code>WEEKDAY ( TODAY () ) = 5</code></li>
+<li>Kun je beredeneren wat er plaatsvindt?</li>
+<li>Bedenk dat <code>CALCULATE</code> altijd filters <em>vervangt</em></li>
+<li>Kun je ook beredeneren waarom de introductie van <code>FILTER</code> voor een oplossing zorgt hier?</li>
+</ul>
+</li>
+</ol>
+<h2 id="year-to-date">Year-to-date</h2>
+<p>Een <em>Year-to-date</em> is in principe hetzelfde als een <strong>Running Total</strong>, maar met één belangrijk verschil: het lopende totaal gaat niet eindeloos terug, maar slechts tot het begin van het jaar.</p>
+<p>Schakel naar <strong>Page 2</strong> in het Power BI rapport <code>56-filtering-lab2</code>. Je ziet hier een tabel met vier velden:</p>
+<ul>
+<li>Calendar Year</li>
+<li>Month</li>
+<li>Date</li>
+<li>Quantity</li>
+</ul>
+<ol start="3">
+<li>Maak een nieuwe measure <code>My YTD</code>, waarin je een <em>year-to-date</em> functionaliteit bouwt
+<ul>
+<li>Neem als basis de eerder ontwikkelde <em>running total</em></li>
+<li>Breid deze uit met een <code>VAR</code> die je kan vertellen wat het jaar in de huidige context is</li>
+<li>Breid <code>VAR RunningTotal</code> uit zodat de <em>running total</em> elk jaar weer bij 0 begint</li>
+<li>Controleer de uitkomsten in de tabel, en met een lijngrafiek:</li>
+</ul>
+</li>
+</ol>
+<p><img src="img/53-03-ytd-werkend.png" alt="YTD - correct werkend"></p>
+<ol start="4">
+<li>Maak nu een measure <code>My MTD</code>, die een <em>month-to-date</em> uitvoert.
+<ul>
+<li>Mocht de YTD je al makkelijk afgaan, probeer deze dan zonder te spieken bij <code>RunningTotal</code></li>
+<li>Controleer deze opnieuw met behulp van de tabel en een lijngrafiek. Gebruik daarnaast de reeds aanwezige <em>slicer</em> om <code>[Calendar Year] = 2015</code> te selecteren.</li>
+</ul>
+</li>
+</ol>
+<p><img src="img/53-04-mtd-correct.png" alt="MTD - correct werkend"></p>
+<ol start="5">
+<li>Zou je ook een <em>running total</em> over alfabetisch gesorteerde producten kunnen maken? Dus dat je niet zozeer alle eerdere verkopen (in de tijd) bij elkaar optelt, maar alle eerdere producten (in een alfabetische lijst?)</li>
+</ol>
+<h2 id="totalytd">TOTALYTD</h2>
+<p>Een eenvoudigere manier om een YTD te berekenen is <code>TOTALYTD</code>.</p>
+<ol start="6">
+<li>Maak een nieuwe measure <code>My TotalYTD</code>. Bereken hierin de YTD.
+<ul>
+<li>Kijk voor een definitie van <code>TotalYTD</code> op <a href="https://dax.guide/">https://dax.guide/</a></li>
+</ul>
+</li>
+</ol>
+<h2 id="measures-die-een-maand-eerder-kijken">Measures die een maand eerder kijken</h2>
+<p>Een andere veelvoorkomende vraag is om periodes met elkaar te kunnen vergelijken. Schakel naar <strong>Page 3</strong>. Hier zie je een tabel met drie kolommen:</p>
+<ul>
+<li>Calendar Year</li>
+<li>Calendar Month Number</li>
+<li>Quantity</li>
 </ul>
 <ol start="7">
-<li>Voeg binnen Power BI in de measure-definitie direct na de teekst <code>De Donderdagochtendgroet =</code> een nieuwe regel toe met <strong>shift+enter</strong></li>
-<li>Zet op deze regel de tekst <code>VAR HetIsDonderdag = WEEKDAY ( TODAY () ) = 5</code></li>
-<li>Zet op regel drie (direct voor de <code>IF</code>) de tekst <code>RETURN </code></li>
-</ol>
-<p>De measure ziet er nu als volgt uit:</p>
-<p><img src="img/20-01-var-return-introductie.png" alt="Eerste stap met VAR en RETURN"></p>
-<ol start="10">
-<li>Controleer of de measure nog steeds werkt.</li>
-<li>Vervang op regel 5 nu de DAX-expressie <code>WEEKDAY ( TODAY () ) = 5</code> door de variabele <code>HetIsDonderdag</code></li>
-<li>Voeg nu ook een variabele toe <code>HetIsOchtend</code>, en laat deze de definitie <code>HOUR ( NOW () ) &lt; 12</code> vervangen.</li>
-<li>Doe dit nu ook met een variabele <code>HetIsMiddag</code> - deze vervangt de definitie <code>HOUR ( NOW () ) &gt;= 12</code></li>
-<li>Test of je measure nog steeds werkt, en laat deze door DAX Formatter nog even opmaken</li>
-</ol>
-<p>Je measure ziet er nu als volgt uit:</p>
-<pre class="hljs"><code><div>De Donderdagochtendgroet =
-VAR HetIsDonderdag =
-    WEEKDAY ( TODAY () ) = 5
-VAR HetIsOchtend =
-    HOUR ( NOW () ) &lt; 12
-VAR HetIsMiddag =
-    HOUR ( NOW () ) &gt;= 12
-RETURN
-    IF (
-        HetIsMiddag &amp;&amp; HetIsDonderdag;
-        &quot;Het is donderdagmiddag!!&quot;;
-        IF ( HetIsOchtend; &quot;Goedemorgen&quot;; &quot;Goedemiddag&quot; ) &amp; &quot;, &quot;
-            &amp; USERPRINCIPALNAME ()
-    )
-</div></code></pre>
-<ol start="15">
-<li>Zijn er nog meer verbeteringen door te voeren die de measure beter leesbaar of eenvoudiger zouden maken?</li>
-</ol>
-<h2 id="zelf-aan-de-slag-met-variabelen">Zelf aan de slag met variabelen</h2>
-<p>Probeer nu de volgende opdrachten uit te voeren met behulp van variabelen en het VAR-keyword</p>
-<ol start="16">
-<li>Maak een nieuwe <em>measure</em> met de naam <code>TweePlusTweeMeasure</code>
+<li>Maak een nieuwe measure <code>Quantity Last Month</code> die de hoeveelheid verkochte producten van één maand terug weergeeft
 <ul>
-<li>Zorg dat zich in de measure een variabele met de naam <code>Twee</code>  bevindt, en de waarde <code>2</code></li>
-<li>Het resultaat van de measure moet het optellen van deze  variabele met zichzelf zijn</li>
-<li>Voeg een kolomdiagram toe waarin je deze measure uitzet tegen <em>Calendar Year</em>. Controleer of de resultaten kloppen met wat je zou verwachten.</li>
-</ul>
-</li>
-<li>Maak nu een <em>calculated column</em> aan met de naam <code>TweePlusTweeColumn</code>, in de tabel <code>Dimension Date</code>. Geef deze dezelfde definitie als <code>TweePlusTweeMeasure</code>.
+<li>De measure hoeft alleen te werken in deze specifieke tabel</li>
+<li>Als het lastig is: Probeer in kleine stapjes te werken
 <ul>
-<li>Maak ook hier een kolomdiagram aan waarin je deze <em>Calculated  Column</em> uitzet tegen <em>Calendar Year</em>. Vergelijk de resultaten van  de vorige opdracht en deze en verklaar wat er achter de schermen  gebeurt:
+<li>Je kunt bijvoorbeeld als eerste een measure maken die exact de verkochte hoeveelheden teruggeeft</li>
+<li>Deze kun je daarna aanpassen dat altijd de verkopen van maart worden teruggegeven</li>
+<li>Gebruik daarnaast de volgende variabelen als startpunt:
 <ul>
-<li>Waarom krijg je de getallen die je ziet?</li>
-<li>Wat rekent Power BI achter de schermen uit?</li>
-<li>Komt het getal je bekend voor?</li>
-<li>Wat gebeurt er als je de manier van aggregeren verandert naar bijv. een som? Kun je de getallen dan nog steeds verklaren?</li>
+<li><code>VAR HuidigeDatum = MAX('Dimension Date'[Date])</code></li>
+<li><code>VAR HuidigeMaand = MONTH(HuidigeDatum)</code></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>Maak een <em>measure</em> aan met de naam <code>VreemdeBelasting</code>.
-<ul>
-<li>Voor de even jaren neem je de <strong>SUM</strong> van <code>'Fact Sale'[Tax Amount]</code></li>
-<li>Voor de oneven jaren neem je 25% over de <strong>SUM</strong> van <code>'Fact Sale'[Profit]</code></li>
-<li>Je bepaalt of een jaar even is met de functie <code>ISEVEN</code></li>
-<li>Gebruik variabelen om deelberekeningen op te slaan</li>
-<li>Binnen een <em>measure</em> kun je niet direct de waarde van één jaar gebruiken. Om dit op te lossen, sla je als eerste stap het huidige geselecteerde jaar op in een variabele. Dit doe je met de definitie <code>VAR GeselecteerdJaar = MAX('Dimension Date'[Calendar Year])</code>. Gebruik deze variabele wanneer je het huidige jaar wilt weten of vergelijken.</li>
-<li>Zorg ervoor dat de measure de tabel <strong>Fact Sale</strong> als <em>home table</em> (starttabel) heeft.</li>
-<li>Controleer je resultaten met een matrix-visual. Hieronder zie je de correcte uitkomst.</li>
+<li>Gebruik om de vorige maand te bepalen de functie <code>EDATE()</code></li>
 </ul>
 </li>
+<li>Ook deze functie kun je een stuk eenvoudiger oplossen, met <code>PARALLELPERIOD</code>. Maak een nieuwe measure <code>Quantity Last Month 2</code> die dezelfde functionaliteit heeft als <code>Quantity Last Month</code>. Zoek online naar documentatie en/of voorbeelden van <code>PARALLELPERIOD</code> om dit voor elkaar te krijgen.</li>
 </ol>
-<p><img src="img/20-02-correcte-uitkomst-vreemdebelasting.png" alt="Correcte uitkomst van de &quot;vreemde belasting&quot; opgave"></p>
+<p><img src="img/53-08-qlm-en-parallelperiod.png" alt="Uitkomst van Quantity Last Month en PARALLELPERIOD"></p>
 
 </body>
 </html>

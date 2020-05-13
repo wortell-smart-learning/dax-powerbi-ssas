@@ -12,4 +12,3 @@ Open het bestand `51-filtering-minilab1.pbix`.
 3. Maak nu in de tabel `Fact Sale` een calculated measure `Belasting op Grijze Producten in 2013`.
    * Maak gebruik van een **matrix** en de functionaliteit **Items zonder gegevens weergeven** om de resultaten te controleren.  
 ![Antwoord voor belasting op grijze producten in 2013](img/05-03-grijze-belasting-2013.png)
-

@@ -1,6 +1,8 @@
 # Measures, calculated columns en tables
 
-In de vorige demo hebben we gekeken naar hoe DAX werkt. Daar zijn al diverse **measures**, **calculated columns** en **tables** voorbijgekomen. In dit *mini-lab* gaan we hier nog wat verder op door.
+In de vorige video hebben we gekeken naar hoe DAX werkt. Daar zijn al diverse **measures**, **calculated columns** en **tables** voorbijgekomen. In dit *mini-lab* gaan we hier nog wat verder op door.
+
+Wanneer je de video wilt terugzien, dan kan dat [hier](./06-video-measures-calccolumns-tables.html)
 
 ## Calculated Measures
 
