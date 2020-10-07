@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>02-demo-functies-queries-categorieen.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="demo-functiecategorie%C3%ABn">Demo: Functiecategorieën</h1>
+<blockquote>
+<p>In deze training zijn de demo's iets anders dan je normaal gesproken gewend bent: in plaats van een trainer die een demonstratie geeft, hebben we ervoor gekozen om de demonstratie uit te schrijven, waarna je de demonstratie feitelijk zelf geeft. Op die manier blijven sommige zaken zo beter hangen, en is er minder kans dat je iets mist. Bijkomend voordeel: je kunt de demonstratie er later eenvoudig weer eens bijpakken om iets te demonstreren of uit te leggen.</p>
+</blockquote>
+<h2 id="voorbereiding-en-scope">Voorbereiding en scope</h2>
+<p>In deze demo gaan we kijken naar wat DAX eigenlijk is. We bekijken daarvoor naar twee zaken:</p>
+<ol>
+<li><strong>Functies binnen DAX</strong>. Zoals eerder uitgelegd heeft DAX acht verschillende functiecategorieën. We bekijken van alle categorieën één of meer voorbeelden van functies.</li>
+<li><strong>DAX als query-taal</strong>. We maken kennis met de tool <strong>DAX Studio</strong>, waarmee we DAX queries kunnen &quot;afluisteren&quot; van Power BI of Analysis Services, maar ook zelf DAX queries schrijven.</li>
+</ol>
+<p>Er staat al een Power BI-bestand klaar waar we in deze demo mee zullen werken - het bestand heet <code>02-demo-functies-queries-categorieen</code>. Open dit bestand om met de demo aan de slag te kunnen.</p>
+<h2 id="voorbeelden-van-functies">Voorbeelden van functies</h2>
+<p>DAX heeft acht verschillende functiecategorieën:</p>
+<ul>
+<li>DateTime</li>
+<li>Filter</li>
+<li>Information</li>
+<li>Logical</li>
+<li>Math and trigonometry</li>
+<li>ParentChild</li>
+<li>Statistical</li>
+<li>Text</li>
+</ul>
+<p>Om hier wat gevoel bij te krijgen zullen we van elke functie twee of drie voorbeelden bekijken van functies.</p>
+<h3 id="datetime">DateTime</h3>
+<h4 id="year">YEAR()</h4>
+<p>DateTime-functies kunnen je helpen om datums en tijden te verwerken. Stel dat je bijvoorbeeld de hoeveelheid verkochte producten per jaar wilt weergeven.</p>
+<ol>
+<li>Uit de tabel <strong>Order</strong> selecteer je het veld <strong>Order Date</strong>. Op je canvas zie je nu een tabel met één kolom, waarin de datums staan waarop de producten verkocht zijn.</li>
+<li>Sleep nu vanuit de tabel <strong>Order</strong> het veld <strong>Quantity</strong> op de lijst met datums.</li>
+</ol>
+<p>De tabel laat nu de verkopen per dag zien, maar we willen graag de verkopen per <em>jaar</em>. Om dit te bereiken voegen we een <strong>calculated column</strong> toe.</p>
+<ol start="3">
+<li>In het paneel met <strong>velden</strong> aan de rechterkant van je scherm selecteer je de tabel <strong>Order</strong>.</li>
+<li>In het lint (de ribbon) bovenin zie je dat je automatisch naar het kopje <strong>Tabelhulpmiddelen</strong> gebracht wordt. Hier heb je de mogelijkheid om een nieuwe kolom toe te voegen.</li>
+<li>Klik op <strong>Nieuwe kolom</strong>. Onder het lint verschijnt de DAX-editor. De tekst <code>Kolom = </code> staat weergegeven</li>
+<li>Vervang deze tekst door <code>Order Year = YEAR([Order Date])</code></li>
+<li>Maak nu een tweede tabel, waarin je <code>Order Year</code> en <code>Quantity</code> naast elkaar zet.</li>
+</ol>
+<p>Power BI zal standaard proberen elke numerieke waarde op te tellen (tenzij je in het model hebt aangegeven dat dit niet de bedoeling is). Zo ook <code>Order Year</code>. Gelukkig kun je dit vrij eenvoudig aanpassen: klik de tabel die je zojuist gemaakt hebt, en klik onder het kopje <strong>Waarden</strong> op het pijltje naast <strong>Order Year</strong>. Kies nu voor <strong>Niet samenvatten</strong>:</p>
+<p><img src="img/02-01-order-year-dont-summarize.png" alt="Power BI instrueren om Order Year niet te aggregeren"></p>
+<blockquote>
+<p>Naast de functie <code>YEAR</code> zijn er ook diverse soortgelijke functies die bijvoorbeeld maanden of dagen uit een datum ophalen. Een paar voorbeelden:</p>
+<ul>
+<li><strong>DAY</strong> geeft het dagnummer binnen een maand (1-31)</li>
+<li><strong>MONTH</strong> geeft het maandnummer terug (1-12)</li>
+<li><strong>YEAR</strong> geeft het jaar terug</li>
+</ul>
+<p>Op dezelfde wijze kun je <strong>QUARTER</strong>, <strong>WEEKDAY</strong>, <strong>HOUR</strong>, <strong>MINUTE</strong> en <strong>SECOND</strong> gebruiken. Er is ook een <strong>WEEKNUM</strong> functie, maar let daar even goed op de weeknummering: in Europa gebruiken we een andere weeknummering dan in de V.S.!)</p>
+</blockquote>
+<h4 id="datediff-en-eomonth">DATEDIFF en EOMONTH</h4>
+<p>Stel nu dat we voor elke datum zouden willen berekenen hoeveel dagen er nog over zijn tot het einde van de maand. Dat vereist twee stappen:</p>
+<ul>
+<li>We moeten weten wanneer het einde van de maand is (iets dat in februari niet heel eenvoudig is)</li>
+<li>We moeten uitrekenen hoeveel dagen er tussen een gegeven datum en de laatste datum binnen de maand zitten</li>
+</ul>
+<p>Gelukkig heeft DAX een functie aan boord om ons te helpen met het eerste probleem. De functie <strong>EOMONTH</strong> vertelt ons altijd wat het einde van de maand is.</p>
+<ol start="8">
+<li>Maak een <strong>Nieuwe kolom</strong> in de tabel <strong>Order</strong>. Geef deze de definitie <code>End of Order Month = EOMONTH([Order Date], 0)</code>.</li>
+<li>Voeg deze kolom toe aan de tabel waarin je <code>Order Date</code> tegen <code>Quantity</code> had uitgezet (dus de allereerste tabel).</li>
+<li>Je ziet nu voor elke weergegeven <code>Order Date</code> wat de laatste dag is in de betreffende maand:</li>
+</ol>
+<p><img src="img/02-02-eomonth.png" alt="Demonstratie van EOMONTH"></p>
+<blockquote>
+<p>Zoals je ziet heeft de EOMONTH-functie twee argumenten: de datum, en een <code>0</code>. Het tweede argument verteld hoeveel maanden je vooruit wilt kijken. Dit geeft je de mogelijkheid om niet alleen de laatste dag van de huidige maand te bekijken, maar ook de laatste dag van de volgende maand (<code>EOMONTH([Order Date], 1)</code>).</p>
+</blockquote>
+<ol start="11">
+<li>Maak een <strong>Nieuwe kolom</strong> in de tabel <strong>Order</strong>. Geef deze de definitie <code>Days until end of Order Month = DATEDIFF([Order Date], [End of Order Month], DAY)</code>.</li>
+<li>Voeg deze kolom toe aan de tabel waarin je zojuist ook <code>End of Order Month</code> hebt toegevoegd.</li>
+<li>Omdat <code>Days until end of Order Month</code> opnieuw een numerieke waarde is, zal Power BI deze proberen te aggregeren. Zorg ervoor dat dit niet meer gebeurt.</li>
+<li>Herschik de kolommen zodat <code>Quantity</code> als laatste kolom wordt weergegeven.</li>
+</ol>
+<p>Je ziet nu voor elke orderdatum hoeveel er besteld is, evenals hoeveel dagen er nog over zijn in de maand.</p>
+<h3 id="filter">Filter</h3>
+<p>Filter functies zijn één van de meer complexe functies binnen Power BI. Om de demonstratie niet te diepgaand te laten zijn (we gaan later uitgebreid in op filters en wijden er zelfs een hele module aan) volgt hier een kort voorbeeld. We willen hierin een analyse doen van de betaalde belasting per kleur van het product dat we verkochten:</p>
+<ol start="15">
+<li>Maak een nieuw tabblad aan, geef deze de naam <strong>Filter</strong></li>
+<li>Sleep uit de tabel <strong>Stock Item</strong> het veld <strong>Color</strong> op het canvas.</li>
+</ol>
+<p>Op het canvas verschijnt nu een tabel met één kolom. Daarin staan de kleuren van de verkochte producten.</p>
+<ol start="17">
+<li>Sleep uit de tabel <strong>Sale</strong> het veld <strong>Tax Amount</strong> bovenop de zojuist aangemaakte tabel.</li>
+</ol>
+<p>De tabel geeft nu per productkleur aan hoeveel belasting hiervoor betaald is. Wanneer je dat iets technischer uitdrukt, zou je kunnen stellen dat de tabel <strong>Sale</strong> <em>gefilterd</em> wordt op elke kleur (Black, Blue, Gray, ...) en dat er in de kolom <strong>Tax Amount</strong> vervolgens alleen een optelling van de rijen van die kleur wordt gedaan.</p>
+<p>Met de functie <strong>ALL</strong> kunnen we de filters van een tabel vervolgens verwijderen:</p>
+<ol start="18">
+<li>In het paneel met <strong>velden</strong> aan de rechterkant van je scherm selecteer je de tabel <strong>Sale</strong>.</li>
+<li>In het lint (de ribbon) bovenin zie je dat je automatisch naar het kopje <strong>Tabelhulpmiddelen</strong> gebracht wordt. Hier heb je de mogelijkheid om een nieuwe meting (measure) toe te voegen.</li>
+<li>Klik op de knop <strong>Nieuwe meting</strong></li>
+<li>Vervang de tekst <code>Meting =</code> door de DAX-formule <code>All Tax Amount = CALCULATE(SUM([Tax Amount]); ALL('Order'))</code></li>
+<li>Voeg de kolom <code>All Tax Amount</code> toe aan de tabel met <code>Color</code> en <code>Tax Amount</code>.</li>
+</ol>
+<p>Je hebt nu een tabel waarin op elke rij de betaalde belasting voor een kleur wordt weergegeven, evenals het totaal aan betaalde belasting. De functie <code>ALL</code> heeft er hier voor gezorgd dat de &quot;filter&quot; op kleur verwijderd werd.</p>
+<p><img src="img/02-03-color-alltaxamt.png" alt="Betaalde belasting en alle belasting per kleur in één tabel weergegeven"></p>
+<blockquote>
+<p>Zoals hierboven gesteld zijn filter functies de meer complexe functies binnen Power BI. Tegelijkertijd zijn ze de crux tot écht krachtige Power BI modellen en uitgebreide measures. Wanneer je de zaken hierboven slechts globaal volgde, is dat geen probleem - we komen hier later nog uitgebreider op terug.</p>
+</blockquote>
+<h3 id="information">Information</h3>
+<p>De categorie <strong>information</strong> omvat functies die je kunnen vertellen over de inhoud van een kolom, of soms zelfs van het systeem waar de klant momenteel mee werkt. Een voorbeeld is de functie <strong>ISNUMBER</strong>:</p>
+<ol start="23">
+<li>Maak een nieuw tabblad aan, hernoem deze naar <strong>Information &amp; Logical</strong></li>
+<li>Sleep uit de tabel <strong>Customer</strong> de kolom <strong>Postal Code</strong> op het canvas.</li>
+</ol>
+<p>Een tabel verschijnt met één kolom. Daarin vind je de waarden van het veld <strong>Postal Code</strong>.</p>
+<ol start="25">
+<li>Klik de tabel <strong>Customer</strong> aan, en maak een nieuwe kolom. Geef deze de volgende DAX-definitie: <code>Postal Code is Number = ISNUMBER([Postal Code])</code></li>
+<li>Sleep het nieuwe veld <strong>Postal Code Is Number</strong> bovenop de bestaande tabel</li>
+</ol>
+<p>Je krijgt nu te zien of de waarden in de kolom <strong>Postal Code</strong> getallen zijn. <em>Volgens DAX zijn ze dat dus niet!</em> De reden is dat de getallen hier als tekst zijn opgeslagen.</p>
+<ol start="27">
+<li>Maak in de tabel <strong>Customer</strong> nu een tweede nieuwe kolom aan, met de DAX-definitie <code>Customer Key is Number = ISNUMBER([Customer Key])</code>.</li>
+<li>Sleep nu zowel het veld <strong>Customer Key</strong> als het veld <strong>Customer Key is Number</strong> op de tabel.</li>
+</ol>
+<p><img src="img/02-03-isnumber.png" alt="ISNUMBER demonstratie"></p>
+<p>Het veld <strong>Customer Key</strong> is wel numeriek opgeslagen, en wordt ook zo weergegeven door <strong>ISNUMBER</strong>. <strong>ISNUMBER</strong> vertelt nu <em>informatie</em> over het <em>datatype</em> van een kolom.</p>
+<h3 id="logical">Logical</h3>
+<p>Het antwoord op de <strong>ISNUMBER</strong> uitvraag die we zojuist deden, is het antwoord waar (true) of onwaar (false). Dit worden ook wel &quot;logische&quot; antwoorden genoemd. De categorie functies die hiermee kan werken heten dan ook <em>logische</em> functies.</p>
+<p>Voor deze demonstratie doen we een eenvoudig voorbeeld: wanneer de kolom <strong>Customer Key</strong> numeriek is, willen we namelijk niet de tekst <strong>Waar</strong> zien, maar de tekst <strong>Deze kolom is numeriek</strong>.</p>
+<h4 id="if">IF</h4>
+<ol start="29">
+<li>Klik in de lijst met velden op de naam van het veld <strong>Customer Key Is Number</strong>. (Let op dat je niet op het selectievakje klikt - dan wordt er een veld toegevoegd aan je rapport!)</li>
+</ol>
+<p>De DAX editor opent, met daarin de functie <code>Customer Key is Number = ISNUMBER([Customer Key])</code>.</p>
+<ol start="30">
+<li>Breid deze functie uit met een <code>IF</code> functie, zodat de DAX-definitie van deze kolom er als volgt uitziet: <code>Customer Key is Number = IF(ISNUMBER([Customer Key]); &quot;Deze kolom is numeriek&quot;; &quot;Deze kolom is niet numeriek&quot;)</code></li>
+<li>Doe nu hetzelfde voor de kolom <code>Postal Code is Number</code>, zodat de DAX-definitie is <code>Postal Code is Number = IF(ISNUMBER([Postal Code]); &quot;Deze kolom is numeriek&quot;; &quot;Deze kolom is niet numeriek&quot;)</code></li>
+</ol>
+<p>Zoals je ziet in de resultaten kun je met <strong>IF</strong> logica inbouwen om je rapport slimmer, mooier of beter te laten functioneren.</p>
+<h3 id="math-and-trigonometry">Math and trigonometry</h3>
+<p>In de categorie <strong>Math and trigonometry</strong> zitten allerhande wiskundige functies. Daaronder ook de handige functies om af te ronden: <code>CEILING</code></p>
+<ol start="32">
+<li>Maak een nieuw tabblad aan met de naam <strong>Math &amp; Trig</strong></li>
+<li>Sleep het veld <strong>Tax Amount</strong> naar het canvas, en verander de visualisatie in een <strong>tabel</strong></li>
+<li>Maak in de tabel <strong>Sale</strong> een nieuwe <strong>meting</strong> (<em>measure</em>) met de definitie: <code>Tax Amount Ceiled = CEILING(SUM([Tax Amount]); 1)</code></li>
+<li>Sleep deze nieuwe meting naar de tabel, zodat er een nieuwe kolom naast <em>Tax Amount</em> komt.</li>
+</ol>
+<p><img src="img/02-04-ceiling.png" alt="CEILING rondt af naar boven"></p>
+<p>Zoals je hierboven gezien hebt, rondt <code>CEILING</code> altijd af naar boven. Het tweede argument is de <em>veelvoud</em> waar deze naar afrondt. Probeer deze maar eens uit met de volgende waarden:</p>
+<ul>
+<li>10</li>
+<li>1000</li>
+</ul>
+<h3 id="parentchild">ParentChild</h3>
+<p><strong>ParentChild</strong>-functies zijn specifiek bedoeld voor hiërarchiën binnen DAX. Hier hebben we (nu) geen demo van opgenomen omwille van de tijd: hoewel niet bijzonder complex, is het wel een apart onderwerp dat niet heel veel helpt bij het beter begrijpen van de rest van DAX.</p>
+<h3 id="statistical">Statistical</h3>
+<p>Onder het kopje &quot;statistische functies&quot; verstaat DAX niet alleen statistieken als <strong>MAX</strong>, <strong>SUM</strong>, <strong>STDEV.P</strong> en <strong>STDEV.S</strong>. Ook de functies waarmee tabellen gegenereerd kunnen worden vallen onder deze categorie.</p>
+<p>In de cursus zullen we niet heel uitvoerig stilstaan bij deze categorie aan functies, maar ze zijn wel bijzonder nuttig! Daarom lichten we er in deze demo er drie uit:</p>
+<ul>
+<li>CROSSJOIN</li>
+<li>SAMPLE</li>
+</ul>
+<h4 id="crossjoin">CROSSJOIN</h4>
+<ol start="36">
+<li>Schakel binnen Power BI naar de <strong>Gegevens-weergave</strong></li>
+<li>In het <strong>Lint</strong>, klik op <strong>Nieuwe Tabel</strong></li>
+<li>Geef deze tabel de volgende definitie: <code>CrossJoin Voorbeeld = VALUES('Stock Item'[Color])</code>. Bekijk de resultaten.</li>
+</ol>
+<p><img src="img/02-05-values.png" alt="Voorbeeld van VALUES"></p>
+<p>De functie <strong>VALUES</strong> die we hier gebruiken is geen <em>statistical</em>, maar een <em>filter</em> functie. Deze geeft een tabel met één kolom terug, en daarin alleen unieke waarden. Dat zijn er dus maar 9, terwijl in de onderliggende tabel <em>stock item</em> 672 rijen aanwezig waren. Dat is wel zo handig voor wanneer we nu met <strong>CROSSJOIN</strong> verder gaan:</p>
+<ol start="39">
+<li>Verander nu de definitie van de tabel naar <code>CrossJoin Voorbeeld = CROSSJOIN(VALUES('Stock Item'[Color]); City)</code></li>
+</ol>
+<p>De functie <strong>CROSSJOIN</strong> doet letterlijk wat de naam impliceert: hij maakt een &quot;cross join&quot; tussen twee tabellen: voor elke rij uit de eerste tabel worden alle rijen uit de tweede tabel toegevoegd.</p>
+<p>Aangezien de eerste tabel de <em>VALUES</em>-expressie is (met 9 rijen) en de tweede de volledige tabel City (met 116.295 rijen) levert dit een totaal op van <strong>1.046.655 rijen</strong>! Toch is het formaat voor een DAX datamodel niet bezwaarlijk: binnen enkele seconden was de tabel gevuld.</p>
+<p>Sla het bestand nu op, en kijk naar het formaat - je zult zien dat het alles meevalt.</p>
+<h4 id="sample">SAMPLE</h4>
+<ol start="40">
+<li>Maak opnieuw een nieuwe tabel. Geef deze de volgende DAX-expressie: <code>Sample-voorbeeld = SAMPLE(1000; 'CrossJoin Voorbeeld'; [City])</code></li>
+</ol>
+<p>De functie <code>SAMPLE</code> kan een steekproef nemen uit een bestaande tabel. Dat kan helpen om bijvoorbeeld op een kleinere set data nieuwe berekeningen uit te testen, zonder de (soms gigantische) onderliggende datasets aan te hoeven spreken.</p>
+<h3 id="text">Text</h3>
+<p>De laatste functiecategorie is <strong>Text</strong>. Hier kun je eenvoudig met teksten werken. De meeste van deze functies spreken voor zich - in de demo gebruiken we de functie <strong>SUBSTITUTE</strong> om een tekst te wijzigen.</p>
+<ol start="41">
+<li>In de <strong>gegevens-weergave</strong> van Power BI open je de tabel <strong>City</strong>.</li>
+</ol>
+<p>De kolom <strong>Sales Territory</strong> bevat hier de waarden <strong>Southeast</strong> en <strong>Southwest</strong>. In de richtlijnen van het bedrijf moet dit echter <em>South East</em> en <em>South West</em> zijn. Dat gaan we aanpassen.</p>
+<blockquote>
+<p>Uiteraard kun je dit beter structureel oplossen in een ETL- en/of datakwaliteitsstap. Je bent echter nu een dashboard aan het finetunen bent voor een presentatie, en wilt liever de data niet verversen.</p>
+</blockquote>
+<ol start="42">
+<li>Voeg een nieuwe kolom toe aan de tabel <strong>City</strong>. Geef deze de volgende definitie:</li>
+</ol>
+<pre class="hljs"><code><div>Sales Territory Corrected = SUBSTITUTE([Sales Territory], &quot;South&quot;, &quot;South &quot;)
+</div></code></pre>
+<h2 id="acht-of-tien-functiecategorie%C3%ABn">Acht of tien functiecategorieën?</h2>
+<p>Eerder stelden we dat er acht functiecategorieën zijn in DAX. DAX onderscheidt echter nog een negende en zelfs een tiende functiecategorie, die we hier niet bespreken. Om je toch een idee te geven nemen we ze hier op:</p>
+<h3 id="time-intelligence-functies">Time-intelligence functies</h3>
+<p>Hoewel deze strikt gezien ook onder <strong>Date &amp; Time</strong> zouden kunnen vallen, zijn deze functies vaak iets ingewikkelder. Voor een goed overzicht is er daarom in de documentatie voor gekozen om ze te scheiden. Gebruikers die in het lijstje met datum-functies <code>EOMONTH</code> tegenkomen, worden dan niet in de war gebracht met de &quot;time intelligence&quot; functie <code>ENDOFMONTH</code>.</p>
+<p>De Time Intelligence functies voeren voor nu te diep - verderop in de cursus zullen we deze echter zeker behandelen!</p>
+<h3 id="other-functions">Other functions</h3>
+<p>DAX kent nog een laatste categorie: &quot;other functions&quot;. Hierin zitten enkele erg nuttige functies. Probeer de volgende functies maar eens toe te voegen als <strong>calculated table</strong>:</p>
+<ul>
+<li><strong>GENERATESERIES</strong> geeft een tabel van één kolom met daarin oplopende getallen:</li>
+</ul>
+<pre class="hljs"><code><div>Generate Series voorbeeld = GENERATESERIES(1; 5000)
+</div></code></pre>
+<ul>
+<li>DAX kent een inline <strong>table constructor</strong> die het erg eenvoudig maakt om een nieuwe tabel handmatig in te vullen</li>
+</ul>
+<pre class="hljs"><code><div>Table constructor voorbeeld = {1; 2; 3}
+</div></code></pre>
+
+</body>
+</html>

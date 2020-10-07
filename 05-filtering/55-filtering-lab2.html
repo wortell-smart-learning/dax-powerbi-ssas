@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>55-filtering-lab2.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="lab-2---filtering">Lab 2 - filtering</h1>
+<p>We gaan nog wat meer aan de slag met filteren en contexten.</p>
+<h2 id="voorbereiding">Voorbereiding</h2>
+<p>Open het bestand '56-filtering-lab2.pbix'. Je ziet hier op <strong>Page 1</strong> het voorbeeld dat we zojuist in de demo behandeld hebben.</p>
+<p>De measure <code>Running Total</code> is een klein beetje veranderd: er is een <code>FILTER</code>-statement toegevoegd. <code>CALCULATE</code> <em>vervangt</em> namelijk altijd filters op je kolommen - en dat is niet altijd wenselijk. <code>FILTER</code> geeft je de mogelijkheid om filters <em>toe te voegen</em> aan bestaande filters. Het is een goed gebruik (en zoals je snel zult zien ook broodnodig) om <code>FILTER</code> te gebruiken op deze manier.</p>
+<pre class="hljs"><code><div>Running Total =
+VAR HuidigJaar = MAX('Dimension Date'[Date])
+VAR RunningTotal = CALCULATE(SUM('Fact Sale'[Quantity]); FILTER(ALL('Dimension Date'); [Date] &lt;= HuidigJaar))
+RETURN RunningTotal
+</div></code></pre>
+<h2 id="running-totals---continued">Running totals - continued</h2>
+<p>In de demo die je zojuist gezien hebt werd er een <em>Running Total</em> aangemaakt. Deze staat ook op <strong>Page 1</strong> van het Power BI rapport dat je zojuist geopend hebt. Zoals je ziet zijn we er echter nog niet helemaal. Wanneer ik in een slicer namelijk aangeef dat ik alleen de jaren 2014-2016 wil weergeven, zie ik dat de measure <em>Running Total</em> ook 2013 meeneemt:</p>
+<p><img src="img/55-running-total-teveel-jaren.png" alt="Running total geeft teveel data terug"></p>
+<ol>
+<li>Pas de measure <strong>Running Total</strong> aan zodat het Running Total begint bij het eerste weergegeven jaar:</li>
+</ol>
+<p><img src="img/55-running-total-correct.png" alt="Running total - correct"></p>
+<ol start="2">
+<li>Kopieer de definitie van de measure nu naar een <code>Running Total Zonder Filter</code>, en verwijder het <code>FILTER</code> statement. Zoals je ziet werkt je oplossing nu niet meer
+<ul>
+<li>Kun je beredeneren wat er plaatsvindt?</li>
+<li>Bedenk dat <code>CALCULATE</code> altijd filters <em>vervangt</em></li>
+<li>Kun je ook beredeneren waarom de introductie van <code>FILTER</code> voor een oplossing zorgt hier?</li>
+</ul>
+</li>
+</ol>
+<h2 id="year-to-date">Year-to-date</h2>
+<p>Een <em>Year-to-date</em> is in principe hetzelfde als een <strong>Running Total</strong>, maar met één belangrijk verschil: het lopende totaal gaat niet eindeloos terug, maar slechts tot het begin van het jaar.</p>
+<p>Schakel naar <strong>Page 2</strong> in het Power BI rapport <code>56-filtering-lab2</code>. Je ziet hier een tabel met vier velden:</p>
+<ul>
+<li>Calendar Year</li>
+<li>Month</li>
+<li>Date</li>
+<li>Quantity</li>
+</ul>
+<ol start="3">
+<li>Maak een nieuwe measure <code>My YTD</code>, waarin je een <em>year-to-date</em> functionaliteit bouwt
+<ul>
+<li>Neem als basis de eerder ontwikkelde <em>running total</em></li>
+<li>Breid deze uit met een <code>VAR</code> die je kan vertellen wat het jaar in de huidige context is</li>
+<li>Breid <code>VAR RunningTotal</code> uit zodat de <em>running total</em> elk jaar weer bij 0 begint</li>
+<li>Controleer de uitkomsten in de tabel, en met een lijngrafiek:</li>
+</ul>
+</li>
+</ol>
+<p><img src="img/53-03-ytd-werkend.png" alt="YTD - correct werkend"></p>
+<ol start="4">
+<li>Maak nu een measure <code>My MTD</code>, die een <em>month-to-date</em> uitvoert.
+<ul>
+<li>Mocht de YTD je al makkelijk afgaan, probeer deze dan zonder te spieken bij <code>RunningTotal</code></li>
+<li>Controleer deze opnieuw met behulp van de tabel en een lijngrafiek. Gebruik daarnaast de reeds aanwezige <em>slicer</em> om <code>[Calendar Year] = 2015</code> te selecteren.</li>
+</ul>
+</li>
+</ol>
+<p><img src="img/53-04-mtd-correct.png" alt="MTD - correct werkend"></p>
+<ol start="5">
+<li>Zou je ook een <em>running total</em> over alfabetisch gesorteerde producten kunnen maken? Dus dat je niet zozeer alle eerdere verkopen (in de tijd) bij elkaar optelt, maar alle eerdere producten (in een alfabetische lijst?)</li>
+</ol>
+<h2 id="totalytd">TOTALYTD</h2>
+<p>Een eenvoudigere manier om een YTD te berekenen is <code>TOTALYTD</code>.</p>
+<ol start="6">
+<li>Maak een nieuwe measure <code>My TotalYTD</code>. Bereken hierin de YTD.
+<ul>
+<li>Kijk voor een definitie van <code>TotalYTD</code> op <a href="https://dax.guide/">https://dax.guide/</a></li>
+</ul>
+</li>
+</ol>
+<h2 id="measures-die-een-maand-eerder-kijken">Measures die een maand eerder kijken</h2>
+<p>Een andere veelvoorkomende vraag is om periodes met elkaar te kunnen vergelijken. Schakel naar <strong>Page 3</strong>. Hier zie je een tabel met drie kolommen:</p>
+<ul>
+<li>Calendar Year</li>
+<li>Calendar Month Number</li>
+<li>Quantity</li>
+</ul>
+<ol start="7">
+<li>Maak een nieuwe measure <code>Quantity Last Month</code> die de hoeveelheid verkochte producten van één maand terug weergeeft
+<ul>
+<li>De measure hoeft alleen te werken in deze specifieke tabel</li>
+<li>Als het lastig is: Probeer in kleine stapjes te werken
+<ul>
+<li>Je kunt bijvoorbeeld als eerste een measure maken die exact de verkochte hoeveelheden teruggeeft</li>
+<li>Deze kun je daarna aanpassen dat altijd de verkopen van maart worden teruggegeven</li>
+<li>Gebruik daarnaast de volgende variabelen als startpunt:
+<ul>
+<li><code>VAR HuidigeDatum = MAX('Dimension Date'[Date])</code></li>
+<li><code>VAR HuidigeMaand = MONTH(HuidigeDatum)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Gebruik om de vorige maand te bepalen de functie <code>EDATE()</code></li>
+</ul>
+</li>
+<li>Ook deze functie kun je een stuk eenvoudiger oplossen, met <code>PARALLELPERIOD</code>. Maak een nieuwe measure <code>Quantity Last Month 2</code> die dezelfde functionaliteit heeft als <code>Quantity Last Month</code>. Zoek online naar documentatie en/of voorbeelden van <code>PARALLELPERIOD</code> om dit voor elkaar te krijgen.</li>
+</ol>
+<p><img src="img/53-08-qlm-en-parallelperiod.png" alt="Uitkomst van Quantity Last Month en PARALLELPERIOD"></p>
+
+</body>
+</html>

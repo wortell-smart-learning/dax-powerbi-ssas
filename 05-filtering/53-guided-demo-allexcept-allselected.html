@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>53-guided-demo-allexcept-allselected.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="demo---all-allexcept-en-allselected">Demo - ALL, ALLEXCEPT en ALLSELECTED</h1>
+<p>In deze &quot;self-paced&quot; demo verkennen we verschillende smaken van de <code>ALL</code> operator.
+We doen dit met een eenvoudige tabel, die je zowel hieronder vindt als in het Power BI-bestand <code>53-guided-demo-allexcept-allselected.pbix</code>.</p>
+<table>
+<thead>
+<tr>
+<th>ColumnA</th>
+<th>ColumnB</th>
+<th>ColumnC</th>
+<th>ColumnD</th>
+<th>ColumnE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Apple</td>
+<td>Australia</td>
+<td>Athletics</td>
+<td>10</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Banana</td>
+<td>Brazil</td>
+<td>Athletics</td>
+<td>15</td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cherry</td>
+<td>Canada</td>
+<td>Cricket</td>
+<td>30</td>
+</tr>
+</tbody>
+</table>
+<h2 id="voorbereiding">Voorbereiding</h2>
+<p>Open het bestand <code>53-guided-demo-allexcept-allselected</code>.</p>
+<h2 id="all">ALL</h2>
+<p>De functie <code>ALL</code> hebben we eerder al gebruikt. Met wat we zojuist geleerd hebben over filters en de <code>FILTER</code>-functie kijken we hier opnieuw naar. Daarnaast gebruiken we onze kennis die we al over de <code>ALL</code> functie hebben om een measure te maken die we goed kunnen vergelijken met <code>ALLEXCEPT</code> en <code>ALLSELECTED</code>.</p>
+<ol>
+<li>Maak een tabel aan waarin je alle kolommen van <em>Table1</em> naast elkaar zet<br>
+<img src="img/53-01-alle-kolommen.png" alt="Brontabel weergave"></li>
+<li>Open <a href="https://www.daxformatter.com/">DAX Formatter</a> en laat de volgende measure-definitie netjes opmaken:<br>
+<code>ALL Measure = CALCULATE(SUM(Table1[ColumnE]); ALL(Table1[ColumnA]; Table1[ColumnB]; Table1[ColumnC]))</code></li>
+<li>Voer de - nu netjes opgemaakte - measuredefinitie in binnen het Power BI model.</li>
+<li>Maak een <strong>Table visualisatie</strong> waarin je de volgende velden neerzet:
+<ul>
+<li><strong>ColumnA</strong></li>
+<li><strong>ColumnB</strong></li>
+<li><strong>ColumnC</strong></li>
+<li><strong>ALL Measure</strong></li>
+</ul>
+</li>
+<li><strong>Kopieer en plak</strong> de table visualisatie. <strong>Voeg ColumnD toe</strong>. Als het goed is staan er nu de volgende velden in de tweede table-visualisatie:
+<ul>
+<li><strong>ColumnA</strong></li>
+<li><strong>ColumnB</strong></li>
+<li><strong>ColumnC</strong></li>
+<li><strong>ColumnD</strong></li>
+<li><strong>ALL Measure</strong></li>
+</ul>
+</li>
+<li>Vergelijk de drie tabellen (de tabel met brondata vs. de twee tabellen met een <code>ALL</code> measure. Is het resultaat wat je verwachtte?<br>
+<img src="img/53-01-drietabellen-vergelijken.png" alt="Resultaat van stappen 1-6"></li>
+</ol>
+<blockquote>
+<h3 id="hoe-ziet-de-filter-context-eruit">Hoe ziet de filter context eruit?</h3>
+<p>Ook wanneer je de bovenstaande tabellen volledig logisch vindt, is het nog steeds nuttig om expliciet te benoemen wat hier gebeurt.
+<code>ALL</code> zorgde er hier voor dat de filters van de kolommen A t/m C verwijderd werden, maar D bleef staan. Dat zorgt voor de volgende uitkomsten:</p>
+<ul>
+<li>Op de afbeelding hierboven de tabel <strong>linksonder</strong> bevat kolommen <em>ColumnA</em>, <em>ColumnB</em> en <em>ColumnC</em>. Anders gezegd: de filter context bestaat voor de eerste rij uit:
+<ul>
+<li>ColumnA = &quot;A&quot;</li>
+<li>ColumnB = &quot;Apple&quot;</li>
+<li>ColumnC = &quot;Australia&quot;</li>
+</ul>
+</li>
+<li>Dit zijn exact de kolommen waarvan <code>ALL Measure</code> de filter verwijdert met de functie <code>ALL</code>. <strong><code>ALL</code> doet wat dat betreft dus exact het omgekeerde van <code>FILTER</code>: <code>FILTER</code> voegt filters toe, <code>ALL</code> verwijdert ze.</strong></li>
+<li>Op de afbeelding hierboven de tabel <strong>rechtsonder</strong> bevat ook nog de kolom <em>ColumnD</em>. De <code>ALL measure</code> verwijdert hier geen filters van, dus die blijven intact.
+<ul>
+<li><strong>Hoewel de tabel drie rijen kent, bestaat de filter context voor de <code>SUM</code> functie binnen <code>ALL Measure</code> nog maar uit één filter: de filter op <code>ColumnD</code></strong></li>
+<li>Op regel 1 bestaat de filter context voor <code>SUM</code> uit één filter: <code>ColumnD = &quot;Athletics&quot;</code>
+<ul>
+<li>Alle waarden waar dat geldt worden opgeteld: 10 + 15 = 25</li>
+</ul>
+</li>
+<li>Op regel 2 gebeurt hetzelfde als op regel 1</li>
+<li>Op regel 3 bestaat de filter context voor <code>SUM</code> ook uit één filter: <code>ColumnD = &quot;Cricket&quot;</code>
+<ul>
+<li>Er is maar één waarde voor Cricket: 30</li>
+</ul>
+</li>
+<li>Op regel 4 (<em>Totaal</em>) is de filter context voor <code>SUM</code> leeg
+<ul>
+<li>Er ligt in de totaalregel geen filter op <code>ColumnD</code> (en ook niet op de andere kolommen)</li>
+<li>Alle waarden in kolom <code>Table1[ColumnE]</code> worden dus opgeteld: 10 + 15 + 30 = 55</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="allexcept">ALLEXCEPT</h2>
+<p>De functie <strong>ALL</strong> verwijdert alle impliciete filters van de kolommen die je expliciet benoemt: <code>ALL(Table1[ColumnA])</code> verwijdert alle impliciete filters van <code>Table1[ColumnA]</code>. De functie <strong>ALLEXCEPT</strong> verwijdert juist de filters van kolommen die je <em>niet</em> expliciet benoemt. Je moet daarom wel zowel een tabel als minimaal één kolom benoemen.</p>
+<ol start="7">
+<li>Maak een nieuwe measure <code>ALLEXCEPT measure</code> met de volgende definitie:
+<ul>
+<li><code>ALLEXCEPT Measure = CALCULATE ( SUM ( 'Table1'[ColumnE] ); ALLEXCEPT ( Table1; Table1[ColumnD] ) )</code></li>
+</ul>
+</li>
+<li>Voeg de nieuwe measure toe aan de twee tabellen (zowel de tabel zónder, als de tabel mét ColumnD). Zoals je ziet functioneren deze exact hetzelfde.</li>
+</ol>
+<p><code>ALLEXCEPT</code> is strikt gezien een overbodige functie: alles wat je met <code>ALLEXCEPT</code> doet, kun je ook met <code>ALL</code>. Het maakt de leesbaarheid van je calculated measure echter een stuk beter.</p>
+<h2 id="allselected">ALLSELECTED</h2>
+<p>De functie <strong>ALL</strong> verwijdert alle impliciete filters - feitelijk maakt deze dus rijen beschikbaar die je anders niet had kunnen zien. Zoals je eerder hebt kunnen zien, helpt dit bijvoorbeeld om percentages van het geheel weer te geven.</p>
+<p>De functie <strong>ALLSELECTED</strong> doet dit ook - maar met één groot verschil: <strong><code>ALLSELECTED</code> verwijdert alleen de impliciete filters die <strong>binnen</strong> de query actief zijn.</strong>. We gaan direct verkennen hoe dat eruit ziet:</p>
+<ol start="9">
+<li>Maak in de tabel <code>'Fact Sale'</code> drie nieuwe measures aan:
+<ul>
+<li><code>Sum of Quantity = SUM('Fact Sale'[Quantity])</code></li>
+<li><code>ALL Quantity = CALCULATE( SUM('Fact Sale'[Quantity]), ALL('Fact Sale') )</code></li>
+<li><code>ALLSELECTED Quantity = CALCULATE( SUM('Fact Sale'[Quantity]), ALLSELECTED('Fact Sale') )</code></li>
+</ul>
+</li>
+<li>Maak een tabelvisualisatie met daarin zowel het veld <code>'Dimension Date'[Calendar Year]</code> als de zojuist aangemaakte drie measures:</li>
+</ol>
+<p><img src="img/53-10-allselected-niksnieuws.png" alt="Op het eerste gezicht doet ALLSELECTED hetzelfde als ALL"></p>
+<p>Zoals je ziet, reageren de drie measures als volgt op de uitspliting per <code>'Dimension Date'[Calendar Year]</code>:</p>
+<ul>
+<li><code>Sum of Quantity</code> laat de filtercontext intact: op rij 1 worden daarom alleen de waarden uit <code>[Quantity]</code> weergegeven waar <code>'Dimension Date'[Calendar Year] = 2013</code>
+<ul>
+<li><code>'Dimension Date'[Calendar Year]</code> filtert alle rijen in <code>'Dimension Date'</code>. Ook de kolom <code>'Dimension Date'[Date]</code> is dus gefilterd.</li>
+<li><code>'Dimension Date'[Date]</code> heeft een relatie met <code>'Fact Sale'[Invoice Date Key]</code>.</li>
+<li>Door de relatie tussen <code>'Dimension Date'</code> en <code>'Fact Sale'</code> worden de rijen van <code>'Fact Sale'</code> uitgefilterd.</li>
+<li>Hierdoor is de <code>SUM('Fact Sale'[Quantity])</code> dus anders voor 2013 dan voor 2014</li>
+</ul>
+</li>
+<li><code>ALL Quantity</code> verwijdert alle impliciete filters uit de filtercontext. Op alle rijen wordt daar om het totaal van 8950628 weergegeven: er zitten geen filters meer in de filtercontext.</li>
+<li><code>ALLSELECTED Quantity</code> doet in dit voorbeeld hetzelfde als <code>ALL Quantity</code>.</li>
+</ul>
+<p>Op het eerste gezicht is er geen verschil tussen <code>ALL</code> en <code>ALLSELECTED</code>. Dat heeft een reden: <strong>de measures waar we nu naar kijken, hebben in hun filter context alleen maar filters die afkomstig zijn uit de eigen query</strong>. Vrij vertaald voor Power BI: alle filtering vindt plaats vanuit de eigen <em>visual</em>.</p>
+<ol start="11">
+<li>Voeg aan het rapport nu een <em>slicer</em> toe op de kolom <code>'Dimension Stock Item'[Buying Package]</code>. Selecteer de waarde <strong>each</strong>.
+<ul>
+<li>Je ziet dat <code>ALL Quantity</code> measure ongewijzigd blijft. Dat is logisch: <em>alle</em> impliciete filters worden verwijderd.</li>
+<li><code>ALLSELECTED Quantity</code> behoudt echter wel een filter: de filter <code>'Dimension Stock Item'[Buying Package] = &quot;Each&quot;</code>.</li>
+</ul>
+</li>
+</ol>
+<p>Je ziet nu dat alledrie de measures verschillend reageren:</p>
+<ul>
+<li><code>Sum of Quantity</code> laat de filtercontext intact: op rij 1 worden daarom alleen de waarden uit <code>[Quantity]</code> weergegeven waar <code>'Dimension Date'[Calendar Year] = 2013</code> en waar <code>'Dimension Stock Item'[Buying Package] = &quot;Each&quot;</code></li>
+<li><code>ALL Quantity</code> verwijdert alle impliciete filters uit de filtercontext. Hoewel we dus een externe filter hebben toegevoegd (de slicer op <code>'Dimension Stock Item'[Buying Package]</code>), wordt deze even vrolijk weer verwijderd door de <code>ALL</code> functie</li>
+<li><code>ALLSELECTED</code> verwijdert alleen de filters <strong>binnen de query</strong> (voor Power BI: <strong>binnen de <em>visual</em></strong>).
+<ul>
+<li>De filter van <code>'Dimension Date'[Calendar Year]</code> wordt dus verwijderd voor de berekening van <code>SUM('Fact Order'[Quantity])</code> binnen deze measure</li>
+<li>De filter van <code>'Dimension Stock Item'[Buying Package]</code> wordt echter intact gelaten!</li>
+</ul>
+</li>
+</ul>
+<p>Feitelijk doet <strong><code>ALLSELECTED</code></strong> hier dus hetzelfde als de <strong>totaal-rij</strong> onderaan <code>Sum of Quantity</code>: de filters van <em>binnen</em> de visual worden verwijderd, maar die van <em>buiten</em> de visual worden intact gelaten. Daarom zien we ook dezelfde uitkomst hier:</p>
+<p><img src="img/53-11-allselected-hetzelfde-als-totaalrij.png" alt="ALLSELECTED doet hier hetzelfde als de totaalrij"></p>
+
+</body>
+</html>

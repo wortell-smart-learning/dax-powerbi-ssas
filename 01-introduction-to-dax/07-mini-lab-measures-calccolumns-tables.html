@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>07-mini-lab-measures-calccolumns-tables.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="measures-calculated-columns-en-tables">Measures, calculated columns en tables</h1>
+<p>In de vorige demo hebben we gekeken naar hoe DAX werkt. Daar zijn al diverse <strong>measures</strong>, <strong>calculated columns</strong> en <strong>tables</strong> voorbijgekomen. In dit <em>mini-lab</em> gaan we hier nog wat verder op door.</p>
+<h2 id="calculated-measures">Calculated Measures</h2>
+<ol>
+<li>Open de map <code>dax-powerbi-ssas</code>. Deze bevindt zich op het bureaublad van je cursus-VM</li>
+<li>Binnen de map <code>01-introduction-to-dax</code> open je het bestand <code>08-mini-lab-measures-calccolumns-tables-start</code></li>
+<li>Sleep the kolom <strong>Total including Tax</strong> naar het canvas</li>
+<li>Voeg de <strong>Calendar Year</strong> kolom aan de as van de grafiek toe om <em>Total Including Tax per Calendar Year</em> weer te geven. Je grafiek zou er nu als volgt uit moeten zien:</li>
+</ol>
+<p><img src="img/01-total-including-tax-by-calendar-year.png" alt="Total Including Tax by Calendar Year"></p>
+<p>Je hebt zojuist gebruik gemaakt van een <em>implicit measure</em>: Power BI bedenkt onder water de DAX-query die nodig zou zijn zodat <em>Total including Tax</em> zich als measure kan gedragen.</p>
+<ol start="5">
+<li>Maak nu een <strong>expliciete measure</strong> aan met de naam <strong>Sum of Total Including Tax</strong>. Deze moet hetzelfde werken als de impliciete measure die je tot nu toe gezien hebt. Hiervoor kun je de <code>SUM</code> formule gebruiken.</li>
+</ol>
+<h2 id="calculated-columns">Calculated Columns</h2>
+<p>Binnen <strong>Dimension Customer</strong> is zowel een kolom <strong>Primary Contact</strong> (met de naam van een contactpersoon) als een kolom <strong>Customer</strong> (met de bedrijfsnaam). Onze klant wil graag één kolom waar allebei deze waarden instaan, in een specifiek tekstformaat. Het moet er als volgt uitzien:</p>
+<p><img src="img/02-contact-customer-name-example.png" alt="Contact and customer name example"></p>
+<ol start="6">
+<li>Maak een nieuwe <em>calculated column</em> om dit te bereiken.
+<ul>
+<li>Om tekst direct in te voeren gebruik je dubbele quotes <code>&quot;</code></li>
+<li>Om twee teksten te combineren gebruik je het ampersand-teken: <code>&amp;</code></li>
+</ul>
+</li>
+<li>De klant wil ook graag een kolom <code>special size</code> in de tabel <code>Dimension Stock Item</code>. Deze moet de tekst &quot;EXTRA LARGE&quot; wanneer de <code>size</code> kolom de waarde &quot;XL&quot; heeft. Voor alle andere formaten (inclusief <code>N/A</code>) moet de tekst &quot;small&quot; worden weergegeven.
+<ul>
+<li>Gebruik hier de <code>IF</code> functie</li>
+<li>Vraag gerust om ondersteuning!</li>
+</ul>
+</li>
+</ol>
+<p><img src="img/03-special-size-column.png" alt="Example of the special size column"></p>
+<p>Voor de volgende opgave heb je een zogenaamd <strong>geneste</strong> IF functie nodig. Dat betekent dat je één IF-statement kunt gebruiken <em>binnen een ander IF-statement</em>. Hier een klein voorbeeldje hoe dat kan werken - het kan handig zijn om hiermee te starten, en het vervolgens in kleine stapjes uit te werken naar de opgave:</p>
+<pre class="hljs"><code><div>IF([Size] = &quot;L&quot;, &quot;Large&quot;, IF([Size] = &quot;XL&quot;, &quot;Extra Large&quot;, &quot;Others&quot;))
+</div></code></pre>
+<ol start="8">
+<li>Voeg binnen de tabel <code>Dimension Stock Item</code> een kolom toe met de naam <code>extended size</code>.
+<ul>
+<li>Als <code>Size</code> gelijk is aan <code>XL</code> moet in deze kolom &quot;Extra Large&quot; staan</li>
+<li>Als <code>Size</code> gelijk is aan <code>L</code> moet er &quot;Large&quot; staan</li>
+<li>In alle andere gevallen staat er &quot;Other&quot;</li>
+</ul>
+</li>
+</ol>
+<p>Mocht je behoefte hebben aan wat meer uitdaging, dan kunnen we deze nog iets moeilijker maken. Voor de volgende opgave heb je zogenaamde <strong>logische operators</strong> nodig (dit is een bonus-opgave - mocht je er niet uitkomen: we gaan hierna vrij snel aan de slag met deze operators):</p>
+<ol start="9">
+<li>Voeg een kolom met de naam <code>special tax size</code> toe binnen de tabel <code>Dimension Stock Item</code>. De waarde is als volgt:
+<ul>
+<li>&quot;Large, High Tax&quot; wanneer 'size' gelijk is aan &quot;L&quot; of &quot;XL&quot; en 'Tax Rate' groter dan 10</li>
+<li>&quot;Large, Low Tax&quot; wanneer 'size' gelijk is aan &quot;L of &quot;XL&quot; en 'Tax Rate' kleiner dan of gelijk aan 10</li>
+<li>&quot;Other&quot; in alle andere gevallen.</li>
+</ul>
+</li>
+</ol>
+<p><img src="img/04-extracolumns.png" alt="Extra columns"></p>
+<h2 id="calculated-table">Calculated Table</h2>
+<p>Je kunt de <code>FILTER</code> functie gebruiken om een filter te leggen op een tabel. De resultaten komen dan als een nieuwe tabel terug, die alleen de gefilterde inhoud bevat. Een voorbeeldje hiervan is deze <strong>Calculated Table</strong> waarin alleen de datums uit 2016 opgenomen zijn:</p>
+<pre class="hljs"><code><div>Dates2 = FILTER(Dates, 'Dates'[Calendar Year] = 2016)
+</div></code></pre>
+<ol start="10">
+<li>Maak een Calculated Table met de naam <code>Medium-Small Stock Items</code>. Het moet een gefilterde versie zijn van <code>Dimension Stock Item</code>, waar alleen producten met size <code>S</code> en <code>M</code> zijn opgenomen.</li>
+</ol>
+
+</body>
+</html>
