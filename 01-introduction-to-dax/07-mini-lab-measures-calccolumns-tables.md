@@ -5,7 +5,7 @@ In de vorige demo hebben we gekeken naar hoe DAX werkt. Daar zijn al diverse **m
 ## Calculated Measures
 
 1. Open de map `dax-powerbi-ssas`. Deze bevindt zich op het bureaublad van je cursus-VM
-2. Binnen de map `01-introduction-to-dax` open je het bestand `08-mini-lab-measures-calccolumns-tables-start`
+2. Binnen de map `01-introduction-to-dax` open je het bestand `07-mini-lab-measures-calccolumns-tables-start`
 3. Sleep the kolom **Total including Tax** naar het canvas
 4. Voeg de **Calendar Year** kolom aan de as van de grafiek toe om *Total Including Tax per Calendar Year* weer te geven. Je grafiek zou er nu als volgt uit moeten zien:
 

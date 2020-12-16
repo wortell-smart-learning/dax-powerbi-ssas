@@ -20,7 +20,7 @@ De functie `ALL` hebben we eerder al gebruikt. Met wat we zojuist geleerd hebben
 1. Maak een tabel aan waarin je alle kolommen van *Table1* naast elkaar zet  
 ![Brontabel weergave](img/53-01-alle-kolommen.png)
 2. Open [DAX Formatter](https://www.daxformatter.com/) en laat de volgende measure-definitie netjes opmaken:  
-`ALL Measure = CALCULATE(SUM(Table1[ColumnE]); ALL(Table1[ColumnA]; Table1[ColumnB]; Table1[ColumnC]))`
+`ALL Measure = CALCULATE(SUM(Table1[ColumnE]), ALL(Table1[ColumnA], Table1[ColumnB], Table1[ColumnC]))`
 3. Voer de - nu netjes opgemaakte - measuredefinitie in binnen het Power BI model.
 4. Maak een **Table visualisatie** waarin je de volgende velden neerzet:
    * **ColumnA**
@@ -62,7 +62,7 @@ De functie `ALL` hebben we eerder al gebruikt. Met wat we zojuist geleerd hebben
 De functie **ALL** verwijdert alle impliciete filters van de kolommen die je expliciet benoemt: `ALL(Table1[ColumnA])` verwijdert alle impliciete filters van `Table1[ColumnA]`. De functie **ALLEXCEPT** verwijdert juist de filters van kolommen die je *niet* expliciet benoemt. Je moet daarom wel zowel een tabel als minimaal één kolom benoemen.
 
 7. Maak een nieuwe measure `ALLEXCEPT measure` met de volgende definitie:
-   * `ALLEXCEPT Measure = CALCULATE ( SUM ( 'Table1'[ColumnE] ); ALLEXCEPT ( Table1; Table1[ColumnD] ) )`
+   * `ALLEXCEPT Measure = CALCULATE ( SUM ( 'Table1'[ColumnE] ), ALLEXCEPT ( Table1, Table1[ColumnD] ) )`
 8. Voeg de nieuwe measure toe aan de twee tabellen (zowel de tabel zónder, als de tabel mét ColumnD). Zoals je ziet functioneren deze exact hetzelfde.
 
 `ALLEXCEPT` is strikt gezien een overbodige functie: alles wat je met `ALLEXCEPT` doet, kun je ook met `ALL`. Het maakt de leesbaarheid van je calculated measure echter een stuk beter.

@@ -11,7 +11,7 @@ De measure `Running Total` is een klein beetje veranderd: er is een `FILTER`-sta
 ```dax
 Running Total =
 VAR HuidigJaar = MAX('Dimension Date'[Date])
-VAR RunningTotal = CALCULATE(SUM('Fact Sale'[Quantity]); FILTER(ALL('Dimension Date'); [Date] <= HuidigJaar))
+VAR RunningTotal = CALCULATE(SUM('Fact Sale'[Quantity]), FILTER(ALL('Dimension Date'), [Date] <= HuidigJaar))
 RETURN RunningTotal
 ```
 

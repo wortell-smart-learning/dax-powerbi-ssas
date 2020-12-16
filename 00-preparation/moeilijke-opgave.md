@@ -13,7 +13,7 @@ We gebruiken daarbij het volgende vereisten:
 
 Wanneer je een iterator-functie inzet, moet je altijd bedenken over welke tabel je wilt itereren. Aangezien een *iterator-functie* een *row context* introduceert en we een uitsplitsing willen maken op *Color*, lijkt het logisch om over `'Dimension Stock Item'` te itereren. Een tweede kandidaat zou `'Fact Sale'` kunnen zijn (via `RELATED` kunnen we dan alsnog de kleuren uitlezen)
 
-Een eerste zet zou daarom kunnen zijn: `strange quantity measure = SUMX('Dimension Stock Item'; 'Fact Sale'[Quantity])`. Dit werkt echter niet! Vanuit de *row context* binnen `'Dimension Stock Item'` gezien is er niet één item dat we direct kunnen ophalen uit de tabel `'Fact Sale'`. Dat is ook logisch: producten worden bij voorkeur meerdere keren verkocht.
+Een eerste zet zou daarom kunnen zijn: `strange quantity measure = SUMX('Dimension Stock Item', 'Fact Sale'[Quantity])`. Dit werkt echter niet! Vanuit de *row context* binnen `'Dimension Stock Item'` gezien is er niet één item dat we direct kunnen ophalen uit de tabel `'Fact Sale'`. Dat is ook logisch: producten worden bij voorkeur meerdere keren verkocht.
 
 De oplossing kan dus vooralsnog twee kanten op:
 

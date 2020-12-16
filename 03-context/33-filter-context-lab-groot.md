@@ -6,7 +6,7 @@ Context is ook een complex onderwerp. Mocht er iets niet duidelijk zijn, trek di
 
 ## Voorbereiding
 
-Open het Power BI bestand `34-filter-context-lab-groot`.
+Open het Power BI bestand `33-filter-context-lab-groot`.
 
 ## Eenvoudige context-opdrachten
 

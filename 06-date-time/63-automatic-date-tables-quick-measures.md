@@ -58,7 +58,7 @@ Met name `CALENDARAUTO` is erg interessant: deze kijkt in heel je datamodel naar
 8. Maak een nieuwe datumtabel met behulp van `CALENDARAUTO`. Noem de tabel `Datums`
 1. Voeg aan deze tabel de volgende kolommen toe:
     * Maandnummer
-    * Maand kort (gebruik hier de definitie `FORMAT([Date]; "mmm")`)
+    * Maand kort (gebruik hier de definitie `FORMAT([Date], "mmm")`)
 1. Maak nu een visualisatie waarin je de `'Datums'[Maand kort]` uitzet tegen `[Count of Invoice Rows]`
     * Maak de benodigde aanpassingen in het datamodel zodat de aantallen ook kloppen
     * Maak de benodigde aanpassingen in de `'Datums'` tabel om ervoor te zorgen dat de kolom `[Maand kort]` correct gesorteerd wordt. [Mocht je er niet uitkomen, dan staat hier een tip over hoe dit op te lossen](https://radacad.com/sort-by-column-in-power-bi)
