@@ -13,7 +13,7 @@ Om de rekenkundige operators te testen, maken we een eenvoudige measure aan waar
 
 ## Logical (logisch)
 
-5. Maak een measure met de naam `Is het vandaag donerdag?` die twee waarden kan hebben:
+5. Maak een measure met de naam `Is het vandaag donderdag?` die twee waarden kan hebben:
    * Als het vandaag donderdag is: "Het is vandaag donderdag"
    * Als het vandaag geen donderdag is: "Het is vandaag geen donderdag!"
    * Gebruik IF

@@ -19,7 +19,6 @@ Verander ook de volgende kolommen in **Geheel getal**:
 * Salesperson Key
 * Picker Key
 * WWI Order ID
-* WWI Backorder ID
 * Quantity
 
 Wanneer je het bestand nu bekijkt met Verkenner, zie je dat het weliswaar iets kleiner geworden is, maar niet heel veel (ca. 5,21 MB / 5.346 kB). De reden hiervoor is tweeledig:
