@@ -68,17 +68,19 @@ Probeer nu de volgende opdrachten uit te voeren met behulp van variabelen en het
 16. Maak een nieuwe *measure* met de naam `TweePlusTweeMeasure`
     * Zorg dat zich in de measure een variabele met de naam `Twee`  bevindt, en de waarde `2`
     * Het resultaat van de measure moet het optellen van deze  variabele met zichzelf zijn
-    * Voeg een kolomdiagram toe waarin je deze measure uitzet tegen *Calendar Year*. Controleer of de resultaten kloppen met wat je zou verwachten.
+    * Voeg een kolomdiagram toe waarin je deze measure uitzet tegen *Calendar Year*. 
+      * Wat voor resultaat verwacht je?
+      * Klopt het met het resultaat dat je verwachtte?
 17. Maak nu een *calculated column* aan met de naam `TweePlusTweeColumn`, in de tabel `Dimension Date`. Geef deze dezelfde definitie als `TweePlusTweeMeasure`.
     * Maak ook hier een kolomdiagram aan waarin je deze *Calculated  Column* uitzet tegen *Calendar Year*. Vergelijk de resultaten van  de vorige opdracht en deze en verklaar wat er achter de schermen  gebeurt:
       * Waarom krijg je de getallen die je ziet?
       * Wat rekent Power BI achter de schermen uit?
       * Komt het getal je bekend voor?
       * Wat gebeurt er als je de manier van aggregeren verandert naar bijv. een som? Kun je de getallen dan nog steeds verklaren?
-18. Maak een *measure* aan met de naam `VreemdeBelasting`.
+18. Maak een *measure* aan met de naam `VreemdeBelasting`. Dit is een belasting die in de even jaren (2010, 2012, 2014) simpelweg opgenomen staat in `'Fact Sale'[Tax Amount]`, maar in de *oneven jaren* (2011, 2013, ...) berekend wordt door 25% van de *winst* te nemen. 
     * Voor de even jaren neem je de **SUM** van `'Fact Sale'[Tax Amount]`
     * Voor de oneven jaren neem je 25% over de **SUM** van `'Fact Sale'[Profit]`
-    * Je bepaalt of een jaar even is met de functie `ISEVEN`
+    * Gebruik de functie `ISEVEN`
     * Gebruik variabelen om deelberekeningen op te slaan
     * Binnen een *measure* kun je niet direct de waarde van één jaar gebruiken. Om dit op te lossen, sla je als eerste stap het huidige geselecteerde jaar op in een variabele. Dit doe je met de definitie `VAR GeselecteerdJaar = MAX('Dimension Date'[Calendar Year])`. Gebruik deze variabele wanneer je het huidige jaar wilt weten of vergelijken.
     * Zorg ervoor dat de measure de tabel **Fact Sale** als *home table* (starttabel) heeft.

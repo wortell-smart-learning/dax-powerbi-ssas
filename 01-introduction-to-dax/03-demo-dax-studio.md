@@ -4,7 +4,7 @@ DAX is behalve definitie-taal (waarin je de definitie van een kolom, measure of 
 
 In deze demonstratie krijg je hier een korte introductie van te zien, door te werken met DAX Studio. DAX Studio is een gratis tool om DAX queries mee te kunnen uitvoeren.
 
-Op de cursus-VM is DAX studio al geïnstalleerd. Je kunt de tool echter altijd gratis downloden vanaf [https://daxstudio.org](https://daxstudio.org/).
+Je kunt de tool gratis downloaden vanaf [https://daxstudio.org](https://daxstudio.org/).
 
 In deze korte demo zullen we drie dingen doen:
 
@@ -13,7 +13,7 @@ In deze korte demo zullen we drie dingen doen:
 
 0. Zorg ervoor dat het Power BI demobestand uit de vorige demonstratie geopend is.
 1. Zoek in het startmenu naar DAX studio. Start het programma.
-2. Kies er in het welkomstscherm voor om verbinding te maken met het Power BI model `02-demo-functies-queries-categorieen` en kies **Connect**
+2. Kies er in het welkomstscherm voor om verbinding te maken met het Power BI model `04-demo-functies-queries-categorieen` en kies **Connect**
 
 ![Startscherm van DAX studio](img/02-06-dax-studio-start.png)
 
