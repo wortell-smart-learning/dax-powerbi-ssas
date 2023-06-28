@@ -1,15 +1,14 @@
 # Filtering - minilab 1
 
-Open het bestand `51-filtering-minilab1.pbix`.
+Open the file `51-filtering-minilab1.pbix`.
 
-1. Maak een calculated table met de naam `Rode Producten`. Zorg er met DAX voor dat deze ook alleen rode producten bevat uit de tabel `Dimension Stock Item`
-   * Controleer de resultaten in de data-weergave van Power BI
-2. Maak in de tabel `Fact Sale` een calculated measure `Belasting op Rode Producten`. Zorg ervoor dat de som van `'Fact Sale'[Tax Amount]` wordt berekend, maar alleen voor de rode producten
-   * Wanneer je in een tabel de kolom `'Dimension Stock Item'[Color]` uitzet tegen de nieuwe measure `[Belasting op Rode Producten]` moet alleen de kleur *Red* worden weergegeven:  
+1. Create a calculated table named `Rode Producten` (Red Products). Use DAX to ensure that it only contains red products from the `Dimension Stock Item` table.
+   * Check the results in Power BI's data view.
+2. In the `Fact Sale` table, create a calculated measure named `Belasting op Rode Producten` (Tax on Red Products). Make sure to calculate the sum of `'Fact Sale'[Tax Amount]`, but only for red products.
+   * When you disable the `'Dimension Stock Item'[Color]` column against the new measure `[Belasting op Rode Producten]`, only the color *Red* should be displayed:  
 ![Alleen rode producten](img/05-alleen-rode-producten.png)
-   * Wanneer je bij de kolom `[Color]` kiest voor "Items zonder gegevens weergeven", zie je dat de andere kleuren geen waarde hebben:  
+   * When you select "Items without data" for the `[Color]` column, you'll see that the other colors have no value:  
 ![Items zonder gegevens weergeven](img/05-02-items-zonder-gegevens.png)
-3. Maak nu in de tabel `Fact Sale` een calculated measure `Belasting op Grijze Producten in 2013`.
-   * Maak gebruik van een **matrix** en de functionaliteit **Items zonder gegevens weergeven** om de resultaten te controleren.  
+3. Now, create a calculated measure named `Belasting op Grijze Producten in 2013` (Tax on Gray Products in 2013) in the `Fact Sale` table.
+   * Use a **matrix** and the **Items without data** functionality to verify the results.  
 ![Antwoord voor belasting op grijze producten in 2013](img/05-03-grijze-belasting-2013.png)
-

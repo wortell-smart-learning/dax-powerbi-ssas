@@ -1,19 +1,19 @@
-# Demo: Functiecategorieën
+# Demo: Function Categories
 
-> In deze training zijn de demo's iets anders dan je normaal gesproken gewend bent: in plaats van een trainer die een demonstratie geeft, hebben we ervoor gekozen om de demonstratie uit te schrijven, waarna je de demonstratie feitelijk zelf geeft. Op die manier blijven sommige zaken zo beter hangen, en is er minder kans dat je iets mist. Bijkomend voordeel: je kunt de demonstratie er later eenvoudig weer eens bijpakken om iets te demonstreren of uit te leggen.
+> In this training, the demos are slightly different from what you're normally used to: instead of a trainer giving a demonstration, we have chosen to write out the demonstration, after which you will actually give the demonstration yourself. This way, some things will stick better, and there is less chance of missing something. An additional advantage is that you can easily refer back to the demonstration later to demonstrate or explain something.
 
-## Voorbereiding en scope
+## Preparation and Scope
 
-In deze demo gaan we kijken naar wat DAX eigenlijk is. We bekijken daarvoor naar twee zaken:
+In this demo, we will take a look at what DAX actually is. We will examine two things:
 
-1. **Functies binnen DAX**. Zoals eerder uitgelegd heeft DAX acht verschillende functiecategorieën. We bekijken van alle categorieën één of meer voorbeelden van functies.
-2. **DAX als query-taal**. We maken kennis met de tool **DAX Studio**, waarmee we DAX queries kunnen "afluisteren" van Power BI of Analysis Services, maar ook zelf DAX queries schrijven.
+1. **Functions within DAX**. As explained earlier, DAX has eight different function categories. We will look at one or more examples of functions from each category.
+2. **DAX as a query language**. We will be introduced to the tool **DAX Studio**, which allows us to "listen" to DAX queries from Power BI or Analysis Services, as well as write our own DAX queries.
 
-Er staat al een Power BI-bestand klaar waar we in deze demo mee zullen werken - het bestand heet `04-demo-functies-queries-categorieen`. Open dit bestand om met de demo aan de slag te kunnen.
+A Power BI file is already available for us to work with in this demo - the file is called `04-demo-functions-queries-categories`. Open this file to get started with the demo.
 
-## Voorbeelden van functies
+## Examples of Functions
 
-DAX heeft acht verschillende functiecategorieën:
+DAX has eight different function categories:
 
 * DateTime
 * Filter
@@ -24,217 +24,209 @@ DAX heeft acht verschillende functiecategorieën:
 * Statistical
 * Text
 
-Om hier wat gevoel bij te krijgen zullen we van elke functie twee of drie voorbeelden bekijken van functies.
+To get a feel for this, we will look at two or three examples of functions from each category.
 
 ### DateTime
-
 #### YEAR()
 
-DateTime-functies kunnen je helpen om datums en tijden te verwerken. Stel dat je bijvoorbeeld de hoeveelheid verkochte producten per jaar wilt weergeven.
+DateTime functions can help you process dates and times. For example, suppose you want to display the quantity of products sold per year.
 
-1. Uit de tabel **Order** selecteer je het veld **Order Date**. Op je canvas zie je nu een tabel met één kolom, waarin de datums staan waarop de producten verkocht zijn.
-2. Sleep nu vanuit de tabel **Order** het veld **Quantity** op de lijst met datums.
+1. From the **Order** table, select the **Order Date** field. Now, on your canvas, you will see a table with one column containing the dates on which the products were sold.
+2. Drag the **Quantity** field from the **Order** table onto the list of dates.
 
-De tabel laat nu de verkopen per dag zien, maar we willen graag de verkopen per *jaar*. Om dit te bereiken voegen we een **calculated column** toe.
+The table now shows sales per day, but we want to see sales per *year*. To achieve this, we will add a **calculated column**.
 
-3. In het paneel met **velden** aan de rechterkant van je scherm selecteer je de tabel **Order**.
-4. In het lint (de ribbon) bovenin zie je dat je automatisch naar het kopje **Tabelhulpmiddelen** gebracht wordt. Hier heb je de mogelijkheid om een nieuwe kolom toe te voegen.
-5. Klik op **Nieuwe kolom**. Onder het lint verschijnt de DAX-editor. De tekst `Kolom = ` staat weergegeven
-6. Vervang deze tekst door `Order Year = YEAR([Order Date])`
-7. Maak nu een tweede tabel, waarin je `Order Year` en `Quantity` naast elkaar zet.
+3. In the **Fields** pane on the right side of your screen, select the **Order** table.
+4. In the ribbon at the top, you will automatically be taken to the **Table Tools** tab. Here, you have the option to add a new column.
+5. Click on **New column**. Below the ribbon, the DAX editor will appear, with the text `Column = ` displayed.
+6. Replace this text with `Order Year = YEAR([Order Date])`.
+7. Now, create a second table in which you place `Order Year` and `Quantity` side by side.
+Power BI will by default try to sum every numerical value (unless you have indicated otherwise in the model). This includes `Order Year`. Fortunately, you can easily adjust this by selecting the table you just created and clicking on the arrow next to **Order Year** under the **Values** section. Now choose **Do Not Summarize**:
 
-Power BI zal standaard proberen elke numerieke waarde op te tellen (tenzij je in het model hebt aangegeven dat dit niet de bedoeling is). Zo ook `Order Year`. Gelukkig kun je dit vrij eenvoudig aanpassen: klik de tabel die je zojuist gemaakt hebt, en klik onder het kopje **Waarden** op het pijltje naast **Order Year**. Kies nu voor **Niet samenvatten**:
+![Instructing Power BI not to summarize Order Year](img/02-01-order-year-dont-summarize.png)
 
-![Power BI instrueren om Order Year niet te aggregeren](img/02-01-order-year-dont-summarize.png)
-
-> Naast de functie `YEAR` zijn er ook diverse soortgelijke functies die bijvoorbeeld maanden of dagen uit een datum ophalen. Een paar voorbeelden:
+> In addition to the `YEAR` function, there are also several similar functions that extract months, days, and other date components. Here are a few examples:
 > 
-> * **DAY** geeft het dagnummer binnen een maand (1-31)
-> * **MONTH** geeft het maandnummer terug (1-12)
-> * **YEAR** geeft het jaar terug
+> * **DAY** returns the day number within a month (1-31)
+> * **MONTH** returns the month number (1-12)
+> * **YEAR** returns the year
 >
-> Op dezelfde wijze kun je **QUARTER**, **WEEKDAY**, **HOUR**, **MINUTE** en **SECOND** gebruiken. Er is ook een **WEEKNUM** functie, maar let daar even goed op de weeknummering: in Europa gebruiken we een andere weeknummering dan in de V.S.!)
+> Similarly, you can use **QUARTER**, **WEEKDAY**, **HOUR**, **MINUTE**, and **SECOND**. There is also a **WEEKNUM** function, but be careful with the week numbering as it differs between Europe and the U.S.!)
 
-#### DATEDIFF en EOMONTH
+#### DATEDIFF and EOMONTH
 
-Stel nu dat we voor elke datum zouden willen berekenen hoeveel dagen er nog over zijn tot het einde van de maand. Dat vereist twee stappen:
+Now let's say we want to calculate the number of days remaining until the end of the month for each date. This requires two steps:
+* We need to know when the end of the month is (which is not very straightforward in February).
+* We need to calculate the number of days between a given date and the last date within the month.
 
-* We moeten weten wanneer het einde van de maand is (iets dat in februari niet heel eenvoudig is)
-* We moeten uitrekenen hoeveel dagen er tussen een gegeven datum en de laatste datum binnen de maand zitten
+Luckily, DAX has a built-in function to help us with the first problem. The **EOMONTH** function always tells us what the end of the month is.
 
-Gelukkig heeft DAX een functie aan boord om ons te helpen met het eerste probleem. De functie **EOMONTH** vertelt ons altijd wat het einde van de maand is.
+8. Create a **New column** in the **Order** table. Give it the definition `End of Order Month = EOMONTH([Order Date], 0)`.
+9. Add this column to the table where you had plotted `Order Date` against `Quantity` (i.e., the very first table).
+10. You will now see the last day of the respective month for each displayed `Order Date`:
 
-8. Maak een **Nieuwe kolom** in de tabel **Order**. Geef deze de definitie `End of Order Month = EOMONTH([Order Date], 0)`.
-9. Voeg deze kolom toe aan de tabel waarin je `Order Date` tegen `Quantity` had uitgezet (dus de allereerste tabel).
-10. Je ziet nu voor elke weergegeven `Order Date` wat de laatste dag is in de betreffende maand:
+![Demonstration of EOMONTH](img/02-02-eomonth.png)
 
-![Demonstratie van EOMONTH](img/02-02-eomonth.png)
+> As you can see, the EOMONTH function has two arguments: the date and a `0`. The second argument tells how many months ahead you want to look. This allows you to not only look at the last day of the current month but also the last day of the next month (`EOMONTH([Order Date], 1)`).
 
-> Zoals je ziet heeft de EOMONTH-functie twee argumenten: de datum, en een `0`. Het tweede argument verteld hoeveel maanden je vooruit wilt kijken. Dit geeft je de mogelijkheid om niet alleen de laatste dag van de huidige maand te bekijken, maar ook de laatste dag van de volgende maand (`EOMONTH([Order Date], 1)`).
+11. Create a **New column** in the **Order** table. Give it the definition `Days until end of Order Month = DATEDIFF([Order Date], [End of Order Month], DAY)`.
+12. Add this column to the table where you just added `End of Order Month` as well.
 
-11. Maak een **Nieuwe kolom** in de tabel **Order**. Geef deze de definitie `Days until end of Order Month = DATEDIFF([Order Date], [End of Order Month], DAY)`.
-12. Voeg deze kolom toe aan de tabel waarin je zojuist ook `End of Order Month` hebt toegevoegd.
-13. Omdat `Days until end of Order Month` opnieuw een numerieke waarde is, zal Power BI deze proberen te aggregeren. Zorg ervoor dat dit niet meer gebeurt.
-14. Herschik de kolommen zodat `Quantity` als laatste kolom wordt weergegeven.
+13. Since `Days until end of Order Month` is again a numerical value, Power BI will try to aggregate it. Make sure this no longer happens.
 
-Je ziet nu voor elke orderdatum hoeveel er besteld is, evenals hoeveel dagen er nog over zijn in de maand.
+14. Rearrange the columns so that `Quantity` is displayed as the last column.
+
+You can now see for each order date how much was ordered, as well as how many days are left in the month.
 
 ### Filter
 
-Filter functies zijn één van de meer complexe functies binnen Power BI. Om de demonstratie niet te diepgaand te laten zijn (we gaan later uitgebreid in op filters en wijden er zelfs een hele module aan) volgt hier een kort voorbeeld. We willen hierin een analyse doen van de betaalde belasting per kleur van het product dat we verkochten:
+Filter functions are one of the more complex functions within Power BI. To keep the demonstration from getting too extensive (we will cover filters in depth later and even dedicate a whole module to them) here is a brief example. We want to analyze the paid tax per color of the product we sold:
 
-15. Maak een nieuw tabblad aan, geef deze de naam **Filter**
-16. Sleep uit de tabel **Stock Item** het veld **Color** op het canvas. 
+15. Create a new tab, name it **Filter**.
+16. Drag the field **Color** from the table **Stock Item** onto the canvas. 
 
-Op het canvas verschijnt nu een tabel met één kolom. Daarin staan de kleuren van de verkochte producten.
+On the canvas, a table with one column now appears. It lists the colors of the sold products.
+17. Pull the **Tax Amount** field from the **Sale** table on top of the previously created table.
 
-17. Sleep uit de tabel **Sale** het veld **Tax Amount** bovenop de zojuist aangemaakte tabel.
+The table now shows how much tax is paid for each product color. To put it in technical terms, the **Sale** table is *filtered* for each color (Black, Blue, Gray, ...), and in the **Tax Amount** column, only the sum of the rows for that color is displayed.
 
-De tabel geeft nu per productkleur aan hoeveel belasting hiervoor betaald is. Wanneer je dat iets technischer uitdrukt, zou je kunnen stellen dat de tabel **Sale** *gefilterd* wordt op elke kleur (Black, Blue, Gray, ...) en dat er in de kolom **Tax Amount** vervolgens alleen een optelling van de rijen van die kleur wordt gedaan.
+We can remove the filters from a table using the **ALL** function:
 
-Met de functie **ALL** kunnen we de filters van een tabel vervolgens verwijderen:
+18. In the **Fields** pane on the right side of your screen, select the **Sale** table.
+19. In the ribbon at the top, you will automatically be taken to the **Table Tools** section. Here, you have the option to add a new measure.
+20. Click on the **New Measure** button.
+21. Replace the text `Measure =` with the DAX formula `All Tax Amount = CALCULATE(SUM([Tax Amount]), ALL('Order'))`.
+22. Add the **All Tax Amount** column to the table along with the **Color** and **Tax Amount** columns.
 
-18. In het paneel met **velden** aan de rechterkant van je scherm selecteer je de tabel **Sale**.
-19. In het lint (de ribbon) bovenin zie je dat je automatisch naar het kopje **Tabelhulpmiddelen** gebracht wordt. Hier heb je de mogelijkheid om een nieuwe meting (measure) toe te voegen. 
-20. Klik op de knop **Nieuwe meting**
-21. Vervang de tekst `Meting =` door de DAX-formule `All Tax Amount = CALCULATE(SUM([Tax Amount]), ALL('Order'))`
-22. Voeg de kolom `All Tax Amount` toe aan de tabel met `Color` en `Tax Amount`.
+You now have a table that shows the paid tax for each color on each row, as well as the total paid tax. The **ALL** function ensures that the "filter" for color is removed.
 
-Je hebt nu een tabel waarin op elke rij de betaalde belasting voor een kleur wordt weergegeven, evenals het totaal aan betaalde belasting. De functie `ALL` heeft er hier voor gezorgd dat de "filter" op kleur verwijderd werd.
-
-![Betaalde belasting en alle belasting per kleur in één tabel weergegeven](img/02-03-color-alltaxamt.png)
-
-> Zoals hierboven gesteld zijn filter functies de meer complexe functies binnen Power BI. Tegelijkertijd zijn ze de crux tot écht krachtige Power BI modellen en uitgebreide measures. Wanneer je de zaken hierboven slechts globaal volgde, is dat geen probleem - we komen hier later nog uitgebreider op terug.
+![Paid tax and total tax per color displayed in one table](img/02-03-color-alltaxamt.png)
+> As stated above, filter functions are the more complex functions within Power BI. At the same time, they are the key to truly powerful Power BI models and extensive measures. If you only roughly followed the above information, it's not a problem - we will go into more detail later.
 
 ### Information
 
-De categorie **information** omvat functies die je kunnen vertellen over de inhoud van een kolom, of soms zelfs van het systeem waar de klant momenteel mee werkt. Een voorbeeld is de functie **ISNUMBER**:
+The **information** category includes functions that can provide information about the contents of a column, or sometimes even about the system the customer is currently working with. An example is the **ISNUMBER** function:
 
-23. Maak een nieuw tabblad aan, hernoem deze naar **Information & Logical**
-24. Sleep uit de tabel **Customer** de kolom **Postal Code** op het canvas. 
+23. Create a new tab and rename it to **Information & Logical**.
+24. Drag the **Postal Code** column from the **Customer** table onto the canvas.
 
-Een tabel verschijnt met één kolom. Daarin vind je de waarden van het veld **Postal Code**.
+A table will appear with one column. In this column, you will find the values from the **Postal Code** field.
 
-25. Klik de tabel **Customer** aan, en maak een nieuwe kolom. Geef deze de volgende DAX-definitie: `Postal Code is Number = ISNUMBER([Postal Code])`
-26. Sleep het nieuwe veld **Postal Code Is Number** bovenop de bestaande tabel
+25. Click on the **Customer** table and create a new column. Give it the following DAX definition: `Postal Code is Number = ISNUMBER([Postal Code])`.
+26. Drag the new **Postal Code Is Number** field onto the existing table.
+You are now shown whether the values in the column **Postal Code** are numbers. *According to DAX, they are not!* The reason is that the numbers are stored as text here.
 
-Je krijgt nu te zien of de waarden in de kolom **Postal Code** getallen zijn. *Volgens DAX zijn ze dat dus niet!* De reden is dat de getallen hier als tekst zijn opgeslagen.
+27. In the **Customer** table, create a second new column with the DAX definition `Customer Key is Number = ISNUMBER([Customer Key])`.
+28. Drag both the **Customer Key** field and the **Customer Key is Number** field onto the table.
 
-27. Maak in de tabel **Customer** nu een tweede nieuwe kolom aan, met de DAX-definitie `Customer Key is Number = ISNUMBER([Customer Key])`.
-28. Sleep nu zowel het veld **Customer Key** als het veld **Customer Key is Number** op de tabel.
+![ISNUMBER demonstration](img/02-03-isnumber.png)
 
-![ISNUMBER demonstratie](img/02-03-isnumber.png)
-
-Het veld **Customer Key** is wel numeriek opgeslagen, en wordt ook zo weergegeven door **ISNUMBER**. **ISNUMBER** vertelt nu *informatie* over het *datatype* van een kolom.
+The **Customer Key** field is stored numerically and is also displayed as such by **ISNUMBER**. **ISNUMBER** now provides *information* about the *data type* of a column.
 
 ### Logical
 
-Het antwoord op de **ISNUMBER** uitvraag die we zojuist deden, is het antwoord waar (true) of onwaar (false). Dit worden ook wel "logische" antwoorden genoemd. De categorie functies die hiermee kan werken heten dan ook *logische* functies.
+The response to the **ISNUMBER** query we just made is either true or false. These responses are also referred to as "logical" answers. The category of functions that can work with this is called *logical* functions.
 
-Voor deze demonstratie doen we een eenvoudig voorbeeld: wanneer de kolom **Customer Key** numeriek is, willen we namelijk niet de tekst **Waar** zien, maar de tekst **Deze kolom is numeriek**.
-
+For this demonstration, we are doing a simple example: when the **Customer Key** column is numeric, we don't want to see the text **True**, but the text **This column is numeric** instead.
 #### IF
 
-29. Klik in de lijst met velden op de naam van het veld **Customer Key Is Number**. (Let op dat je niet op het selectievakje klikt - dan wordt er een veld toegevoegd aan je rapport!)
+29. Click on the name of the field **Customer Key Is Number** in the list of fields. (Be careful not to click on the checkbox - that will add a field to your report!)
 
-De DAX editor opent, met daarin de functie `Customer Key is Number = ISNUMBER([Customer Key])`.
+The DAX editor opens with the function `Customer Key is Number = ISNUMBER([Customer Key])` inside.
 
-30. Breid deze functie uit met een `IF` functie, zodat de DAX-definitie van deze kolom er als volgt uitziet: `Customer Key is Number = IF(ISNUMBER([Customer Key]), "Deze kolom is numeriek", "Deze kolom is niet numeriek")`
-31. Doe nu hetzelfde voor de kolom `Postal Code is Number`, zodat de DAX-definitie is `Postal Code is Number = IF(ISNUMBER([Postal Code]), "Deze kolom is numeriek", "Deze kolom is niet numeriek")`
+30. Expand this function with an `IF` function so that the DAX definition of this column looks as follows: `Customer Key is Number = IF(ISNUMBER([Customer Key]), "This column is numeric", "This column is not numeric")`.
+31. Now do the same for the column `Postal Code is Number`, so that the DAX definition is `Postal Code is Number = IF(ISNUMBER([Postal Code]), "This column is numeric", "This column is not numeric")`.
 
-Zoals je ziet in de resultaten kun je met **IF** logica inbouwen om je rapport slimmer, mooier of beter te laten functioneren.
+As you can see in the results, you can use **IF** to incorporate logic to make your report smarter, more beautiful, or function better.
 
 ### Math and trigonometry
 
-In de categorie **Math and trigonometry** zitten allerhande wiskundige functies. Daaronder ook de handige functies om af te ronden: `CEILING`
+The **Math and trigonometry** category includes various mathematical functions, including the helpful functions for rounding: `CEILING`.
+32. Create a new tab named **Math & Trig**
+33. Drag the **Tax Amount** field onto the canvas and change the visualization to a **table**
+34. In the **Sale** table, create a new **measure** with the definition: `Tax Amount Ceiled = CEILING(SUM([Tax Amount]), 1)`
+35. Drag this new measure onto the table to create a new column next to *Tax Amount*.
 
-32. Maak een nieuw tabblad aan met de naam **Math & Trig**
-33. Sleep het veld **Tax Amount** naar het canvas, en verander de visualisatie in een **tabel**
-34. Maak in de tabel **Sale** een nieuwe **meting** (*measure*) met de definitie: `Tax Amount Ceiled = CEILING(SUM([Tax Amount]), 1)`
-35. Sleep deze nieuwe meting naar de tabel, zodat er een nieuwe kolom naast *Tax Amount* komt.
+![CEILING rounds up](img/02-04-ceiling.png)
 
-![CEILING rondt af naar boven](img/02-04-ceiling.png)
-
-Zoals je hierboven gezien hebt, rondt `CEILING` altijd af naar boven. Het tweede argument is de *veelvoud* waar deze naar afrondt. Probeer deze maar eens uit met de volgende waarden:
+As you saw above, `CEILING` always rounds up. The second argument is the *multiple* to round up to. Try it out with the following values:
 
 * 10
 * 1000
 
 ### ParentChild
 
-**ParentChild**-functies zijn specifiek bedoeld voor hiërarchiën binnen DAX. Hier hebben we (nu) geen demo van opgenomen omwille van de tijd: hoewel niet bijzonder complex, is het wel een apart onderwerp dat niet heel veel helpt bij het beter begrijpen van de rest van DAX.
+**ParentChild** functions are specifically designed for hierarchies in DAX. We haven't included a demo for this at the moment due to time constraints, as while not particularly complex, it is a separate topic that doesn't contribute greatly to understanding the rest of DAX.
 
 ### Statistical
 
-Onder het kopje "statistische functies" verstaat DAX niet alleen statistieken als **MAX**, **SUM**, **STDEV.P** en **STDEV.S**. Ook de functies waarmee tabellen gegenereerd kunnen worden vallen onder deze categorie.
+Under the "statistical functions" heading, DAX doesn't just refer to statistics like **MAX**, **SUM**, **STDEV.P**, and **STDEV.S**. Functions that generate tables also fall into this category.
 
-In de cursus zullen we niet heel uitvoerig stilstaan bij deze categorie aan functies, maar ze zijn wel bijzonder nuttig! Daarom lichten we er in deze demo er drie uit:
+In the course, we won't go into great detail on this category of functions, but they are very useful! That's why we are highlighting three of them in this demo:
 
 * CROSSJOIN
 * SAMPLE
 
 #### CROSSJOIN
 
-36. Schakel binnen Power BI naar de **Gegevens-weergave**
-37. In het **Lint**, klik op **Nieuwe Tabel**
-38. Geef deze tabel de volgende definitie: `CrossJoin Voorbeeld = VALUES('Stock Item'[Color])`. Bekijk de resultaten.
+36. Switch to the **Data view** in Power BI.
+37. In the **Ribbon**, click on **New Table**.
+38. Define this table as follows: `CrossJoin Example = VALUES('Stock Item'[Color])`. Look at the results.
+![Example of VALUES](img/02-05-values.png)
 
-![Voorbeeld van VALUES](img/02-05-values.png)
+The function **VALUES** we are using here is not a *statistical* function, but a *filter* function. It returns a table with only one column, containing unique values. In this case, there are only 9 unique values, while the underlying *stock item* table had 672 rows. This is useful when we continue with **CROSSJOIN**:
 
-De functie **VALUES** die we hier gebruiken is geen *statistical*, maar een *filter* functie. Deze geeft een tabel met één kolom terug, en daarin alleen unieke waarden. Dat zijn er dus maar 9, terwijl in de onderliggende tabel *stock item* 672 rijen aanwezig waren. Dat is wel zo handig voor wanneer we nu met **CROSSJOIN** verder gaan:
+39. Change the table definition to `CrossJoin Example = CROSSJOIN(VALUES('Stock Item'[Color]), City)`
 
-39. Verander nu de definitie van de tabel naar `CrossJoin Voorbeeld = CROSSJOIN(VALUES('Stock Item'[Color]), City)`
+The **CROSSJOIN** function literally does what its name implies: it creates a "cross join" between two tables. For each row in the first table, all rows from the second table are added.
 
-De functie **CROSSJOIN** doet letterlijk wat de naam impliceert: hij maakt een "cross join" tussen twee tabellen: voor elke rij uit de eerste tabel worden alle rijen uit de tweede tabel toegevoegd.
+Since the first table is the *VALUES* expression (with 9 rows) and the second table is the complete City table (with 116,295 rows), this results in a total of **1,046,655 rows**! However, this is not a problem for a DAX data model: the table was filled within seconds.
 
-Aangezien de eerste tabel de *VALUES*-expressie is (met 9 rijen) en de tweede de volledige tabel City (met 116.295 rijen) levert dit een totaal op van **1.046.655 rijen**! Toch is het formaat voor een DAX datamodel niet bezwaarlijk: binnen enkele seconden was de tabel gevuld.
-
-Sla het bestand nu op, en kijk naar het formaat - je zult zien dat het alles meevalt.
+Now save the file and look at the size - you will see that it is not a significant increase.
 
 #### SAMPLE
+40. Create a new table again. Give it the following DAX expression: `Sample-example = SAMPLE(1000, 'CrossJoin Example', [City])`
 
-40. Maak opnieuw een nieuwe tabel. Geef deze de volgende DAX-expressie: `Sample-voorbeeld = SAMPLE(1000, 'CrossJoin Voorbeeld', [City])`
-
-De functie `SAMPLE` kan een steekproef nemen uit een bestaande tabel. Dat kan helpen om bijvoorbeeld op een kleinere set data nieuwe berekeningen uit te testen, zonder de (soms gigantische) onderliggende datasets aan te hoeven spreken.
+The `SAMPLE` function can take a sample from an existing table. This can help, for example, to test new calculations on a smaller set of data without having to access the (sometimes huge) underlying datasets.
 
 ### Text
 
-De laatste functiecategorie is **Text**. Hier kun je eenvoudig met teksten werken. De meeste van deze functies spreken voor zich - in de demo gebruiken we de functie **SUBSTITUTE** om een tekst te wijzigen.
+The last function category is **Text**. Here you can easily work with texts. Most of these functions speak for themselves - in the demo, we use the **SUBSTITUTE** function to modify a text.
 
-41. In de **gegevens-weergave** van Power BI open je de tabel **City**. 
+41. In the **data view** of Power BI, open the **City** table.
 
-De kolom **Sales Territory** bevat hier de waarden **Southeast** en **Southwest**. In de richtlijnen van het bedrijf moet dit echter *South East* en *South West* zijn. Dat gaan we aanpassen.
+The **Sales Territory** column contains the values **Southeast** and **Southwest**. However, according to the company guidelines, this should be *South East* and *South West*. We are going to make this adjustment.
 
-> Uiteraard kun je dit beter structureel oplossen in een ETL- en/of datakwaliteitsstap. Je bent echter nu een dashboard aan het finetunen bent voor een presentatie, en wilt liever de data niet verversen.
+> Of course, you can solve this more structurally in an ETL and/or data quality step. However, you are fine-tuning a dashboard for a presentation now, and you prefer not to refresh the data.
 
-42. Voeg een nieuwe kolom toe aan de tabel **City**. Geef deze de volgende definitie:
-
+42. Add a new column to the **City** table. Give it the following definition:
 ```DAX
 Sales Territory Corrected = SUBSTITUTE([Sales Territory], "South", "South ")
 ```
 
-## Acht of tien functiecategorieën?
+## Eight or ten function categories?
 
-Eerder stelden we dat er acht functiecategorieën zijn in DAX. DAX onderscheidt echter nog een negende en zelfs een tiende functiecategorie, die we hier niet bespreken. Om je toch een idee te geven nemen we ze hier op:
+Earlier, we stated that there are eight function categories in DAX. However, DAX actually distinguishes a ninth and even a tenth function category, which we will not discuss here. To give you an idea, we will include them here:
 
-### Time-intelligence functies
+### Time-intelligence functions
 
-Hoewel deze strikt gezien ook onder **Date & Time** zouden kunnen vallen, zijn deze functies vaak iets ingewikkelder. Voor een goed overzicht is er daarom in de documentatie voor gekozen om ze te scheiden. Gebruikers die in het lijstje met datum-functies `EOMONTH` tegenkomen, worden dan niet in de war gebracht met de "time intelligence" functie `ENDOFMONTH`.
+Although these could technically fall under **Date & Time**, these functions are often a bit more complex. To provide a clear overview, the documentation has chosen to separate them. This way, users who come across the date function `EOMONTH` will not be confused with the "time intelligence" function `ENDOFMONTH`.
 
-De Time Intelligence functies voeren voor nu te diep - verderop in de cursus zullen we deze echter zeker behandelen!
+The Time Intelligence functions go into too much depth for now - we will certainly cover them later in the course!
 
 ### Other functions
 
-DAX kent nog een laatste categorie: "other functions". Hierin zitten enkele erg nuttige functies. Probeer de volgende functies maar eens toe te voegen als **calculated table**:
+DAX has one final category: "other functions". This category includes some very useful functions. Try adding the following functions as a **calculated table**:
 
-* **GENERATESERIES** geeft een tabel van één kolom met daarin oplopende getallen:
-
-```dax
-Generate Series voorbeeld = GENERATESERIES(1, 5000)
-```
-
-* DAX kent een inline **table constructor** die het erg eenvoudig maakt om een nieuwe tabel handmatig in te vullen
+* **GENERATESERIES** returns a table with one column containing ascending numbers:
 
 ```dax
-Table constructor voorbeeld = {1, 2, 3}
+Generate Series example = GENERATESERIES(1, 5000)
 ```
+
+* DAX has an inline **table constructor** that makes it very easy to manually populate a new table:
+
+```dax
+Table constructor example = {1, 2, 3}
+```
+

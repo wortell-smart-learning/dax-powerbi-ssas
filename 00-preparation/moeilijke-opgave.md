@@ -1,41 +1,38 @@
+In a previous lab, you implemented the `strange quantity measure` function. We are going to reimplement it using an iterator function.
 
+We will use the following requirements:
 
-In een eerder lab heb je de functie `strange quantity measure` geïmplementeerd. We gaan deze opnieuw implementeren met behulp van een iterator-functie.
+* We are looking at the quantity of sold products: `'Fact Sale'[Quantity]`
+* When the numbers we are looking at are for **blue** products, we should remove the filter on `'Dimension Date'[Calendar Year]`. The blue products should always show the numbers for all years.
+* When the numbers we are looking at are for **gray** products, we should show the numbers for the **red** products.
+* In all other cases, the filter context should remain intact.
 
-We gebruiken daarbij het volgende vereisten:
+### Which table should we iterate over?
 
-* We kijken naar de hoeveelheid verkochte producten: `'Fact Sale'[Quantity]`
-* Wanneer de cijfers waar we naar kijken over **blauwe** producten gaan, moeten de filter van `'Dimension Date'[Calendar Year]` verwijderd worden. De blauwe producten laten dus altijd de cijfers over alle jaren zien.
-* Wanneer de cijfers waar we naar kijken over **grijze** producten gaan, moeten de cijfers van de **rode** producten weergegeven worden.
-* In alle overige gevallen wordt de filter context intact gelaten
+When using an iterator function, you should always consider which table you want to iterate over. Since an *iterator function* introduces a *row context* and we want to break down by *Color*, it seems logical to iterate over `'Dimension Stock Item'`. Another candidate could be `'Fact Sale'` (we can still retrieve the colors using `RELATED`).
 
-### Over welke tabel itereren we?
+A first attempt could be: `strange quantity measure = SUMX('Dimension Stock Item', 'Fact Sale'[Quantity])`. However, this doesn't work! From the *row context* within `'Dimension Stock Item'`, there isn't a single item that we can directly retrieve from the `'Fact Sale'` table. This is also logical: products are preferably sold multiple times.
 
-Wanneer je een iterator-functie inzet, moet je altijd bedenken over welke tabel je wilt itereren. Aangezien een *iterator-functie* een *row context* introduceert en we een uitsplitsing willen maken op *Color*, lijkt het logisch om over `'Dimension Stock Item'` te itereren. Een tweede kandidaat zou `'Fact Sale'` kunnen zijn (via `RELATED` kunnen we dan alsnog de kleuren uitlezen)
+So the solution can go in two directions:
 
-Een eerste zet zou daarom kunnen zijn: `strange quantity measure = SUMX('Dimension Stock Item', 'Fact Sale'[Quantity])`. Dit werkt echter niet! Vanuit de *row context* binnen `'Dimension Stock Item'` gezien is er niet één item dat we direct kunnen ophalen uit de tabel `'Fact Sale'`. Dat is ook logisch: producten worden bij voorkeur meerdere keren verkocht.
+* We iterate over `'Fact Sale'`, and use `'RELATED'` to check which color is selected. With that, we can implement our logic.
+* We iterate over `'Dimension Stock Item'`, and introduce a new filter context.
+we do not have direct access to `'Fact Sale'[Quantity]`. And because there is not a one-to-one 
 
-De oplossing kan dus vooralsnog twee kanten op:
-
-* We itereren over `'Fact Sale'`, en gebruiken `'RELATED'` om te kijken welke kleur er geselecteerd is. Daarmee kunnen we dan onze logica implementeren
-* We itereren over `'Dimension Stock Item'`, en introduceren een nieuwe filter context 
-hebben we geen directe toegang tot `'Fact Sale'[Quantity]`. En omdat er niet een één op 
-
-* Bedenk goed over welke tabel je wilt gaan itereren en waarom.
-* We kijken naar de hoeveelheid verkochte producten: `'Fact Sale'[Quantity]`
-* Wanneer de cijfers waar we naar kijken over **blauwe** producten gaan, moeten de filter van `'Dimension Date'[Calendar Year]` verwijderd worden. De blauwe producten laten dus altijd de cijfers over alle jaren zien.
-* Wanneer de cijfers waar we naar kijken over **grijze** producten gaan, moeten de cijfers van de **rode** producten weergegeven worden.
-* In alle overige gevallen wordt de filter context intact gelaten
-* Maak gebruik van de kennis die je inmiddels hebt over:
+* Consider carefully which table you want to iterate over and why.
+* We are looking at the quantity of sold products: `'Fact Sale'[Quantity]`
+* When the numbers we are looking at are for **blue** products, the filter of `'Dimension Date'[Calendar Year]` should be removed. So the blue products always show the numbers for all years.
+* When the numbers we are looking at are for **gray** products, the numbers of the **red** products should be displayed.
+* In all other cases, the filter context is kept intact.
+* Make use of the knowledge you already have about:
   * `SUMX`
   * `RELATED`
-  * `IF` (en geneste IF statements)
-  * `CALCULATE` in combinatie met `ALL`
+  * `IF` (and nested IF statements)
+  * `CALCULATE` combined with `ALL`
 
-Nog twee laatste tips:
+Two final tips:
 
-* Begin klein. Bouw eerst een measure die eenvoudig `'Fact Sale'[Quantity]` optelt met een iterator, bouw daarna uit met één uitzondering (blauw of grijs). Pas wanneer dat werkt voeg je de tweede uitzondering toe.
-* VAR statements gaan je hier niet helpen..
+* Start small. First build a measure that simply sums `'Fact Sale'[Quantity]` with an iterator, then expand with one exception (blue or gray). Only when that works, add the second exception.
+* VAR statements will not help you here..
 
-
-## Semi-additieve measures
+## Semi-additive measures

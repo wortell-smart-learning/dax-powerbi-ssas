@@ -1,120 +1,119 @@
 # Context - lab 1
 
-Context is veruit het belangrijkste wat je gaat leren in deze cursus. Daarom is dit lab ook wat groter. We hebben het opgedeeld in drie "niveaus" - en we raden je aan om het van eenvoudig naar geavanceerd door te werken. Uiteraard kun je de instructievideo's terugkijken wanneer er iets niet helemaal duidelijk was.
+Context is by far the most important thing you're going to learn in this course. That's why this lab is a bit bigger. We have divided it into three "levels" - and we recommend working through it from easy to advanced. Of course, you can rewatch the instructional videos if something is not quite clear.
 
-Context is ook een complex onderwerp. Mocht er iets niet duidelijk zijn, trek direct even aan de bel!
+Context is also a complex topic. If something is not clear, please don't hesitate to ask!
 
-## Voorbereiding
+## Preparation
 
-Open het Power BI bestand `33-filter-context-lab-groot`.
+Open the Power BI file `33-filter-context-lab-groot`.
 
-## Eenvoudige context-opdrachten
+## Simple context exercises
 
-1. Maak een eenvoudige measure `Sum of Tax Amount`. Deze moet de som berekenen van de betaalde belasting op basis van de kolom `'Fact Sale'[Tax Amount]`
-   * We passen hier nog niets expliciet aan de context aan
-   * Controleer met een matrix of de measure uitsplitst `'Dimension Date'[Calendar Year]` (kolommen) en `'Dimension Stock Item'[Color]` (rijen)  
-![Correcte antwoord](img/33-01-correctantwoord.png)
-2. Maak een variant op deze measure, genaamd `Sum of Gray Tax Amount`. Deze moet de som berekenen van de betaalde belasting voor grijze producten, ongeacht welke kleur er op de rijen staat.
-   * Je kunt de filter context aanpassen met de `CALCULATE` functie
-   * Mocht je een geheugensteuntje nodig hebben: in de video zat een voorbeeld van deze measure die exact hetzelfde deed voor *rode* producten en *quantity*  
-![Correcte antwoord](img/33-02-correctantwoord.png)
-3. Maak een derde variant op deze measure, genaamd `Sum of Only Gray Tax Amount`. Wanneer de productkleur in de filter context niet "Gray" is, moet de tekst "Niet Grijs!" worden weergegeven.
-   * Gebruik de functie `SELECTEDVALUE` om de geselecteerde waarde in de filtercontext te bepalen
-   * Gebruik de functie `IF` om een keuze te maken
-   * Je hoeft niet alle `CALCULATE`-code te herhalen voor de grijze producten - je kunt ook verwijzen naar je eerder ontwikkelde measure `[Sum of Gray Tax Amount]`  
-![Correcte antwoord](img/33-03-correctantwoord.png)
-4. Maak een nieuwe measure, genaamd `Sum of Abbottsburg Tax Amount`. Deze geeft de betaalde belasting voor `'Dimension City'[City]` **Abbottsburg**
-5. Breid deze measure uit
-   * Hernoem naar `Sum of Abbottsburg Red Tax Amount`
-   * Filter naast Abbottsburg ook op `'Dimension Stock Item'[Color]` **Red**
-   * Je kunt hiervoor in je `CALCULATE` statement eenvoudig de nieuwe aanpassing in je filtercontext toevoegen: `CALCULATE(SUM('Fact Sale'[Tax Amount]), filteraanpassing1, filteraanpassing2, filteraanpassing3, etc.)`
-6. Breid deze measure nog één keer uit:
-   * Hernoem naar `Sum of Abbottsburg Red Tax Amount 2015`
-   * Filter naast Abbottsburg en Red ook op `'Dimension Date'[Calendar Year]` **2015**
-   * Test de measure door in een matrix de twee nieuwe *measures* naast elkaar te zetten. Bedenk dat de weergaveinstellingen van je measure een afrondingsverschil kunnen geven (pas dit zonodig aan om te controleren of alles goed gaat):  
-![Correcte antwoord](img/33-06-correctantwoord.png)
+1. Create a simple measure `Sum of Tax Amount`. It should calculate the sum of the paid tax based on the column `'Fact Sale'[Tax Amount]`
+   * We don't change anything explicitly in the context here
+   * Verify with a matrix if the measure breaks down by `'Dimension Date'[Calendar Year]` (columns) and `'Dimension Stock Item'[Color]` (rows)
+![Correct answer](img/33-01-correctantwoord.png)
+2. Create a variation of this measure called `Sum of Gray Tax Amount`. This measure should calculate the sum of tax paid for gray products, regardless of the color specified in the rows.
+   * You can adjust the filter context using the `CALCULATE` function.
+   * If you need a reminder, in the video there was an example of this measure that did the same thing for *red* products and *quantity*.
+![Correct answer](img/33-02-correctantwoord.png)
+3. Create a third variation of this measure called `Sum of Only Gray Tax Amount`. When the product color in the filter context is not "Gray", the text "Not Gray!" should be displayed.
+   * Use the `SELECTEDVALUE` function to determine the selected value in the filter context.
+   * Use the `IF` function to make a choice.
+   * You don't need to repeat all the `CALCULATE` code for the gray products - you can refer to your previously created measure `[Sum of Gray Tax Amount]`.
+![Correct answer](img/33-03-correctantwoord.png)
+4. Create a new measure called `Sum of Abbottsburg Tax Amount`. This measure should display the tax paid for the `'Dimension City'[City]` **Abbottsburg**.
+5. Expand this measure:
+   * Rename it to `Sum of Abbottsburg Red Tax Amount`.
+   * Apply a filter for Abbottsburg and `'Dimension Stock Item'[Color]` **Red**.
+   * You can easily add the new filter context adjustment to your `CALCULATE` statement: `CALCULATE(SUM('Fact Sale'[Tax Amount]), filter adjustment1, filter adjustment2, filter adjustment3, etc.)`.
+6. Expand this measure one more time:
+   * Rename it to `Sum of Abbottsburg Red Tax Amount 2015`
+   * Filter on `'Dimension Date'[Calendar Year]` **2015** in addition to Abbottsburg and Red
+   * Test the measure by placing the two new *measures* side by side in a matrix. Keep in mind that the display settings of your measure may introduce rounding differences (adjust if necessary to verify everything is working correctly):  
+![Correct answer](img/33-06-correctantwoord.png)
 
-## Combineren van binnen- en buiten aangepaste context
+## Combining inner and outer context
 
-We gaan nu opdrachten van binnen- en buiten de aangepaste context met elkaar combineren. Een voorbeeld hiervan is **percentage van het geheel**:
+We will now combine exercises involving inner and outer context. One example of this is calculating **percentage of total**:
 
-![Uitleg percentage van geheel](img/33-07-uitleg.png)
+![Explanation percentage of total](img/33-07-uitleg.png)
 
-Om het percentage van de blauwe verkopen als aandeel van het geheel te berekenen moet het bedrag **binnen de filtercontext** (op het plaatje hierboven de groen omlijne `5.385.582,30`) gedeeld worden door een getal waar **waar de filter verwijderd is** (het rood omlijne `25.782.098,25`). Gelukkig is dat niet al te moeilijk binnen DAX. We pakken het allereerst stapsgewijs aan:
+To calculate the percentage of blue sales as a share of the total, the amount **within the filter context** (in the image above, it is `5,385,582.30` outlined in green) needs to be divided by a number **without the filter applied** (the amount `25,782,098.25` outlined in red). Fortunately, this is not too difficult in DAX. Let's take it step by step:
 
-7. Maak een nieuwe measure met de definitie `Sum of Tax Amount (All Colors) = SUM('Fact Sale'[Tax Amount])`
-8. Wijzig nu de filtercontext met behulp van `CALCULATE`.
-   * Eerder hebben we filters *vervangen*. Dat deden we door een expressie als `'Dimension Stock Item'[Color] = "Red"`
-   * Nu gaan we de filter *verwijderen*. Hiervoor gebruiken we de functie `ALL()`
-   * `ALL()` kan zowel filters verwijderen van een enkele *kolom*, als van een gehele *tabel*. 
-   * Voor nu kiezen we om heel specifiek de filter van kolom `'Dimension Stock Item'[Color]` te verwijderen
-   * Dit kan met de expressie `ALL('Dimension Stock Item'[Color])`
-9. Controleer de werking van je nieuwe measure door in een tabel de volgende drie velden op te nemen:
+7. Create a new measure with the definition `Sum of Tax Amount (All Colors) = SUM('Fact Sale'[Tax Amount])`
+8. Now, change the filter context using `CALCULATE`.
+   * Previously, we replaced filters. This was done by using an expression like `'Dimension Stock Item'[Color] = "Red"`.
+   * Now, we are going to remove the filter. We will use the `ALL()` function for this.
+   * `ALL()` can remove filters from either a single column or an entire table.
+   * For now, we choose to specifically remove the filter from the column `'Dimension Stock Item'[Color]`.
+   * This can be done with the expression `ALL('Dimension Stock Item'[Color])`.
+9. Verify the functionality of your new measure by including the following three fields in a table:
    * `'Dimension Stock Item'[Color]`
    * `Sum of Tax Amount`
    * `Sum of Tax Amount (All Colors)`  
-![Correcte antwoord](img/33-09-correctantwoord.png)
-10. Maak nu de measure `Pct of Tax Amount (All Colors)` die `Sum of Tax Amount` deelt door `Sum of Tax Amount (All Colors)`
-    * Gebruik de functie `DIVIDE` voor de deling ([documentatie over Divide vind je hier](https://dax.guide/divide/))
-11. Voeg nu alle code samen in de measure `Pct of Tax Amount (All Colors)`. Gebruik variabelen om de tussentijdse resultaten op te slaan.
-12. Maak nu een measure `Sum of Tax Amount (All StockItems)`
-    * Deze lijkt op `Sum of Tax Amount (All Colors)`, maar verwijdert alle filters van `'Dimension Stock Item'`, en niet enkel van `'Dimension Stock Item'[Color]`
-    * Test de measures door een ze in een tabel naast elkaar te zetten. Kijk wat de invloed is op beide measures van een slicer op een andere kolom in `Dimension Stock Item` (dus niet `Color`).
-    * Test nu ook met een slicer op een andere tabel. Zijn de resultaten zoals je verwacht?  
-![Correct resultaat](img/33-12-testantwoord.gif)
-13. Maak nu de volgende (ietwat vreemde) measure met de naam `strange quantity measure`
-    * We kijken naar de hoeveelheid verkochte producten: `'Fact Sale'[Quantity]`
-    * Wanneer de cijfers waar we naar kijken over **blauwe** producten gaan, moeten de filter van `'Dimension Date'[Calendar Year]` verwijderd worden. De blauwe producten laten dus altijd de cijfers over alle jaren zien.
-    * Wanneer de cijfers waar we naar kijken over **grijze** producten gaan, moeten de cijfers van de **rode** producten weergegeven worden.
-    * In alle overige gevallen wordt de filter context intact gelaten
-    * Maak gebruik van de kennis die je inmiddels hebt over:
-      * `IF` (en geneste IF statements)
-      * `SELECTEDVALUE`
-      * `CALCULATE` in combinatie met `ALL`
-      * `VAR` (**dit maakt het mogelijk om één van de hierboven benoemde voorwaarden "los" te testen!**)  
-![Correct resultaat](img/33-13-correctantwoord.png)
-14. Maak een nieuwe *measure* aan met de naam *Sum of Profit in All Cities*
-    * Zorg ervoor dat deze de winst weergeeft in alle steden (dus de filter die nu op Dimension City ligt moet verwijderd)
-      * Controleer of deze werkt zoals verwacht door de kolom naast de bestaande *Profit*-kolom weer te geven. Hoe weet je of je het correcte getal hebt  uitgerekend?
-      * Voeg een nieuwe *slicer* toe op basis van *Country*. Werkt de measure nog zoals verwacht?
-      * Stel dat je nu dat je alleen alle steden wilt zien, maar de filter op *Country* wel wilt laten liggen, hoe los je dit op?
-      * En andersom - als je op elke kolom waarop je kunt filteren in *Dimension City* de filters wilt negeren?
-15. Maak een nieuwe measure *Percentage of Total Profit*, waarin de huidige winst (in een stad) wordt gedeeld door de totale winst. Gebruik de functie `DIVIDE`. Zorg ervoor dat deze als een percentage wordt weergegeven.
-16. Maak een nieuwe measure *Y-Profits* aan.
-    * Wanneer de geselecteerde stad met een **Y** begint, geef je de winst aan
-    * In alle overige gevallen geef je een `BLANK()` terug
-    * Gebruik de `MAX()`-functie om de huidige stad uit te lezen. Sla de waarde op in een `VAR`
-    * Gebruik de `LEFT` functie om het eerste teken van de naam van een stad te achterhalen. 
-    * Bekijk het resultaat.
-      * Is dit als verwacht?
-      * Verklaar de waarde van de **total** rij
+![Correct answer](img/33-09-correctantwoord.png)
+10. Now create the measure `Pct of Tax Amount (All Colors)` by dividing `Sum of Tax Amount` by `Sum of Tax Amount (All Colors)`.
+    * Use the `DIVIDE` function for the division (find documentation about Divide [here](https://dax.guide/divide/)).
+11. Combine all the code into the measure `Pct of Tax Amount (All Colors)`. Use variables to store intermediate results.
+12. Now create a measure `Sum of Tax Amount (All StockItems)`.
+* This one resembles `Sum of Tax Amount (All Colors)`, but it removes all filters from `'Dimension Stock Item'`, not just `'Dimension Stock Item'[Color]`.
+* Test the measures by placing them in a table side by side. See what the impact is on both measures when a slicer on another column in `Dimension Stock Item` (not `Color`) is applied.
+* Now also test with a slicer on another table. Are the results as expected?
+![Correct result](img/33-12-testanswer.gif)
+13. Now create the following (somewhat strange) measure with the name `strange quantity measure`:
+   * We are looking at the quantity of sold products: `'Fact Sale'[Quantity]`.
+   * When the numbers we are looking at pertain to **blue** products, the filter from `'Dimension Date'[Calendar Year]` should be removed. The blue products should always show the numbers for all years.
+   * When the numbers we are looking at pertain to **gray** products, the numbers for **red** products should be shown.
+   * In all other cases, the filter context is left intact.
+   * Make use of the knowledge you have acquired so far on:
+     * `IF` (and nested IF statements)
+     * `SELECTEDVALUE`
+     * `CALCULATE` in combination with `ALL`
+     * `VAR` (**this allows you to "test" one of the conditions mentioned above separately!**)
+![Correct result](img/33-13-correctanswer.png)
+14. Create a new measure named *Sum of Profit in All Cities*
+    * Ensure that this measure shows the profit in all cities (i.e., remove the filter currently applied on Dimension City)
+      * Verify if it works as expected by displaying the column next to the existing *Profit* column. How do you know if you have calculated the correct number?
+      * Add a new slicer based on *Country*. Does the measure still work as expected?
+      * Suppose you now want to see all cities only but keep the filter on *Country*. How do you solve this?
+      * Conversely, if you want to ignore filters on any column that can be filtered in *Dimension City*?
+15. Create a new measure *Percentage of Total Profit*, where the current profit (in a city) is divided by the total profit. Use the `DIVIDE` function. Ensure that this is displayed as a percentage.
+16. Create a new measure *Y-Profits*.
+    * When the selected city starts with a **Y**, show the profit.
+    * Otherwise, return `BLANK()`.
+    * Use the `MAX()` function to retrieve the current city. Save the value in a `VAR`.
+    * Use the `LEFT` function to determine the first character of the city name.
+    * Examine the result.
+      * Is it as expected?
+      * Explain the value of the **total** row.
+## Advanced / bonus assignment
 
-## Geavanceerd / bonus-opdracht
+Not satisfied with the filter context yet? We have an extra assignment for you. Don't worry if you can't solve it - we will revisit it later in the course!
 
-Nog niet genoeg van de filter-context gekregen? We hebben hier nog een extra opdracht. Maak je geen zorgen wanneer je hier niet uitkomt - we komen er later in de cursus op terug!
-
-In deze bonus-opdracht willen we graag een Year-to-Date measure maken, waarbij we gebruik maken van slechts drie DAX-functies:
+In this bonus assignment, we want to create a Year-to-Date measure using only three DAX functions:
 
 * `CALCULATE`
 * `SUM`
 * `ALL`
 * `MAX`
-* Je mag de functie `YEAR` ook gebruiken, maar deze is niet per sé nodig.
+* You can also use the `YEAR` function, but it's not required.
 
-Daarnaast gebruiken we de DAX-taalelementen als variabelen (`VAR` .. `RETURN`) en diverse logische operators.
+Additionally, we'll use DAX language elements as variables (`VAR` .. `RETURN`) and various logical operators.
 
-Het doel is om de volgende werking gedaan te krijgen:
+The goal is to achieve the following functionality:
 
-![Voorbeeld van YTD](img/33-17-ytd-voorbeeld.png)
+![Example of YTD](img/33-17-ytd-example.png)
 
-In het bovenliggende plaatje is de ProfitYTD op 4 januari de opgetelde winst van 1 + 2 + 3 + 4 januari. Met andere woorden: *alle datums tot en met vandaag, binnen het huidige jaar*. In een lijngrafiek zie je het verloop van een YTD door het jaar heen - elk jaar begint deze weer op 0:
+In the above image, the ProfitYTD on January 4th is the sum of profits on January 1st, 2nd, 3rd, and 4th. In other words, *all dates up to and including today within the current year*. In a line chart, you can see the progression of YTD throughout the year - it resets to zero at the beginning of each year:
 
-![Voorbeeld van YTD in lijngrafiek](img/33-17-ytd-voorbeeld-lijngrafiek.png)
+![Example of YTD in a line chart](img/33-17-ytd-example-line-chart.png)
 
-Gebruik nu je eerder opgebouwde kennis om de YTD te bouwen met bovenstaande functies. Voordat je begint, nog één tip die je zeker gaat helpen:
+Now, use your knowledge from earlier to build the YTD using the functions mentioned above. Before you start, here's one tip that will definitely help you:
 
-**Bij een CALCULATE worden alle aanpassingen in de filter-context "afgespeeld" van links naar rechts. Je kunt dus eerst alle filters op een tabel verwijderen met `ALL('mijnTabel')`, en vervolgens binnen dezelfde tabel weer filters toepassen met `'mijnTabel'[MijnKolom] = "NieuwGefilterdeWaarde"`.**
+**In a CALCULATE, all modifications to the filter context are applied from left to right. So, you can first remove all filters on a table using `ALL('myTable')`, and then reapply filters within the same table using `'myTable'[MyColumn] = "NewFilteredValue"`.**
 
-Verder kun je handige tips vinden in de eerdere labs en demo's. Met name het lab van module 2 zou je verder kunnen helpen wanneer je vastloopt.
+You can also find useful tips in the previous labs and demos. In particular, the lab from module 2 might be helpful if you get stuck.
 
-Nogmaals: geen zorgen wanneer dit niet lukt - vraag gerust om assistentie, we komen hier later in de cursus zeker op terug!
+Again, don't worry if you can't solve this - feel free to ask for assistance. We will definitely revisit this later in the course!

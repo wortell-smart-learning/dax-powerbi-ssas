@@ -1,56 +1,55 @@
-# Context Transitie - self-paced demo
+# Context Transition - self-paced demo
 
-In deze *self-paced demo* gaan we nog even door op de twee contexten: *row context* en *filter context* - en met name de *Context Transitie*. Er volgen enkele demonstraties van toepassingen van deze context transitie.
+In this *self-paced demo*, we will further delve into the two contexts: *row context* and *filter context* - specifically, the *Context Transition*. There will be several demonstrations of applications involving this context transition.
 
-## Context Transitie en semi-additieve measures
+## Context Transition and semi-additive measures
 
-Stel dat je op zoek bent naar de **gemiddelde winst per klant**. Een `AVERAGE` over `'Fact Sale'[Profit]` uitsplitsen over klanten gaat je hier niet helpen, want dat geeft je de gemiddelde winst *per verkoop*. En per klant doe je (als het goed is) meerdere verkopen.
+Suppose you are looking for the **average profit per customer**. Using an `AVERAGE` over `'Fact Sale'[Profit]` split by customers will not help you here, as it would give you the average profit *per sale*. And for each customer, there are (hopefully) multiple sales.
 
-![Gemiddelde verkopen per klant - zo dus niet](img/37-04-gemiddelde-verkopen-per-klant-onjuist.png)
+![Average sales per customer - not the right approach](img/37-04-gemiddelde-verkopen-per-klant-onjuist.png)
 
-Hoe dan wel? Als volgt:
+So how can we achieve the desired result? Here's how:
 
-* We willen de gemiddelde winst per klant
-* Anders gezegd: per klant willen we alle verkopen optellen. Vervolgens willen we daar het gemiddelde over nemen
-* Nog anders gezegd: als we *itereren* over onze klanten, kunnen we vervolgens *per klant* de gemiddelde verkopen nemen
+* We want the average profit per customer
+* In other words, we want to sum up all sales for each customer and calculate the average from there
+* To put it differently, if we *iterate* over our customers, we can then take the average of the sales *per customer*
 
-Nu zou je de volgende formule kunnen bedenken:
+You might come up with the following formula:
 
 ```dax
-Semi-additieve measure poging 1 = AVERAGEX('Dimension Customer', SUM('Fact Sale'[Profit]))
+Semi-additive measure attempt 1 = AVERAGEX('Dimension Customer', SUM('Fact Sale'[Profit]))
 ```
 
-In bovenstaande formule wordt over de tabel met klanten geïtereerd, wordt vervolgens per klant de som aan winsten berekend, en wordt daarna het gemiddelde genomen.
+In the above formula, we iterate over the table of customers, calculate the sum of profits per customer, and finally take the average.
 
-Wanneer je deze formule echter uitprobeert zie je dat dit niet helemaal werkt zoals verwacht - er wordt geen gemiddelde genomen over de totaalwinsten per klant:
+However, when you try out this formula, you will see that it does not work quite as expected - it does not calculate the average of the total profits per customer:
 
-![Uitkomst poging 1 semi-additieve measure](img/40-01-semi-additieve-measure-poging-1.png)
+![Result of attempt 1 of semi-additive measure](img/40-01-semi-additieve-measure-poging-1.png)
+The cause here is the fact that the `SUM` function does not understand the row context. And without that row context, `SUM` sees exactly the same as if `AVERAGEX` were not here: the implicit filter context of `Customer`, and when that is gone (on the grand total row) there is no filter context at all.
 
-De oorzaak hier is het feit dat de `SUM` functie de *row context* niet snapt. En zonder die row context ziet `SUM` dus precies hetzelfde als wanneer de `AVERAGEX` hier niet had gestaan: de impliciete filter context van `Customer`, en wanneer die weg is (op de totaalrij) helemaal geen filter context meer.
-
-We kunnen dit oplossen door **context transitie**: het expliciet aanmaken van een nieuwe filter context *binnen de rij-context*. Dat doen we door de `CALCULATE` functie om de `SUM` heen te zetten:
+We can solve this by **context transition**: explicitly creating a new filter context within the row context. We do this by wrapping the `SUM` in the `CALCULATE` function:
 
 ```dax
-Gemiddelde winst per klant =
+Average profit per customer =
 AVERAGEX ( 'Dimension Customer', CALCULATE ( SUM ( 'Fact Sale'[Profit] ) ) )
 ```
 
-Nu komt de gemiddelde winst per klant er correct uit:
+Now the average profit per customer comes out correctly:
 
-![Correcte uitkomst van semi-additieve measures](img/40-02-semi-additieve-measure-correct.png)
+![Correct result of semi-additive measures](img/40-02-semi-additieve-measure-correct.png)
 
-## Context Transitie en iterators
+## Context Transition and iterators
 
-Je zult context transitie niet extreem vaak toepassen. Wanneer je echter gemiddelden per categorie wilt gebruiken (zoals in het voorbeeld hierboven), heb je ze vaak nodig.
+You won't apply context transition extremely often. However, when you want to use averages per category (as in the example above), you often need them.
 
-Het is goed om in het achterhoofd te houden dat een context-transitie (plat gezegd: `CALCULATE` binnen een *iterator* als `SUMX`, `AVERAGEX`, e.d.) negatief kan zijn voor de prestaties van je datamodel. Laat dit je niet teveel tegenhouden, maar denk wel goed na of je zaken ook zónder context transitie kunt oplossen.
+Keep in mind that a context transition (in simple terms: `CALCULATE` within an iterator like `SUMX`, `AVERAGEX`, etc.) can negatively impact the performance of your data model. Don't let this hold you back too much, but think carefully about whether you can also solve things without context transition.
 
-Zelfs wanneer je performance-problemen hebt én je gebruikt context-transitie, dan nog weet je niet zeker of dat ook de veroorzaker is van je probleem! Om zeker te weten waar de angel zit bij een performance-probleem, is verdere analyse nodig. Er zijn diverse video's en tools beschikbaar. In de volgende YouTube-filmpjes vind je daar een paar voorbeelden van:
+Even if you have performance problems and you use context transition, you still don't know for sure if that's the cause of your problem! To find out where the issue lies in a performance problem, further analysis is needed. There are various videos and tools available. In the following YouTube videos, you will find a few examples:
 
-* https://www.youtube.com/watch?v=eABg872TAJU
-* https://www.youtube.com/watch?v=1lfeW9283vA
-* https://www.youtube.com/watch?v=B-h3Pohtn1Y
+* [https://www.youtube.com/watch?v=eABg872TAJU](https://www.youtube.com/watch?v=eABg872TAJU)
+* [https://www.youtube.com/watch?v=1lfeW9283vA](https://www.youtube.com/watch?v=1lfeW9283vA)
+* [https://www.youtube.com/watch?v=B-h3Pohtn1Y](https://www.youtube.com/watch?v=B-h3Pohtn1Y)
 
-Daarnaast is er nog een iets meer "deep dive" sessies (1 uur) uit 2013 over het Tabular Model met performance-tips die je hier kunt vinden:
+In addition, there are also slightly more "deep dive" sessions (1 hour) from 2013 about the Tabular Model with performance tips that you can find here:
 
-* https://www.youtube.com/watch?v=dgzJPQ2-F5s
+* [https://www.youtube.com/watch?v=dgzJPQ2-F5s](https://www.youtube.com/watch?v=dgzJPQ2-F5s)

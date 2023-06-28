@@ -1,9 +1,9 @@
-# Casussen bespreken
+# Discussing Cases
 
-Hieronder een paar casussen die besproken kunnen worden. Staan ook op de slides inmiddels!
+Below are a few cases that can be discussed. They are also available on the slides now!
 
-1. Open het Power BI bestand `04-context-lab1.pbix`. Bekijk het eerste tabblad
-   * Vertel welke filters er actief zijn in de eerste rij in de matrix, onder het jaar 2013
+1. Open the Power BI file `04-context-lab1.pbix`. View the first tab.
+   * Identify the active filters in the first row of the matrix, below the year 2013.
 
-2. Schakel naar tabblad 2. Je ziet hier de winst per stad.
-   * Vertel welke filters er actief zijn voor de eerste rij.
+2. Switch to tab 2. Here you can see the profit per city.
+   * Identify the active filters for the first row.

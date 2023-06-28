@@ -1,16 +1,16 @@
-# Row Context en Iterator-functies
+# Row Context in Iterator Functions
 
-Open het Power BI bestand `35-row-context-iterators-minilab`.
+Open the Power BI file `35-row-context-iterators-minilab`.
 
-1. Maak in de tabel *Fact Sale* een measure `Sum of Profit Per Item`, gedefinieerd door `SUM('Fact Sale'[Profit] / 'Fact Sale'[Quantity])`
-   * Leg uit waarom dit niet lukt
-   * Gebruik de *iterator functie* `SUMX` om het alsnog te laten lukken.
-1. Maak in de tabel *Fact Sale* een *calculated column* met de naam *Typical Weight per Unit*. Vul deze met de waarde van de kolom `Typical Weight per Unit` uit de tabel `Dimension Stock Item`.
-1. Maak in de tabel *Fact Sale* een measure `Amount`, gedefinieerd door de som van `'Fact Sale'[Quantity]` vermenigvuldigd met `Dimension Stock Item[Unit Price]`
-1. Implementeer de measure *Y-Profits* met een *iterator*-functie:
-   * Wanneer de geselecteerde stad met een **Y** begint, geef je de `'Fact Sale'[Profit]` aan
-   * In alle overige gevallen geef je `BLANK()` terug
-   * Bedenk vooraf over welke tabel je wilt gaan itereren en waarom. Als je hier niet uitkomt: vraag even om hulp!
-1. Maak een nieuwe measure met de naam `Nettowinst`
-   * Als de *Size* van een product gelijk is aan *S*, is de waarde gelijk aan `'Fact Sale'[Quantity] * 'Dimension Stock Item'[Recommended Retail Price]`
-   * In alle overige gevallen moet hier nog (`'Dimension Stock Item'[Unit Price]`) vanaf getrokken worden
+1. In the *Fact Sale* table, create a measure called `Sum of Profit Per Item`, defined as `SUM('Fact Sale'[Profit] / 'Fact Sale'[Quantity])`
+   * Explain why this does not work
+   * Use the *iterator function* `SUMX` to make it work.
+2. In the *Fact Sale* table, create a calculated column named *Typical Weight per Unit*. Fill it with the value from the column `Typical Weight per Unit` in the table `Dimension Stock Item`.
+3. In the *Fact Sale* table, create a measure called `Amount`, defined as the sum of `'Fact Sale'[Quantity]` multiplied by `Dimension Stock Item[Unit Price]`.
+4. Implement the measure *Y-Profits* using an *iterator* function:
+   * If the selected city starts with a **Y**, return the `'Fact Sale'[Profit]`
+   * Otherwise, return `BLANK()`
+   * Consider beforehand on which table you want to iterate and why. If you can't figure it out, ask for help!
+5. Create a new measure named `Net Profit`
+   * If the *Size* of a product is equal to *S*, the value should be `'Fact Sale'[Quantity] * 'Dimension Stock Item'[Recommended Retail Price]`
+   * Otherwise, subtract (`'Dimension Stock Item'[Unit Price]`) from the result.
