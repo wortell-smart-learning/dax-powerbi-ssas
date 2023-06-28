@@ -1,36 +1,36 @@
-# Demo - DAX als Query-taal
+# Demo - DAX as Query Language
 
-DAX is behalve definitie-taal (waarin je de definitie van een kolom, measure of tabel vastlegt in een formule) ook een *querytaal*. Wanneer je data opslaat in een DAX datamodel (dus in Analysis Services Tabular, Power Pivot of Power BI), is dit ook de manier die front-end tools als Power BI gebruiken om met het datamodel te communiceren.
+DAX is not only a definition language (used to define the definition of a column, measure or table in a formula), but it is also a *query language*. When you store data in a DAX data model (such as Analysis Services Tabular, Power Pivot or Power BI), this is also the way that front-end tools like Power BI use to communicate with the data model.
 
-In deze demonstratie krijg je hier een korte introductie van te zien, door te werken met DAX Studio. DAX Studio is een gratis tool om DAX queries mee te kunnen uitvoeren.
+In this demonstration, you will get a short introduction by working with DAX Studio. DAX Studio is a free tool for executing DAX queries.
 
-Je kunt de tool gratis downloaden vanaf [https://daxstudio.org](https://daxstudio.org/).
+You can download the tool for free from [https://daxstudio.org](https://daxstudio.org/).
 
-In deze korte demo zullen we drie dingen doen:
+In this short demo, we will do three things:
 
-* We openen DAX studio
-* We bevragen zelf het Power BI DAX datamodel
+* We open DAX Studio
+* We query the Power BI DAX data model ourselves
 
-0. Zorg ervoor dat het Power BI demobestand uit de vorige demonstratie geopend is.
-1. Zoek in het startmenu naar DAX studio. Start het programma.
-2. Kies er in het welkomstscherm voor om verbinding te maken met het Power BI model `04-demo-functies-queries-categorieen` en kies **Connect**
+0. Make sure the Power BI demo file from the previous demonstration is open.
+1. Search for DAX Studio in the start menu. Start the program.
+2. In the welcome screen, choose to connect to the Power BI model `04-demo-functions-queries-categories` and select **Connect**.
 
-![Startscherm van DAX studio](img/02-06-dax-studio-start.png)
+![Start screen of DAX Studio](img/02-06-dax-studio-start.png)
 
-3. Voer de volgende query uit:
+3. Execute the following query:
 
 ```dax
 EVALUATE 'Customer'
 ```
 
-Onderaan het scherm verschijnen nu de resultaten van deze query.
+The results of this query will appear at the bottom of the screen.
 
-4. Verander de query als volgt, en bekijk de resultaten:
+4. Modify the query as follows and view the results:
 
 ```dax
 EVALUATE VALUES('Stock Item'[Color])
 ```
 
-Na het keyword **Evaluate** kun je eigenlijk elke tabel-expressie die maar mogelijk is invoeren in een DAX-query. Alle voorbeelden uit de vorige demonstratie waar een *Calculated Table* werd gedefinieerd door DAX, zou je dus kunnen gebruiken!
+After the keyword **Evaluate**, you can enter any table expression that is possible in a DAX query. So, you can use all the examples from the previous demonstration where a *Calculated Table* was defined by DAX!
 
-DAX Studio heeft nog veel meer zaken aan boord die erg handig kunnen zijn. Klik gerust rond in DAX studio - je kunt niets stukmaken!
+DAX Studio has many more features that can be very useful. Feel free to explore DAX Studio - you can't break anything!

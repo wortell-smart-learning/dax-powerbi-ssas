@@ -1,34 +1,34 @@
 # Operators
 
-Om de werking van operators wat te "testen" gaan we een flink aantal *calculated columns* en *calculated measures* aanmaken. Open hiervoor het bestand **11-operators-minilab**
+To "test" the functionality of operators, we are going to create a significant number of calculated columns and calculated measures. Open the file **11-operators-minilab** for this purpose.
 
-## Arithmetic (rekenkundig)
+## Arithmetic
 
-Om de rekenkundige operators te testen, maken we een eenvoudige measure aan waarin we direct enkele berekeningen uitvoeren. Sleep de measures naar het canvas om te kijken of de inhoud klopt met je verwachtingen. Wellicht moet je nog even schakelen van visual om het resultaat goed weer te geven.
+To test the arithmetic operators, we will create a simple measure in which we perform some calculations directly. Drag the measures onto the canvas to verify if the content matches your expectations. You may need to switch to a different visual to display the result correctly.
 
 1. `4 = 2 + 2`
-2. `5 = 4 + 2` (je leest het goed)
+2. `5 = 4 + 2` (yes, you read it correctly)
 3. `groot = 10 ^ 200`
 4. `Het is vandaag maandag = WEEKDAY(TODAY()) = 2`
+   
+## Logical
 
-## Logical (logisch)
-
-5. Maak een measure met de naam `Is het vandaag donderdag?` die twee waarden kan hebben:
-   * Als het vandaag donderdag is: "Het is vandaag donderdag"
-   * Als het vandaag geen donderdag is: "Het is vandaag geen donderdag!"
-   * Gebruik IF
-6. Maak een measure met de naam `Gegroet`. De measure kan de volgende waarden hebben:
-   * Voor 12:00 "Goedemorgen!"
-   * Na 12:00 "Goedemiddag!"
-   * Gebruik **IF**, **HOUR** en **NOW()**
-   * *(Bonus, pas proberen als de measure werkt: Na 19:00 "Goedenavond!")*
-7. Combineer nu de measures 5 en 6 in een nieuwe measure `De Donderdagochtendgroet`
-   * Op donderdagmiddag: "Het is donderdagmiddag!!"
-   * Op alle andere tijden: de waarde van de measure `Gegroet`
-   * Gebruik slechts één IF-statement binnen deze measure
-
+5. Create a measure named `Is het vandaag donderdag?` that can have two possible values:
+   * If today is Thursday: "Het is vandaag donderdag"
+   * If today is not Thursday: "Het is vandaag geen donderdag!"
+   * Use IF
+6. Create a measure named `Gegroet`. The measure can have the following values:
+   * Before 12:00 PM: "Goedemorgen!"
+   * After 12:00 PM: "Goedemiddag!"
+   * Use **IF**, **HOUR**, and **NOW()**
+   * *(Bonus, try it once the measure works: After 7:00 PM: "Goedenavond!")*
+7. Now combine measures 5 and 6 into a new measure `De Donderdagochtendgroet`
+   * On Thursday afternoon: "Het is donderdagmiddag!!"
+   * At all other times: the value of measure `Gegroet`
+   * Use only one IF statement within this measure
+   
 ## Concatenation
 
-7. Pas de functie van stap 6 aan, zodat je bij je (login)naam wordt genoemd in de tekst.
-   * Gebruik hier de functie **USERPRINCIPALNAME()** voor
-   * De tekst ziet er nu uit als "Goedemiddag, koos@bitrainer.nl!"
+7. Modify the function from step 6 so that your (login)name is mentioned in the text.
+   * Use the function **USERPRINCIPALNAME()** for this
+   * The text should now be "Goedemiddag, koos@bitrainer.nl!"

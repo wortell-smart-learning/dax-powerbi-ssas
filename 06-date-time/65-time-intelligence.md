@@ -1,8 +1,8 @@
 # Time Intelligence
 
-Open het bestand `66-time-intelligence`. In het lab hiervoor het je al een `YTD` functie gemaakt, waarmee je het aantal rijen kon weergeven dat je in je feittabel had. Nu is een YTD van het aantal rijen niet heel nuttig, dus daar gaan we iets aan doen.
+Open the file `66-time-intelligence`. In the previous lab, you created a `YTD` function to display the number of rows in your fact table. Now, a YTD of the row count isn't very useful, so we're going to fix that.
 
-1. Maak een measure met de naam `[YTD Quantity]`, die een YTD berekent van het totaal aantal verkochte producten. Het aantal producten is te vinden in de kolom `Sale[Quantity]`.
-    * Je kunt eventueel in de eerder aangemaakte *quick measure* kijken voor tips hoe dit eenvoudig op te lossen is
-    * Controleer met een lijngrafiek of de YTD Quantity op diverse niveaus doet wat je zou verwachten:
-1. De gebruikers van je rapport zijn nu benieuwd naar de MTD (Month-to-Date). Deze willen ze graag in één tabel vergelijken met de MTD van een maand geleden, en hier een procentueel verschil van zien.
+1. Create a measure named `[YTD Quantity]` that calculates the year-to-date total of sold products. The number of products can be found in the column `Sale[Quantity]`.
+   * You can refer to the previously created *quick measure* for tips on how to solve this easily.
+   * Verify with a line chart if the YTD Quantity behaves as expected at various levels.
+2. The report users are now interested in the MTD (Month-to-Date). They want to compare it in one table with the MTD from a month ago and see the percentage difference.

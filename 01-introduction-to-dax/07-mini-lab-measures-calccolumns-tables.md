@@ -1,60 +1,61 @@
-# Measures, calculated columns en tables
+# Measures, calculated columns, and tables
 
-In de vorige demo hebben we gekeken naar hoe DAX werkt. Daar zijn al diverse **measures**, **calculated columns** en **tables** voorbijgekomen. In deze opdracht gaan we hier nog wat verder op door.
+In the previous demo, we looked at how DAX works. We have already encountered various **measures**, **calculated columns**, and **tables**. In this exercise, we will dive deeper into these concepts.
 
 ## Calculated Measures
 
-1. Open het bestand `07-mini-lab-measures-calccolumns-tables-start`
-3. Sleep the kolom **Total including Tax** naar het canvas
-4. Voeg de **Calendar Year** kolom aan de as van de grafiek toe om *Total Including Tax per Calendar Year* weer te geven. Je grafiek zou er nu als volgt uit moeten zien:
+1. Open the file `07-mini-lab-measures-calccolumns-tables-start`.
+2. Drag the column **Total including Tax** onto the canvas.
+3. Add the **Calendar Year** column to the axis of the chart to display *Total Including Tax per Calendar Year*. Your chart should now look like this:
 
 ![Total Including Tax by Calendar Year](img/01-total-including-tax-by-calendar-year.png)
 
-Je hebt zojuist gebruik gemaakt van een *implicit measure*: Power BI bedenkt onder water de DAX-query die nodig zou zijn zodat *Total including Tax* zich als measure kan gedragen.
+You have just used an *implicit measure*: Power BI automatically generates the necessary DAX query for *Total including Tax* to behave as a measure.
 
-5. Maak nu een **expliciete measure** aan met de naam **Sum of Total Including Tax**. Deze moet hetzelfde werken als de impliciete measure die je tot nu toe gezien hebt. Hiervoor kun je de `SUM` formule gebruiken.
+4. Now, create an **explicit measure** named **Sum of Total Including Tax**. It should work the same way as the implicit measure you have seen so far. You can use the `SUM` formula for this.
 
 ## Calculated Columns
 
-Binnen **Dimension Customer** is zowel een kolom **Primary Contact** (met de naam van een contactpersoon) als een kolom **Customer** (met de bedrijfsnaam). Onze klant wil graag één kolom waar allebei deze waarden instaan, in een specifiek tekstformaat. Het moet er als volgt uitzien:
+Within the **Dimension Customer**, there is a column **Primary Contact** (containing the name of a contact person) and a column **Customer** (containing the company name). Our client wants one column that combines both values in a specific text format. It should look like this:
 
 ![Contact and customer name example](img/02-contact-customer-name-example.png)
 
-6. Maak een nieuwe *calculated column* om dit te bereiken.
-   * Om tekst direct in te voeren gebruik je dubbele quotes `"`
-   * Om twee teksten te combineren gebruik je het ampersand-teken: `&`
-7. De klant wil ook graag een kolom `special size` in de tabel `Dimension Stock Item`. Deze moet de tekst "EXTRA LARGE" wanneer de `size` kolom de waarde "XL" heeft. Voor alle andere formaten (inclusief `N/A`) moet de tekst "small" worden weergegeven.
-   * Gebruik hier de `IF` functie
-   * Vraag gerust om ondersteuning!
+5. Create a new calculated column to achieve this.
+   * To enter text directly, use double quotes `"`
+   * To concatenate two text values, use the ampersand symbol: `&`
+   
+Your client also wants a column named `special size` in the `Dimension Stock Item` table. This column should display the text "EXTRA LARGE" when the `size` column has the value "XL". For all other sizes (including `N/A`), it should display the text "small".
+   * Use the `IF` function for this
+   * Feel free to ask for assistance!
 
 ![Example of the special size column](img/03-special-size-column.png)
 
-Voor de volgende opgave heb je een zogenaamd **geneste** IF functie nodig. Dat betekent dat je één IF-statement kunt gebruiken *binnen een ander IF-statement*. Hier een klein voorbeeldje hoe dat kan werken - het kan handig zijn om hiermee te starten, en het vervolgens in kleine stapjes uit te werken naar de opgave:
+For the next task, you will need a so-called **nested** IF function. This means that you can use one IF statement *within another IF statement*. Here's a small example of how it can work - it might be helpful to start with this and then break down the task into smaller steps:
 
 ```dax
 IF([Size] = "L", "Large", IF([Size] = "XL", "Extra Large", "Others"))
 ```
 
-8. Voeg binnen de tabel `Dimension Stock Item` een kolom toe met de naam `extended size`.
-   * Als `Size` gelijk is aan `XL` moet in deze kolom "Extra Large" staan
-   * Als `Size` gelijk is aan `L` moet er "Large" staan
-   * In alle andere gevallen staat er "Other"
+6. Add a column named `extended size` within the `Dimension Stock Item` table.
+   * If `Size` is equal to `XL`, the column should display "Extra Large"
+   * If `Size` is equal to `L`, the column should display "Large"
+   * For all other cases, the column should display "Other"
 
-Mocht je behoefte hebben aan wat meer uitdaging, dan kunnen we deze nog iets moeilijker maken. Voor de volgende opgave heb je zogenaamde **logische operators** nodig (dit is een bonus-opgave - mocht je er niet uitkomen: we gaan hierna vrij snel aan de slag met deze operators):
+If you're up for more challenge, we can make this task a bit more difficult. For the next task, you will need logical operators (this is a bonus task - if you can't solve it, we will quickly move on to using these operators):
 
-9. Voeg een kolom met de naam `special tax size` toe binnen de tabel `Dimension Stock Item`. De waarde is als volgt:
-   * "Large, High Tax" wanneer 'size' gelijk is aan "L" of "XL" en 'Tax Rate' groter dan 10
-   * "Large, Low Tax" wanneer 'size' gelijk is aan "L of "XL" en 'Tax Rate' kleiner dan of gelijk aan 10
-   * "Other" in alle andere gevallen.
+7. Add a column named `special tax size` within the `Dimension Stock Item` table. The values should be as follows:
+   * "Large, High Tax" when 'size' is equal to "L" or "XL" and 'Tax Rate' is greater than 10
+   * "Large, Low Tax" when 'size' is equal to "L" or "XL" and 'Tax Rate' is less than or equal to 10
+   * "Other" for all other cases.
 
 ![Extra columns](img/04-extracolumns.png)
 
 ## Calculated Table
 
-Je kunt de `FILTER` functie gebruiken om een filter te leggen op een tabel. De resultaten komen dan als een nieuwe tabel terug, die alleen de gefilterde inhoud bevat. Een voorbeeldje hiervan is deze **Calculated Table** waarin alleen de datums uit 2016 opgenomen zijn:
+You can use the `FILTER` function to filter a table. The results will be returned as a new table that only contains the filtered content. Here's an example of a **Calculated Table** that includes only the dates from 2016:
 
 ```dax
 Dates2 = FILTER(Dates, 'Dates'[Calendar Year] = 2016)
 ```
 
-10. Maak een Calculated Table met de naam `Medium-Small Stock Items`. Het moet een gefilterde versie zijn van `Dimension Stock Item`, waar alleen producten met size `S` en `M` zijn opgenomen.
+8. Create a Calculated Table named `Medium-Small Stock Items`. It should be a filtered version of `Dimension Stock Item`, including only products with size `S` and `M`.
